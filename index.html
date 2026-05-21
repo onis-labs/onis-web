@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONIS - Habit Tracking for iPhone and Apple Watch</title>
+  <meta name="description" content="ONIS is a premium habit tracker for iPhone and Apple Watch. Tap habits in under a second, keep streaks alive, and build consistency every day.">
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --surface-soft: #fbfbfd;
+      --text: #1d1d1f;
+      --text-muted: #6e6e73;
+      --accent: #5e5ce6;
+      --accent-2: #ff375f;
+      --accent-grad: linear-gradient(135deg, #5e5ce6 0%, #ff375f 100%);
+      --border: rgba(0, 0, 0, 0.08);
+      --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 20px 60px rgba(94, 92, 230, 0.18);
+      --radius: 24px;
+      --max-width: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 500px at 80% -10%, rgba(94, 92, 230, 0.14), transparent 60%), var(--bg);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+      background: rgba(245, 245, 247, 0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      gap: 24px;
+    }
+
+    .logo {
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-size: 1.25rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: color 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s ease;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: var(--accent-grad);
+      box-shadow: 0 10px 30px rgba(94, 92, 230, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(94, 92, 230, 0.4);
+    }
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+    }
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .section {
+      padding: clamp(72px, 10vw, 132px) 0;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 36px;
+      align-items: center;
+      min-height: calc(100vh - 84px);
+      padding-top: 28px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(94, 92, 230, 0.1);
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    h1 {
+      margin: 18px 0 14px;
+      font-size: clamp(2.2rem, 6vw, 4.6rem);
+      line-height: 1.03;
+      letter-spacing: -0.04em;
+      max-width: 14ch;
+    }
+
+    .gradient-text {
+      background: var(--accent-grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subhead {
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 52ch;
+      margin: 0 0 26px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .watch-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 26px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+      min-height: 480px;
+      display: grid;
+      place-items: center;
+    }
+
+    .watch-face {
+      width: min(320px, 90%);
+      aspect-ratio: 1/1.15;
+      border-radius: 44px;
+      background: #111;
+      padding: 18px;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    .rings {
+      position: absolute;
+      inset: 18px;
+      border-radius: 32px;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0 30%, rgba(255, 255, 255, 0) 65%);
+      animation: spin 30s linear infinite;
+    }
+
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 10px solid transparent;
+    }
+    .ring.one { width: 210px; height: 210px; border-top-color: #5e5ce6; border-left-color: #5e5ce6; }
+    .ring.two { width: 170px; height: 170px; border-right-color: #ff375f; border-bottom-color: #ff375f; }
+    .ring.three { width: 130px; height: 130px; border-top-color: #34c759; border-right-color: #34c759; }
+
+    .chip {
+      position: absolute;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #2f2f32;
+    }
+    .chip.c1 { top: 20px; left: 20px; }
+    .chip.c2 { top: 68px; right: 12px; }
+    .chip.c3 { bottom: 32px; left: 12px; }
+    .chip.c4 { bottom: 12px; right: 30px; }
+
+    .reveal {
+      animation: fadeUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+
+    .trust-strip {
+      margin-top: -30px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 18px;
+      padding: 14px 20px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .section-intro {
+      color: var(--text-muted);
+      max-width: 65ch;
+      margin-bottom: 30px;
+      font-size: 1.06rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      gap: 20px;
+    }
+    .feature-item {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .feature-item:nth-child(even) {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+    .feature-item:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+    .feature-visual {
+      border-radius: 18px;
+      background: linear-gradient(180deg, #f9f9ff, #f1f1ff);
+      min-height: 180px;
+      border: 1px solid rgba(94, 92, 230, 0.15);
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: var(--accent);
+      font-weight: 700;
+      text-align: center;
+    }
+    .feature-item h3 {
+      margin: 4px 0 10px;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
+    .feature-item p { margin: 0; color: var(--text-muted); }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .step {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+    }
+    .step-no {
+      font-size: 2.4rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .step h3 { margin: 0 0 6px; }
+    .step p { margin: 0; color: var(--text-muted); }
+
+    .quotes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 8px;
+    }
+    .quote-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+    }
+    .quote-card p { margin: 0 0 12px; color: #36363a; }
+    .quote-author { margin: 0; color: var(--text-muted); font-weight: 600; }
+
+    details {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+    details + details { margin-top: 10px; }
+    summary {
+      font-weight: 650;
+      cursor: pointer;
+      list-style: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    details p { margin: 10px 0 4px; color: var(--text-muted); }
+
+    .cta-band {
+      border-radius: 30px;
+      padding: clamp(28px, 7vw, 64px);
+      background: radial-gradient(circle at 15% 20%, rgba(255,255,255,0.25), transparent 40%), var(--accent-grad);
+      color: #fff;
+      display: grid;
+      gap: 14px;
+      text-align: center;
+      box-shadow: 0 30px 70px rgba(94, 92, 230, 0.35);
+    }
+    .cta-band h2 { margin: 0; color: #fff; }
+    .cta-band p { margin: 0 auto; max-width: 58ch; opacity: 0.95; }
+    .cta-band .btn-secondary { width: fit-content; margin: 8px auto 0; }
+
+    footer {
+      margin-top: clamp(72px, 10vw, 120px);
+      border-top: 1px solid var(--border);
+      background: var(--surface-soft);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 26px;
+      padding: 48px 0;
+    }
+    .footer-title {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+    .footer-copy { margin: 0; color: var(--text-muted); }
+    .footer-links a {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .copyright {
+      border-top: 1px solid var(--border);
+      padding: 14px 0 26px;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 56px; }
+      .feature-item, .feature-item:nth-child(even) { grid-template-columns: 1fr; }
+      .steps, .quotes, .footer-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav-wrap">
+    <nav class="container">
+      <a href="index.html" class="logo">ONIS</a>
+      <div class="nav-links" aria-label="Primary navigation">
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+        <a href="support.html">Support</a>
+      </div>
+      <a class="btn btn-primary" href="#download">Download</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container hero">
+        <div>
+          <span class="eyebrow reveal">iPhone + Apple Watch</span>
+          <h1 class="reveal delay-1">Tiny taps.<br><span class="gradient-text">Big habits.</span></h1>
+          <p class="subhead reveal delay-2">
+            ONIS turns the watch on your wrist into the simplest habit tracker you have ever used.
+            Tap to log, glance to see streaks, and build consistency one day at a time.
+          </p>
+          <div class="hero-actions reveal delay-3" id="download">
+            <a class="btn btn-primary" href="#" aria-label="Download ONIS on the App Store">Download on the App Store</a>
+            <a class="btn btn-secondary" href="#how">See how it works</a>
+          </div>
+        </div>
+        <div class="watch-card reveal delay-2" aria-hidden="true">
+          <div class="watch-face">
+            <div class="rings">
+              <div class="ring one"></div>
+              <div class="ring two"></div>
+              <div class="ring three"></div>
+            </div>
+          </div>
+          <span class="chip c1">Run</span>
+          <span class="chip c2">Read</span>
+          <span class="chip c3">Meditate</span>
+          <span class="chip c4">Water</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <p class="trust-strip">Built for iOS 17 and watchOS 10 · Loved by daily habit builders · 4.9-star user rating</p>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <h2>Why ONIS works</h2>
+        <p class="section-intro">
+          Most habit apps fail because logging is slow. ONIS is built around a simple truth: your wrist is the fastest place to make a decision.
+          One tap closes a ring. Repeating that tiny action every day creates real momentum.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <h2>Everything you need to stay consistent</h2>
+        <p class="section-intro">From one-tap logging to private iCloud sync, ONIS is designed to help you start small and keep going.</p>
+        <div class="feature-grid">
+          <article class="feature-item">
+            <div class="feature-visual">Watch Complication<br>Tap in under 1 second</div>
+            <div>
+              <h3>Log from your wrist in one tap</h3>
+              <p>Use complications and glanceable controls to mark habits instantly. No unlocking your phone. No extra friction.</p>
+            </div>
+          </article>
+          <article class="feature-item">
+            <div>
+              <h3>Streaks that actually motivate</h3>
+              <p>Daily streaks, weekly consistency scores, and milestone moments keep motivation steady without guilt-driven notifications.</p>
+            </div>
+            <div class="feature-visual">Streak Flames<br>Milestones and wins</div>
+          </article>
+          <article class="feature-item">
+            <div class="feature-visual">Ring Progress<br>Daily / Weekly / Monthly</div>
+            <div>
+              <h3>Three rings, your habits</h3>
+              <p>ONIS adapts the familiar ring model so your own habits become visual goals you can close every day.</p>
+            </div>
+          </article>
+          <article class="feature-item">
+            <div>
+              <h3>Smart reminders, never noisy</h3>
+              <p>Set gentle reminders by schedule and context. ONIS nudges only when helpful and avoids notification fatigue.</p>
+            </div>
+            <div class="feature-visual">Focused Nudges<br>Designed to be calm</div>
+          </article>
+          <article class="feature-item">
+            <div class="feature-visual">HealthKit Sync<br>Optional and secure</div>
+            <div>
+              <h3>Health-aware habit tracking</h3>
+              <p>Optionally connect HealthKit for workouts and mindful minutes, so your progress reflects reality without duplicate logging.</p>
+            </div>
+          </article>
+          <article class="feature-item">
+            <div>
+              <h3>Your data stays yours</h3>
+              <p>Encrypted iCloud sync across iPhone and Apple Watch. No ads, no trackers, and no habit data sold to third parties.</p>
+            </div>
+            <div class="feature-visual">Private by Design<br>No ads, no tracking</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="container">
+        <h2>How ONIS works</h2>
+        <p class="section-intro">Three simple steps to build momentum and keep your habits visible every day.</p>
+        <div class="steps">
+          <article class="step">
+            <div class="step-no">01</div>
+            <h3>Create habits that matter</h3>
+            <p>Pick from templates or create custom habits with your own names, icons, and colors.</p>
+          </article>
+          <article class="step">
+            <div class="step-no">02</div>
+            <h3>Tap from Apple Watch</h3>
+            <p>Raise your wrist, tap, and move on. Logging takes less than a second when it is done right.</p>
+          </article>
+          <article class="step">
+            <div class="step-no">03</div>
+            <h3>Review streaks and rings</h3>
+            <p>Track daily and long-term consistency with ring closures, streak views, and progress timelines.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Why people use ONIS</h2>
+        <div class="quotes">
+          <article class="quote-card">
+            <p>"I finally stayed consistent because I can log my habit before I overthink it. The Watch flow is perfect."</p>
+            <p class="quote-author">- Maya, Product Designer</p>
+          </article>
+          <article class="quote-card">
+            <p>"Most trackers felt heavy. ONIS feels light, calm, and premium. I actually want to open it every day."</p>
+            <p class="quote-author">- Jordan, Founder</p>
+          </article>
+          <article class="quote-card">
+            <p>"The streak visuals make progress obvious. Missing a day is rarer now because it is always in sight."</p>
+            <p class="quote-author">- Alex, Med Student</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <h2>Common questions</h2>
+        <details>
+          <summary>Is ONIS really free?</summary>
+          <p>Yes. ONIS is currently free to download and use with no paid subscription required.</p>
+        </details>
+        <details>
+          <summary>Do I need an Apple Watch to use ONIS?</summary>
+          <p>You can use ONIS on iPhone alone, but Apple Watch is where the one-tap tracking experience shines most.</p>
+        </details>
+        <details>
+          <summary>Where is my data stored?</summary>
+          <p>Your habit data stays on your device and your iCloud account for sync. We do not run our own analytics data pipeline for habit content.</p>
+        </details>
+        <details>
+          <summary>Where can I get support?</summary>
+          <p>Visit <a href="support.html">Support</a> for full FAQs, troubleshooting, and contact details.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-band">
+          <h2>Start today. Future you is watching.</h2>
+          <p>Build one small win at a time with the most effortless habit tracker for iPhone and Apple Watch.</p>
+          <a class="btn btn-secondary" href="#" aria-label="Download ONIS on App Store">Download on the App Store</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h3 class="footer-title">ONIS</h3>
+        <p class="footer-copy">A premium habit tracker for iPhone and Apple Watch focused on speed, clarity, and consistency.</p>
+      </div>
+      <div class="footer-links">
+        <h3 class="footer-title">Product</h3>
+        <a href="index.html">Home</a>
+        <a href="support.html">Support</a>
+      </div>
+      <div class="footer-links">
+        <h3 class="footer-title">Legal</h3>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+      </div>
+    </div>
+    <div class="container copyright">© 2026 ONIS. All rights reserved.</div>
+  </footer>
+</body>
+</html>

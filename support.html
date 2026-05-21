@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support - ONIS</title>
+  <meta name="description" content="Support, FAQ, and troubleshooting for ONIS on iPhone and Apple Watch.">
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --surface-soft: #fbfbfd;
+      --text: #1d1d1f;
+      --text-muted: #6e6e73;
+      --accent: #5e5ce6;
+      --accent-2: #ff375f;
+      --accent-grad: linear-gradient(135deg, #5e5ce6 0%, #ff375f 100%);
+      --border: rgba(0, 0, 0, 0.08);
+      --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 20px 60px rgba(94, 92, 230, 0.18);
+      --radius: 22px;
+      --max-width: 1100px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(1200px 450px at 85% -8%, rgba(94, 92, 230, 0.14), transparent 62%), var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    .container { width: min(var(--max-width), calc(100% - 44px)); margin: 0 auto; }
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.68);
+      background: rgba(245,245,247,0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+    }
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .logo { font-weight: 800; letter-spacing: -0.03em; font-size: 1.22rem; color: var(--text); text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.94rem; }
+    .nav-links a:hover { color: var(--text); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 11px 18px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid transparent;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .btn-primary {
+      background: var(--accent-grad);
+      color: #fff;
+      box-shadow: 0 12px 30px rgba(94,92,230,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 44px rgba(94,92,230,0.4); }
+    .btn-secondary {
+      color: var(--text);
+      background: #fff;
+      border-color: var(--border);
+      box-shadow: var(--shadow-card);
+    }
+    .btn-secondary:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+    main { padding: clamp(52px, 8vw, 88px) 0 clamp(74px, 12vw, 120px); }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.2rem, 5.8vw, 4.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+    .lede { margin: 0 0 24px; color: var(--text-muted); max-width: 68ch; }
+    .meta {
+      display: inline-flex;
+      gap: 12px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(94,92,230,0.1);
+      color: var(--accent);
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .section { padding-top: 44px; }
+
+    .quick-start {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      transition: transform .35s cubic-bezier(0.2,0.8,0.2,1), box-shadow .35s cubic-bezier(0.2,0.8,0.2,1);
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .step-no {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .card h3 { margin: 0 0 8px; font-size: 1.2rem; }
+    .card p { margin: 0; color: var(--text-muted); }
+
+    .faq-groups {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .faq-group {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      padding: 18px;
+    }
+    .faq-group h3 {
+      margin: 2px 0 10px;
+      font-size: 1.1rem;
+      letter-spacing: -0.01em;
+    }
+    details {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    details + details { margin-top: 10px; }
+    summary {
+      list-style: none;
+      cursor: pointer;
+      font-weight: 630;
+      color: #2d2d32;
+    }
+    summary::-webkit-details-marker { display: none; }
+    details p {
+      margin: 10px 0 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .troubleshoot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .trouble h3 { margin: 0 0 8px; font-size: 1.12rem; }
+    .trouble ol { margin: 0; padding-left: 18px; color: var(--text-muted); }
+    .trouble li + li { margin-top: 7px; }
+
+    .contact-card {
+      border-radius: 30px;
+      padding: clamp(24px, 6vw, 48px);
+      background: radial-gradient(circle at 15% 15%, rgba(255,255,255,0.24), transparent 40%), var(--accent-grad);
+      color: #fff;
+      box-shadow: 0 30px 70px rgba(94, 92, 230, 0.3);
+      text-align: center;
+    }
+    .contact-card h2 { margin: 0 0 10px; color: #fff; }
+    .contact-card p { margin: 0 auto 16px; max-width: 58ch; opacity: 0.95; }
+    .contact-card .btn-secondary { margin-top: 4px; }
+
+    footer {
+      margin-top: 74px;
+      border-top: 1px solid var(--border);
+      background: var(--surface-soft);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 24px;
+      padding: 44px 0;
+    }
+    .footer-title { margin: 0 0 8px; font-size: 1.05rem; }
+    .footer-copy { margin: 0; color: var(--text-muted); }
+    .footer-links a { display: block; text-decoration: none; color: var(--text-muted); margin-bottom: 8px; }
+    .footer-links a:hover { color: var(--text); }
+    .copyright {
+      border-top: 1px solid var(--border);
+      padding: 14px 0 24px;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 980px) {
+      .quick-start, .faq-groups, .troubleshoot-grid, .footer-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav-wrap">
+    <nav class="container">
+      <a href="index.html" class="logo">ONIS</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <a href="index.html#download" class="btn btn-primary">Download</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="container">
+      <span class="meta">Support</span>
+      <h1>How can we help?</h1>
+      <p class="lede">
+        Get set up quickly, troubleshoot common issues, and contact the ONIS team. We usually respond within 48 hours, often sooner.
+      </p>
+    </section>
+
+    <section class="container section">
+      <h2>Quick start</h2>
+      <div class="quick-start">
+        <article class="card">
+          <p class="step-no">01</p>
+          <h3>Install on iPhone</h3>
+          <p>Download ONIS from the App Store and open it once to initialize local storage and settings.</p>
+        </article>
+        <article class="card">
+          <p class="step-no">02</p>
+          <h3>Pair with Apple Watch</h3>
+          <p>Ensure the ONIS Watch app is installed from the Watch app on iPhone, then allow notifications if desired.</p>
+        </article>
+        <article class="card">
+          <p class="step-no">03</p>
+          <h3>Add your first habit</h3>
+          <p>Create a simple daily habit, pin it to your Watch view, and start closing rings with one tap.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="container section">
+      <h2>Frequently asked questions</h2>
+      <div class="faq-groups">
+        <article class="faq-group">
+          <h3>Getting started</h3>
+          <details>
+            <summary>Is ONIS free to use?</summary>
+            <p>Yes. ONIS is currently free with no subscription required.</p>
+          </details>
+          <details>
+            <summary>Do I need to create an account?</summary>
+            <p>No account is required. Your data stays on-device and optionally in your iCloud account for sync.</p>
+          </details>
+          <details>
+            <summary>Can I use ONIS without Apple Watch?</summary>
+            <p>Yes. ONIS works on iPhone, but Apple Watch gives the fastest one-tap logging experience.</p>
+          </details>
+        </article>
+
+        <article class="faq-group">
+          <h3>Habits and streaks</h3>
+          <details>
+            <summary>How are streaks calculated?</summary>
+            <p>A streak increases when you complete a habit on each required day based on its schedule.</p>
+          </details>
+          <details>
+            <summary>Can I edit a missed day?</summary>
+            <p>Yes. Open a habit's history view and adjust entries where the app permits manual corrections.</p>
+          </details>
+          <details>
+            <summary>Can I pause a habit?</summary>
+            <p>You can change frequency or archive a habit to temporarily stop streak pressure.</p>
+          </details>
+        </article>
+
+        <article class="faq-group">
+          <h3>Apple Watch</h3>
+          <details>
+            <summary>Why do taps on Watch feel delayed?</summary>
+            <p>Check Bluetooth and watch connectivity. Delays usually resolve once watchOS sync catches up.</p>
+          </details>
+          <details>
+            <summary>How do I add ONIS as a complication?</summary>
+            <p>Press and hold your watch face, tap Edit, choose a complication slot, and select ONIS.</p>
+          </details>
+          <details>
+            <summary>Why is the Watch app missing?</summary>
+            <p>Open the Watch app on iPhone, scroll to Available Apps, and install ONIS manually if needed.</p>
+          </details>
+        </article>
+
+        <article class="faq-group">
+          <h3>Privacy and troubleshooting</h3>
+          <details>
+            <summary>Does ONIS track me or sell data?</summary>
+            <p>No. ONIS is designed for private habit tracking and does not sell personal data.</p>
+          </details>
+          <details>
+            <summary>What if my data is missing after reinstall?</summary>
+            <p>Verify iCloud sync is enabled and you are signed into the same Apple ID used previously.</p>
+          </details>
+          <details>
+            <summary>How do I fully delete my data?</summary>
+            <p>You can clear data from app settings and remove ONIS data from iCloud storage settings if needed.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <section class="container section">
+      <h2>Troubleshooting</h2>
+      <div class="troubleshoot-grid">
+        <article class="card trouble">
+          <h3>Watch complication not updating</h3>
+          <ol>
+            <li>Confirm ONIS has notification/background permissions.</li>
+            <li>Open ONIS on iPhone once to refresh sync state.</li>
+            <li>Restart Apple Watch, then re-add the complication.</li>
+          </ol>
+        </article>
+        <article class="card trouble">
+          <h3>Streak reset unexpectedly</h3>
+          <ol>
+            <li>Check habit schedule (daily vs selected days).</li>
+            <li>Review timezone/date settings on iPhone and Watch.</li>
+            <li>Use history view to confirm whether day completion was recorded.</li>
+          </ol>
+        </article>
+        <article class="card trouble">
+          <h3>Data missing after reinstall</h3>
+          <ol>
+            <li>Sign into the same Apple ID as before.</li>
+            <li>Ensure iCloud Drive is enabled for ONIS.</li>
+            <li>Wait a few minutes for CloudKit sync to repopulate data.</li>
+          </ol>
+        </article>
+      </div>
+    </section>
+
+    <section class="container section">
+      <div class="contact-card">
+        <h2>Still need help?</h2>
+        <p>Email the ONIS support team and include your iPhone/watchOS versions plus a short description of the issue for faster help.</p>
+        <a href="mailto:support@onisapp.com" class="btn btn-secondary">Contact support@onisapp.com</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h3 class="footer-title">ONIS</h3>
+        <p class="footer-copy">A premium habit tracker for iPhone and Apple Watch focused on speed, clarity, and consistency.</p>
+      </div>
+      <div class="footer-links">
+        <h3 class="footer-title">Product</h3>
+        <a href="index.html">Home</a>
+        <a href="support.html">Support</a>
+      </div>
+      <div class="footer-links">
+        <h3 class="footer-title">Legal</h3>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+      </div>
+    </div>
+    <div class="container copyright">© 2026 ONIS. All rights reserved.</div>
+  </footer>
+</body>
+</html>
