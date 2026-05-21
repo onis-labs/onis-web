@@ -3,228 +3,268 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terms of Use - ONIS</title>
-  <meta name="description" content="Terms of Use for ONIS habit tracker for iPhone and Apple Watch.">
+  <title>Terms of Use — ONIS</title>
+  <meta name="description" content="Terms of Use for ONIS habit tracker on iPhone and Apple Watch.">
   <style>
     :root {
-      --bg: #f5f5f7;
-      --surface: #fff;
-      --surface-soft: #fbfbfd;
-      --text: #1d1d1f;
-      --text-muted: #6e6e73;
-      --accent: #5e5ce6;
-      --accent-2: #ff375f;
-      --accent-grad: linear-gradient(135deg, #5e5ce6 0%, #ff375f 100%);
-      --border: rgba(0, 0, 0, 0.08);
-      --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.06);
-      --radius: 22px;
-      --max-width: 980px;
+      --bg: #f5f5f7; --bg-dark: #1c1c1e; --surface: #ffffff; --surface-soft: #f9f9fb;
+      --text: #1d1d1f; --text-muted: #6e6e73; --accent: #5e5ce6; --accent-warm: #ff6b35;
+      --grad: linear-gradient(135deg,#5e5ce6 0%,#ff6b35 100%);
+      --border: rgba(0,0,0,0.07); --sh-sm: 0 2px 12px rgba(0,0,0,0.06); --sh-md: 0 12px 40px rgba(0,0,0,0.09);
+      --r-sm: 14px; --r-md: 22px; --max: 900px;
     }
-    * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-      color: var(--text);
-      background: radial-gradient(1300px 500px at 80% -12%, rgba(94, 92, 230, 0.14), transparent 62%), var(--bg);
-      line-height: 1.68;
+      background: var(--bg); color: var(--text); line-height: 1.68;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
     }
-    .container { width: min(var(--max-width), calc(100% - 44px)); margin: 0 auto; }
-    .nav-wrap {
-      position: sticky; top: 0; z-index: 1000;
-      border-bottom: 1px solid rgba(255,255,255,0.66);
-      background: rgba(245,245,247,0.72);
-      backdrop-filter: saturate(180%) blur(20px);
-    }
-    nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .logo { font-weight: 800; letter-spacing: -0.03em; font-size: 1.22rem; color: var(--text); text-decoration: none; }
-    .nav-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.94rem; }
-    .nav-links a:hover { color: var(--text); }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      border-radius: 999px; padding: 11px 18px; text-decoration: none; font-weight: 600;
-      background: var(--accent-grad); color: #fff; box-shadow: 0 12px 30px rgba(94,92,230,0.35);
-      transition: transform .3s ease, box-shadow .3s ease;
-    }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 20px 44px rgba(94,92,230,0.4); }
-    main { padding: clamp(52px, 8vw, 88px) 0 clamp(74px, 12vw, 120px); }
-    h1 {
-      margin: 0 0 12px;
-      font-size: clamp(2.2rem, 5.6vw, 4rem);
-      line-height: 1.06;
-      letter-spacing: -0.04em;
-    }
-    .lede { margin: 0 0 24px; color: var(--text-muted); max-width: 72ch; font-size: 1.04rem; }
-    .meta {
-      display: inline-flex; gap: 12px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(94,92,230,0.1);
-      color: var(--accent);
-      font-size: 0.84rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-    .terms {
-      margin-top: 30px;
-      display: grid;
-      gap: 14px;
-    }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-card);
-      padding: 24px;
-    }
-    .card h2 {
-      margin: 0 0 10px;
-      font-size: 1.35rem;
-      letter-spacing: -0.02em;
-    }
-    .card p { margin: 0 0 10px; color: #3a3a3e; }
+    a { color: inherit; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+
+    /* NAV */
+    .nav-wrap { position: sticky; top: 0; z-index: 900; background: rgba(245,245,247,0.82); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(255,255,255,0.65); }
+    nav { display: flex; align-items: center; gap: 16px; min-height: 68px; flex-wrap: wrap; }
+    .logo { font-weight: 800; font-size: 1.18rem; letter-spacing: -0.04em; text-decoration: none; color: var(--text); flex-shrink: 0; }
+    .nav-toggle { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; margin-left: auto; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.28s ease, opacity 0.2s ease; }
+    .nav-links { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.92rem; font-weight: 500; padding: 6px 12px; border-radius: 999px; transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover { color: var(--text); background: rgba(0,0,0,0.045); }
+    .btn-grad { display: inline-flex; align-items: center; border-radius: 999px; padding: 11px 22px; font-size: 0.92rem; font-weight: 600; text-decoration: none; background: var(--grad); color: #fff; box-shadow: 0 8px 26px rgba(94,92,230,0.38); transition: transform 0.3s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.3s; white-space: nowrap; flex-shrink: 0; }
+    .btn-grad:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 16px 40px rgba(94,92,230,0.44); }
+
+    /* MAIN */
+    main { padding-block: clamp(56px, 9vw, 96px) clamp(80px, 12vw, 130px); }
+    .page-eyebrow { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(94,92,230,0.1); border: 1px solid rgba(94,92,230,0.2); color: var(--accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 20px; }
+    h1 { font-size: clamp(2.4rem, 5.8vw, 4.2rem); letter-spacing: -0.05em; line-height: 1.04; margin-bottom: 18px; }
+    .page-lede { font-size: 1.1rem; color: var(--text-muted); max-width: 66ch; margin-bottom: 40px; line-height: 1.65; }
+
+    /* TERMS CARDS */
+    .terms-stack { display: grid; gap: 14px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--sh-sm); padding: 28px 28px 24px; }
+    .card h2 { font-size: 1.26rem; letter-spacing: -0.03em; margin-bottom: 12px; }
+    .card p { color: #3a3a3e; line-height: 1.7; margin-bottom: 10px; font-size: 0.97rem; }
     .card p:last-child { margin-bottom: 0; }
-    ul { margin: 0; padding-left: 18px; color: #3a3a3e; }
-    li + li { margin-top: 8px; }
-    footer {
-      margin-top: 72px;
-      border-top: 1px solid var(--border);
-      background: var(--surface-soft);
+    .card ul, .card ol { padding-left: 20px; color: #3a3a3e; font-size: 0.97rem; line-height: 1.7; }
+    .card li + li { margin-top: 8px; }
+    .card a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+    .card strong { color: var(--text); }
+    .card code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.88em; background: rgba(94,92,230,0.08); padding: 2px 6px; border-radius: 5px; color: var(--accent); }
+
+    /* Apple EULA callout — visually distinct because it's legally required */
+    .eula-card { background: linear-gradient(135deg, rgba(94,92,230,0.06), rgba(255,107,53,0.05)); border: 1px solid rgba(94,92,230,0.22); }
+    .eula-card h2 { color: var(--accent); }
+    .eula-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border-radius: 999px; background: rgba(94,92,230,0.1); border: 1px solid rgba(94,92,230,0.2); color: var(--accent); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px; }
+
+    /* FOOTER */
+    footer { background: var(--surface); border-top: 1px solid var(--border); margin-top: clamp(72px, 10vw, 110px); }
+    .footer-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 32px; padding-block: 50px; }
+    .f-brand { font-weight: 800; font-size: 1.1rem; letter-spacing: -0.04em; margin-bottom: 10px; }
+    .f-tagline { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; max-width: 30ch; }
+    .f-col h4 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .f-col a { color: var(--text-muted); text-decoration: none; font-size: 0.93rem; transition: color 0.2s; }
+    .f-col a:hover { color: var(--text); }
+    .f-bottom { border-top: 1px solid var(--border); padding-block: 16px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .f-bottom p { color: var(--text-muted); font-size: 0.83rem; }
+
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    @media (max-width: 760px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; width: 100%; flex-direction: column; align-items: flex-start; padding: 12px 0 16px; border-top: 1px solid var(--border); gap: 2px; }
+      .nav-links a { padding: 10px 12px; font-size: 1rem; width: 100%; border-radius: 10px; }
+      .nav-hamburger { display: flex; }
+      .nav-toggle:checked ~ .nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .nav-toggle:checked ~ .nav-hamburger span:nth-child(2) { opacity: 0; }
+      .nav-toggle:checked ~ .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+      .nav-toggle:checked ~ .nav-links { display: flex; }
+      .btn-grad { display: none; }
     }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
-      gap: 24px;
-      padding: 44px 0;
-    }
-    .footer-title { margin: 0 0 8px; font-size: 1.05rem; }
-    .footer-copy { margin: 0; color: var(--text-muted); }
-    .footer-links a { display: block; text-decoration: none; color: var(--text-muted); margin-bottom: 8px; }
-    .footer-links a:hover { color: var(--text); }
-    .copyright {
-      border-top: 1px solid var(--border);
-      padding: 14px 0 24px;
-      color: var(--text-muted);
-      font-size: 0.92rem;
-    }
-    @media (max-width: 860px) {
-      .footer-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-    }
+    @media (max-width: 540px) { .footer-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-  <header class="nav-wrap">
-    <nav class="container">
-      <a href="index.html" class="logo">ONIS</a>
-      <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="support.html">Support</a>
-        <a href="privacy.html">Privacy</a>
-      </div>
-      <a href="index.html#download" class="btn">Download</a>
-    </nav>
-  </header>
 
-  <main>
-    <section class="container">
-      <span class="meta">Terms of Use</span>
-      <h1>Terms for using ONIS.</h1>
-      <p class="lede">
-        These Terms of Use govern your access to and use of the ONIS app and related website content.
-        By downloading or using ONIS, you agree to these terms.
-      </p>
-
-      <div class="terms">
-        <article class="card">
-          <h2>Effective date</h2>
-          <p>Effective date: May 21, 2026</p>
-        </article>
-
-        <article class="card">
-          <h2>1. Acceptance of terms</h2>
-          <p>By accessing or using ONIS, you agree to be bound by these Terms and our Privacy Policy. If you do not agree, do not use ONIS.</p>
-        </article>
-
-        <article class="card">
-          <h2>2. License grant</h2>
-          <p>Subject to these Terms, ONIS grants you a limited, non-exclusive, non-transferable, revocable license to use the app for your personal, non-commercial use on Apple-branded devices you own or control.</p>
-        </article>
-
-        <article class="card">
-          <h2>3. Acceptable use</h2>
-          <p>You agree not to:</p>
-          <ul>
-            <li>Reverse engineer, decompile, or attempt to extract source code except where permitted by law.</li>
-            <li>Resell, lease, or redistribute the app.</li>
-            <li>Use ONIS in a way that interferes with app security or stability.</li>
-            <li>Use ONIS for unlawful or harmful conduct.</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <h2>4. Intellectual property</h2>
-          <p>ONIS, including its branding, visual design, and software components, is protected by intellectual property laws. All rights not expressly granted are reserved.</p>
-        </article>
-
-        <article class="card">
-          <h2>5. Apple App Store terms</h2>
-          <p>These Terms are between you and ONIS, not Apple. Apple has no obligation to furnish maintenance or support for ONIS except as required by applicable law. Your use of ONIS must also comply with applicable App Store terms.</p>
-        </article>
-
-        <article class="card">
-          <h2>6. Disclaimers</h2>
-          <p>ONIS is provided on an "as is" and "as available" basis without warranties of any kind, express or implied.</p>
-          <p>ONIS is a productivity and habit tool. It does not provide medical, mental health, or clinical advice and is not a substitute for professional guidance.</p>
-        </article>
-
-        <article class="card">
-          <h2>7. Limitation of liability</h2>
-          <p>To the maximum extent permitted by law, ONIS and its operators are not liable for indirect, incidental, consequential, special, or punitive damages, or any loss of data, revenue, or profits arising from your use of ONIS.</p>
-        </article>
-
-        <article class="card">
-          <h2>8. Termination</h2>
-          <p>We may suspend or terminate access to ONIS if these Terms are violated. You may stop using ONIS at any time by uninstalling the app.</p>
-        </article>
-
-        <article class="card">
-          <h2>9. Governing law</h2>
-          <p>These Terms are governed by and construed under the laws of your local jurisdiction, excluding conflict-of-law principles, unless required otherwise by mandatory consumer protection laws.</p>
-        </article>
-
-        <article class="card">
-          <h2>10. Changes to terms</h2>
-          <p>We may update these Terms periodically. Continued use of ONIS after updates become effective constitutes acceptance of the revised Terms.</p>
-        </article>
-
-        <article class="card">
-          <h2>11. Contact</h2>
-          <p>For legal or terms questions, contact <a href="mailto:support@onisapp.com">support@onisapp.com</a>.</p>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-grid">
-      <div>
-        <h3 class="footer-title">ONIS</h3>
-        <p class="footer-copy">A premium habit tracker for iPhone and Apple Watch focused on speed, clarity, and consistency.</p>
-      </div>
-      <div class="footer-links">
-        <h3 class="footer-title">Product</h3>
-        <a href="index.html">Home</a>
-        <a href="support.html">Support</a>
-      </div>
-      <div class="footer-links">
-        <h3 class="footer-title">Legal</h3>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Use</a>
-      </div>
+<header class="nav-wrap">
+  <nav class="container">
+    <a href="index.html" class="logo">ONIS</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+    <label for="nav-toggle" class="nav-hamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </label>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
     </div>
-    <div class="container copyright">© 2026 ONIS. All rights reserved.</div>
-  </footer>
+    <a href="index.html#download" class="btn-grad">Download</a>
+  </nav>
+</header>
+
+<main>
+  <div class="container">
+    <span class="page-eyebrow">Terms of Use</span>
+    <h1>Terms for using ONIS.</h1>
+    <p class="page-lede">
+      These Terms of Use govern your access to and use of the ONIS app ("ONIS", "the app", "we", "us", or "our") on iPhone and Apple Watch.
+      By downloading or using ONIS, you agree to these Terms. If you do not agree, do not use the app.
+    </p>
+
+    <div class="terms-stack">
+
+      <div class="card">
+        <h2>Effective date</h2>
+        <p>These Terms are effective as of <strong>May 21, 2026</strong>.</p>
+      </div>
+
+      <div class="card">
+        <h2>1. Acceptance of terms</h2>
+        <p>By downloading, installing, or using ONIS, you confirm that you are at least 13 years old (or the minimum age of digital consent in your jurisdiction) and that you agree to be bound by these Terms and our <a href="privacy.html">Privacy Policy</a>.</p>
+        <p>If you are accepting these Terms on behalf of an organization, you represent that you have the authority to bind that organization.</p>
+      </div>
+
+      <div class="card">
+        <h2>2. License grant</h2>
+        <p>Subject to these Terms, ONIS grants you a <strong>limited, non-exclusive, non-transferable, revocable license</strong> to download and use the ONIS app on Apple-branded devices that you own or control, solely for your personal, non-commercial habit-tracking purposes.</p>
+        <p>This license does not include the right to sublicense, modify, adapt, translate, reverse engineer, decompile, disassemble, or create derivative works based on the app.</p>
+      </div>
+
+      <div class="card">
+        <h2>3. Acceptable use</h2>
+        <p>You agree not to use ONIS to:</p>
+        <ul>
+          <li>Reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code of the app, except where expressly permitted by applicable law.</li>
+          <li>Resell, sublicense, rent, lease, loan, or otherwise distribute access to the app to any third party.</li>
+          <li>Use the app in violation of any applicable local, national, or international law or regulation.</li>
+          <li>Interfere with or disrupt the integrity or security of the app or any systems it relies on.</li>
+          <li>Attempt to gain unauthorized access to any portion of the app or related systems.</li>
+          <li>Remove, alter, or obscure any proprietary notices (including copyright and trademark notices) in the app.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>4. Intellectual property</h2>
+        <p>The ONIS app, including its name, logo, visual design, user interface, source code, and all content created by us, is protected by intellectual property laws including copyright, trademark, and trade secret law. All rights not expressly granted in these Terms are reserved.</p>
+        <p>You retain ownership of the habit content you create within ONIS (habit names, descriptions, etc.). By creating content in the app, you grant ONIS a limited license to store and display that content locally and via iCloud solely for the purpose of providing the app's functionality to you.</p>
+      </div>
+
+      <div class="card">
+        <h2>5. Intellectual property — third-party marks</h2>
+        <p>Apple, Apple Watch, iPhone, iCloud, HealthKit, CloudKit, watchOS, and iOS are trademarks of Apple Inc. ONIS is an independent application and is not affiliated with, sponsored by, or endorsed by Apple Inc. Use of Apple trademarks in this document is for descriptive purposes only and is not intended to suggest any affiliation or endorsement.</p>
+      </div>
+
+      <!-- Apple EULA Passthrough — required for App Store apps -->
+      <div class="card eula-card">
+        <div class="eula-badge">Required: Apple App Store EULA</div>
+        <h2>6. Apple App Store terms — required disclosure</h2>
+        <p>The following terms are required by Apple for all apps distributed through the Apple App Store:</p>
+        <ul>
+          <li><strong>These Terms are between you and ONIS only, not with Apple.</strong> Apple is not a party to these Terms and is not responsible for ONIS or its content.</li>
+          <li><strong>Apple has no obligation to furnish any maintenance or support services with respect to ONIS.</strong></li>
+          <li>In the event of any failure of ONIS to conform to any applicable warranty, you may notify Apple, and Apple will refund the purchase price for the app (if any) to you. To the maximum extent permitted by applicable law, Apple will have no other warranty obligation whatsoever with respect to ONIS.</li>
+          <li>Apple is not responsible for addressing any claims by you or any third party relating to ONIS or your possession or use of ONIS, including: (i) product liability claims; (ii) any claim that ONIS fails to conform to any applicable legal or regulatory requirement; and (iii) claims arising under consumer protection, privacy, or similar legislation.</li>
+          <li>In the event of any third-party claim that ONIS or your possession and use of ONIS infringes that third party's intellectual property rights, ONIS (not Apple) will be solely responsible for the investigation, defense, settlement, and discharge of any such intellectual property infringement claim.</li>
+          <li><strong>Apple and its subsidiaries are third-party beneficiaries of these Terms.</strong> Upon your acceptance of these Terms, Apple will have the right (and will be deemed to have accepted the right) to enforce these Terms against you as a third-party beneficiary thereof.</li>
+          <li>You represent and warrant that (i) you are not located in a country that is subject to a U.S. Government embargo, or that has been designated by the U.S. Government as a "terrorist supporting" country; and (ii) you are not listed on any U.S. Government list of prohibited or restricted parties.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>7. Disclaimers</h2>
+        <p>ONIS is provided on an <strong>"as is" and "as available"</strong> basis without warranties of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+        <p>ONIS is a <strong>habit tracking productivity tool</strong>. It is not a medical device, mental health application, or clinical tool. ONIS does not provide medical, psychological, nutritional, or health advice. Do not rely on ONIS for decisions that require professional medical or mental health guidance. Always consult a qualified healthcare professional for such decisions.</p>
+        <p>We do not guarantee that ONIS will help you build or maintain specific habits, achieve specific goals, or produce specific outcomes. Results vary by individual and are not the responsibility of ONIS.</p>
+      </div>
+
+      <div class="card">
+        <h2>8. Limitation of liability</h2>
+        <p>To the maximum extent permitted by applicable law, ONIS and its developers, officers, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to:</p>
+        <ul>
+          <li>Loss of data, revenue, profits, goodwill, or business opportunities</li>
+          <li>Personal injury or property damage</li>
+          <li>Unauthorized access to or alteration of your data</li>
+          <li>Interruption or cessation of the app's functionality</li>
+        </ul>
+        <p style="margin-top:12px;">This limitation applies whether the claim is based in contract, tort, strict liability, or any other legal theory, even if ONIS has been advised of the possibility of such damages.</p>
+        <p>In jurisdictions that do not allow exclusion or limitation of liability for consequential or incidental damages, our liability is limited to the maximum extent permitted by law.</p>
+      </div>
+
+      <div class="card">
+        <h2>9. Data and account deletion</h2>
+        <p>ONIS does not require an account to function. If you wish to delete all data associated with your use of ONIS:</p>
+        <ul>
+          <li>Open ONIS → Settings → <code>Reset All Data</code> to delete all local habit data.</li>
+          <li>iPhone Settings → [Your Name] → iCloud → Manage Account Storage → ONIS → <code>Delete Data</code> to remove iCloud sync data.</li>
+          <li>Delete the ONIS app from your device to remove all remaining local data.</li>
+        </ul>
+        <p style="margin-top:10px;">For full details, see our <a href="privacy.html">Privacy Policy — Section 8</a>.</p>
+      </div>
+
+      <div class="card">
+        <h2>10. Termination</h2>
+        <p>These Terms remain in effect as long as you use ONIS. We may terminate or suspend your access to ONIS without notice if we determine, in our sole discretion, that you have violated these Terms or that your use poses a risk to us or others.</p>
+        <p>You may terminate these Terms at any time by uninstalling the ONIS app from all of your devices. Termination does not automatically delete iCloud data — see Section 9 for deletion instructions.</p>
+        <p>Sections that by their nature should survive termination (Intellectual Property, Disclaimers, Limitation of Liability, Governing Law) will survive.</p>
+      </div>
+
+      <div class="card">
+        <h2>11. Governing law and dispute resolution</h2>
+        <p>These Terms are governed by the laws of the jurisdiction in which ONIS is operated, without regard to conflict of law principles. If you are a consumer in a jurisdiction with mandatory consumer protection laws, those laws may also apply.</p>
+        <p>We encourage you to contact us first to resolve any disputes informally. Most concerns can be resolved quickly by emailing <a href="mailto:support@onisapp.com">support@onisapp.com</a>.</p>
+      </div>
+
+      <div class="card">
+        <h2>12. Changes to these terms</h2>
+        <p>We may update these Terms from time to time. When we make material changes, we will update the effective date at the top of this page and may notify you within the app. Your continued use of ONIS after any changes take effect constitutes your acceptance of the updated Terms.</p>
+        <p>We encourage you to review these Terms periodically. If you disagree with any changes, you should stop using ONIS.</p>
+      </div>
+
+      <div class="card">
+        <h2>13. Contact</h2>
+        <p>For legal questions, terms concerns, or to exercise any rights related to these Terms, please contact us:</p>
+        <p style="margin-top:10px;"><strong>Email:</strong> <a href="mailto:support@onisapp.com">support@onisapp.com</a></p>
+        <p>We typically respond within 48 hours.</p>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <p class="f-brand">ONIS</p>
+      <p class="f-tagline">A premium habit tracker for iPhone and Apple Watch focused on speed, privacy, and consistency.</p>
+    </div>
+    <div class="f-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Use</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:support@onisapp.com">support@onisapp.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container f-bottom">
+    <p>© 2026 ONIS. All rights reserved.</p>
+    <p>Not affiliated with or endorsed by Apple Inc.</p>
+  </div>
+</footer>
+
 </body>
 </html>
