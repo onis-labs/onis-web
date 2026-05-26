@@ -202,24 +202,18 @@
       align-items: center;
     }
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: rgba(94,92,230,0.15);
-      border: 1px solid rgba(94,92,230,0.3);
-      color: #a5a3ff;
-      font-size: 0.76rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
+      display: inline-block;
+      font-size: 0.73rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 24px;
+      color: #a5a3ff;
+      margin-bottom: 18px;
     }
     .hero-copy h1 {
-      font-size: clamp(3.2rem, 7vw, 6rem);
+      font-size: clamp(3rem, 6.8vw, 5.6rem);
       letter-spacing: -0.06em;
-      line-height: 0.96;
+      line-height: 0.98;
       color: #fff;
       margin-bottom: 22px;
       font-weight: 900;
@@ -233,7 +227,7 @@
     }
     .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
 
-    /* ── Hero micro-cards ── */
+    /* ── Hero focal ring ── */
     .hero-visual {
       position: relative;
       min-height: 460px;
@@ -241,135 +235,83 @@
       align-items: center;
       justify-content: center;
     }
-    .hero-cards {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-    .hcard {
-      position: absolute;
-      background: rgba(28,28,30,0.82);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px;
-      padding: 18px 22px;
-      color: white;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05) inset;
-      min-width: 168px;
-    }
-    .hcard-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: rgba(245,245,247,0.4);
-      margin-bottom: 4px;
-    }
-    .hcard-title {
-      font-size: 0.98rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-    .hcard-bar {
-      height: 4px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-    .hcard-fill {
-      height: 100%;
-      background: var(--grad);
-      border-radius: 999px;
-    }
-    .hcard-emoji {
-      font-size: 1.4rem;
-      margin-bottom: 4px;
-      display: block;
-    }
-    .hcard-sub {
-      font-size: 0.8rem;
-      color: rgba(245,245,247,0.45);
-      font-weight: 500;
-    }
-    .hcard-check {
-      font-size: 1.5rem;
-      color: #30d158;
-      margin-bottom: 4px;
-      font-weight: 900;
-      line-height: 1;
-    }
-    .hc1 { top: 12%; left: 2%; will-change: transform, opacity; }
-    .hc2 { top: 8%; right: 2%; will-change: transform, opacity; }
-    .hc3 { bottom: 18%; right: 4%; will-change: transform, opacity; }
-
-    /* Central ripple visual in hero */
-    .hero-ripple-center {
+    .hero-ring-wrap {
       position: relative;
-      width: 180px;
-      height: 180px;
-    }
-    .ripple-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 2px solid rgba(94,92,230,0.3);
-    }
-    .ripple-ring:nth-child(1) { width: 180px; height: 180px; top: 0; left: 0; }
-    .ripple-ring:nth-child(2) { width: 140px; height: 140px; top: 20px; left: 20px; border-color: rgba(94,92,230,0.5); }
-    .ripple-ring:nth-child(3) { width: 100px; height: 100px; top: 40px; left: 40px; border-color: rgba(94,92,230,0.7); }
-    .ripple-core {
-      position: absolute;
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: var(--grad);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      width: clamp(280px, 36vw, 380px);
+      aspect-ratio: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.6rem;
-      box-shadow: 0 0 48px rgba(94,92,230,0.7), 0 0 0 2px rgba(255,255,255,0.15);
-      color: white;
-      font-weight: 900;
+      will-change: transform;
+      z-index: 1;
     }
-
+    .hero-ring-halo {
+      position: absolute;
+      inset: -22%;
+      border-radius: 50%;
+      background: radial-gradient(circle at center,
+        rgba(94,92,230,0.4) 0%,
+        rgba(94,92,230,0.12) 40%,
+        transparent 70%);
+      filter: blur(38px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-ring-wrap svg {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .hero-ring-stroke {
+      filter: drop-shadow(0 0 24px rgba(94,92,230,0.55));
+    }
+    .hero-ring-center {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 2.6rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-shadow: 0 0 24px rgba(94,92,230,0.45);
+    }
     /* ── Marquee ── */
     .marquee-wrap {
       background: var(--bg-dark);
       padding-block: 18px;
       overflow: hidden;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
     }
     .marquee-track {
       display: flex;
       gap: 40px;
       width: max-content;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(245,245,247,0.38);
+      color: rgba(245,245,247,0.32);
       align-items: center;
       will-change: transform;
     }
-    .marquee-track .dot { color: var(--accent); opacity: 0.7; font-size: 1rem; }
+    .marquee-track .dot { color: #a5a3ff; opacity: 0.55; font-size: 1rem; }
 
-    /* ── Shared sections ── */
-    .section { padding-block: clamp(80px, 11vw, 130px); }
-    .section-light { background: var(--bg); }
-    .section-dark  { background: var(--bg-dark); color: var(--text-dark); }
-
-    /* Dot grid texture */
-    .section-light.dotted {
-      background-image: radial-gradient(rgba(0,0,0,0.055) 1.2px, transparent 1.2px);
-      background-size: 28px 28px;
-      background-position: 0 0;
+    /* ── Shared sections (all dark) ── */
+    .section {
+      padding-block: clamp(80px, 11vw, 130px);
+      background: var(--bg-dark);
+      color: var(--text-dark);
     }
+    .section-dark { background: var(--bg-dark); color: var(--text-dark); }
+
+    /* Dot grid texture — only one variant, applied to any .section */
+    .section.dotted,
     .section-dark.dotted {
       background-image: radial-gradient(rgba(255,255,255,0.045) 1.2px, transparent 1.2px);
       background-size: 28px 28px;
@@ -381,29 +323,27 @@
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: #a5a3ff;
       margin-bottom: 12px;
     }
-    .section-dark .section-label { color: #a5a3ff; }
 
     h2 {
-      font-size: clamp(2.2rem, 4.8vw, 3.8rem);
+      font-size: clamp(2rem, 4.6vw, 3.6rem);
       letter-spacing: -0.05em;
-      line-height: 1.03;
+      line-height: 1.05;
       margin-bottom: 16px;
       font-weight: 900;
+      color: #fff;
     }
-    .section-dark h2 { color: #fff; }
 
     .lede {
-      font-size: 1.08rem;
-      color: var(--text-muted);
-      max-width: 58ch;
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      max-width: 50ch;
       line-height: 1.7;
     }
-    .section-dark .lede { color: var(--text-dim); }
 
-    /* ── Problem cards ── */
+    /* ── Problem cards (dark glass) ── */
     .problem-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -411,115 +351,104 @@
       margin-top: 48px;
     }
     .problem-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: rgba(28,28,30,0.85);
+      border: 1px solid var(--border-dark);
       border-radius: var(--r-md);
-      padding: 30px;
-      box-shadow: var(--sh-sm);
+      padding: 32px;
       transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.35s;
     }
     .problem-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 20px 48px rgba(0,0,0,0.11), 0 0 0 1px rgba(94,92,230,0.12);
+      box-shadow: 0 20px 52px rgba(0,0,0,0.5), 0 0 0 1px rgba(94,92,230,0.25);
     }
     .p-icon {
-      width: 48px; height: 48px;
-      border-radius: 14px;
+      width: 40px; height: 40px;
+      border-radius: 12px;
       display: grid; place-items: center;
-      font-size: 1.4rem;
-      margin-bottom: 18px;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
     }
-    .pi-1 { background: rgba(94,92,230,0.1); }
-    .pi-2 { background: rgba(255,107,53,0.1); }
-    .pi-3 { background: rgba(48,209,88,0.1); }
-    .problem-card h3 { font-size: 1.06rem; letter-spacing: -0.03em; font-weight: 700; margin-bottom: 10px; }
-    .problem-card p  { color: var(--text-muted); font-size: 0.95rem; line-height: 1.65; }
+    .pi-1 { background: rgba(94,92,230,0.16); box-shadow: 0 0 22px rgba(94,92,230,0.18) inset; }
+    .pi-2 { background: rgba(255,107,53,0.16); box-shadow: 0 0 22px rgba(255,107,53,0.18) inset; }
+    .pi-3 { background: rgba(48,209,88,0.16); box-shadow: 0 0 22px rgba(48,209,88,0.18) inset; }
+    .problem-card h3 {
+      font-size: 1.08rem;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .problem-card p  { color: var(--text-dim); font-size: 0.95rem; line-height: 1.7; }
 
     /* ── Solution ── */
     .solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
 
-    /* Solution ripple SVG box */
+    /* Solution focal ring box */
     .sol-ripple-box {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 280px;
-      background: var(--surface-dark2);
+      gap: 28px;
+      min-height: 320px;
+      background: rgba(28,28,30,0.85);
       border: 1px solid var(--border-dark);
       border-radius: var(--r-lg);
-      padding: 40px;
+      padding: 44px 32px;
       position: relative;
       overflow: hidden;
     }
     .sol-ripple-box::before {
       content: '';
       position: absolute;
-      width: 300px; height: 300px;
-      background: rgba(94,92,230,0.08);
+      width: 320px; height: 320px;
+      background: rgba(94,92,230,0.16);
       border-radius: 50%;
-      filter: blur(60px);
+      filter: blur(70px);
       top: 50%; left: 50%;
       transform: translate(-50%,-50%);
+      pointer-events: none;
     }
-    .tap-visual {
+    .sol-ring-wrap {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sol-ring-wrap svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .sol-ring-stroke {
+      filter: drop-shadow(0 0 18px rgba(94,92,230,0.55));
+    }
+    .sol-ring-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+    .tap-labels {
       position: relative;
       z-index: 1;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-    }
-    .tap-ripple {
-      position: relative;
-      width: 130px;
-      height: 130px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .tap-ripple-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1.5px solid rgba(94,92,230,0.5);
-      opacity: 0;
-      will-change: transform, opacity;
-    }
-    .tap-ripple-ring:nth-child(1) { width: 130px; height: 130px; }
-    .tap-ripple-ring:nth-child(2) { width: 95px; height: 95px; border-color: rgba(94,92,230,0.7); }
-    .tap-core {
-      width: 58px; height: 58px;
-      border-radius: 50%;
-      background: var(--grad);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: white;
-      font-weight: 900;
-      box-shadow: 0 0 40px rgba(94,92,230,0.65);
-      z-index: 2;
-    }
-    .tap-labels {
-      display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
       justify-content: center;
-    }
-    .tap-label {
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: rgba(94,92,230,0.14);
-      border: 1px solid rgba(94,92,230,0.28);
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #a5a3ff;
+      max-width: 280px;
     }
 
-    /* ── Feature panels ── */
+    /* ── Feature panels (dark) ── */
     .feature-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-    .feature-copy p { font-size: 1.06rem; line-height: 1.72; }
-    .section-light .feature-copy p { color: var(--text-muted); }
-    .section-dark  .feature-copy p { color: var(--text-dim); }
+    .feature-copy p { font-size: 1.06rem; line-height: 1.72; color: var(--text-dim); }
     .feature-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
     .feature-tag {
       padding: 5px 14px;
@@ -527,9 +456,9 @@
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.01em;
+      background: rgba(255,255,255,0.07);
+      color: rgba(245,245,247,0.7);
     }
-    .section-light .feature-tag { background: rgba(94,92,230,0.09); color: var(--accent); }
-    .section-dark  .feature-tag { background: rgba(255,255,255,0.07); color: rgba(245,245,247,0.7); }
     .fvb {
       border-radius: var(--r-lg);
       padding: 36px;
@@ -537,27 +466,16 @@
       align-items: center;
       justify-content: center;
       min-height: 270px;
+      background: rgba(28,28,30,0.85);
+      border: 1px solid var(--border-dark);
       transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.35s;
     }
-    .section-light .fvb {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      box-shadow: var(--sh-sm);
-    }
-    .section-light .fvb:hover {
+    .fvb:hover {
       transform: translateY(-4px);
-      box-shadow: 0 20px 52px rgba(0,0,0,0.1), 0 0 0 1px rgba(94,92,230,0.1);
-    }
-    .section-dark .fvb {
-      background: var(--surface-dark2);
-      border: 1px solid var(--border-dark);
-    }
-    .section-dark .fvb:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 52px rgba(0,0,0,0.3), 0 0 0 1px rgba(94,92,230,0.15);
+      box-shadow: 0 20px 52px rgba(0,0,0,0.5), 0 0 0 1px rgba(94,92,230,0.25);
     }
 
-    /* ── How it works ── */
+    /* ── How it works (dark glass) ── */
     .steps-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -565,16 +483,18 @@
       margin-top: 52px;
     }
     .step-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: rgba(28,28,30,0.85);
+      border: 1px solid var(--border-dark);
       border-radius: var(--r-md);
       padding: 32px 28px;
-      box-shadow: var(--sh-sm);
       transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.35s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
     .step-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 18px 48px rgba(0,0,0,0.1), 0 0 0 1px rgba(94,92,230,0.1);
+      box-shadow: 0 20px 52px rgba(0,0,0,0.5), 0 0 0 1px rgba(94,92,230,0.25);
     }
     .step-num {
       font-size: 4rem;
@@ -585,10 +505,23 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
     }
-    .step-card h3 { font-size: 1.1rem; letter-spacing: -0.03em; font-weight: 700; margin-bottom: 10px; }
-    .step-card p  { color: var(--text-muted); font-size: 0.94rem; line-height: 1.65; }
+    .step-card h3 {
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .step-card p  { color: var(--text-dim); font-size: 0.94rem; line-height: 1.7; }
+    .step-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 18px;
+    }
 
     /* ── Testimonials ── */
     .quotes-grid {
@@ -612,8 +545,10 @@
       display: flex;
       gap: 3px;
       margin-bottom: 14px;
-      color: #ffcc02;
-      font-size: 0.9rem;
+      color: #ffd60a;
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
+      opacity: 0.92;
     }
     .quote-text {
       color: rgba(245,245,247,0.85);
@@ -638,7 +573,7 @@
     .q-name { font-weight: 700; color: #fff; font-size: 0.9rem; }
     .q-role { color: var(--text-dim); font-size: 0.78rem; }
 
-    /* ── FAQ ── */
+    /* ── FAQ (dark glass) ── */
     .faq-list {
       max-width: 740px;
       margin: 44px auto 0;
@@ -646,13 +581,16 @@
       gap: 10px;
     }
     details {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: rgba(28,28,30,0.85);
+      border: 1px solid var(--border-dark);
       border-radius: var(--r-sm);
       overflow: hidden;
-      transition: box-shadow 0.25s;
+      transition: box-shadow 0.25s, border-color 0.25s;
     }
-    details[open] { box-shadow: var(--sh-md); }
+    details[open] {
+      box-shadow: 0 14px 44px rgba(0,0,0,0.4);
+      border-color: rgba(94,92,230,0.22);
+    }
     summary {
       list-style: none;
       cursor: pointer;
@@ -664,7 +602,7 @@
       justify-content: space-between;
       gap: 14px;
       user-select: none;
-      color: var(--text);
+      color: #fff;
       letter-spacing: -0.01em;
     }
     summary::-webkit-details-marker { display: none; }
@@ -672,14 +610,14 @@
       content: '+';
       font-size: 1.5rem;
       font-weight: 300;
-      color: var(--accent);
+      color: #a5a3ff;
       line-height: 1;
       flex-shrink: 0;
       transition: transform 0.25s ease;
     }
     details[open] summary::after { transform: rotate(45deg); }
-    details p { padding: 0 24px 20px; color: var(--text-muted); font-size: 0.96rem; line-height: 1.72; }
-    details a { color: var(--accent); }
+    details p { padding: 0 24px 20px; color: var(--text-dim); font-size: 0.96rem; line-height: 1.72; }
+    details a { color: #a5a3ff; }
 
     /* ── CTA ── */
     .cta-section {
@@ -707,15 +645,24 @@
       display: inline-flex;
       align-items: center;
       gap: 16px;
-      padding: 16px 32px;
-      border-radius: 20px;
+      padding: 16px 30px;
+      border-radius: 18px;
       background: #fff;
       color: #1d1d1f;
       text-decoration: none;
-      box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+      box-shadow:
+        0 12px 36px rgba(0,0,0,0.35),
+        0 0 0 1px rgba(0,0,0,0.04) inset,
+        0 1px 0 rgba(255,255,255,0.6) inset;
       transition: transform 0.3s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.3s;
     }
-    .store-btn:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 22px 52px rgba(0,0,0,0.38); }
+    .store-btn:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow:
+        0 22px 52px rgba(0,0,0,0.42),
+        0 0 0 1px rgba(0,0,0,0.04) inset,
+        0 1px 0 rgba(255,255,255,0.6) inset;
+    }
     .store-btn-text { text-align: left; }
     .store-sub  { font-size: 0.72rem; font-weight: 500; opacity: 0.52; display: block; }
     .store-main { font-size: 1.06rem; font-weight: 800; display: block; line-height: 1.25; }
@@ -739,7 +686,7 @@
       color: transparent;
       display: inline-block;
     }
-    .f-tagline { color: rgba(245,245,247,0.38); font-size: 0.88rem; line-height: 1.65; max-width: 28ch; margin-top: 4px; }
+    .f-tagline { color: rgba(245,245,247,0.5); font-size: 0.88rem; line-height: 1.65; max-width: 28ch; margin-top: 4px; }
     .f-col h4 {
       font-size: 0.76rem; font-weight: 800;
       letter-spacing: 0.1em; text-transform: uppercase;
@@ -859,7 +806,7 @@
     .sc-label:nth-child(3) { bottom: 34%; left: -28px; }
     .sc-label:nth-child(4) { bottom: 12%; right: -28px; }
     .sc-ring-wrap { will-change: transform; }
-    .ripple-core, .hero-copy, .quote-card { will-change: transform, opacity; }
+    .hero-copy, .quote-card, .hero-ring-wrap { will-change: transform, opacity; }
     .marquee-wrap { contain: layout paint; }
 
     .showcase-right { display: flex; align-items: center; justify-content: center; height: 100%; }
@@ -912,7 +859,8 @@
       .hero-inner, .solution-grid, .feature-panel { grid-template-columns: 1fr; }
       .problem-grid, .steps-grid, .quotes-grid    { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
-      .hero-visual { min-height: 300px; margin-top: 32px; }
+      .hero-visual { min-height: 340px; margin-top: 32px; }
+      .hero-ring-wrap { width: clamp(240px, 70vw, 320px); }
       .feature-panel .feature-copy { order: -1; }
       .nav-links {
         display: none;
@@ -934,7 +882,6 @@
     @media (max-width: 540px) {
       .footer-grid { grid-template-columns: 1fr; }
       .hero-ctas { flex-direction: column; align-items: flex-start; }
-      .hc2 { display: none; }
     }
   </style>
 </head>
@@ -987,31 +934,24 @@
     </div>
 
     <div class="hero-visual" aria-hidden="true">
-      <!-- Central ripple -->
-      <div class="hero-ripple-center">
-        <div class="ripple-ring"></div>
-        <div class="ripple-ring"></div>
-        <div class="ripple-ring"></div>
-        <div class="ripple-core">✓</div>
-      </div>
-
-      <!-- Floating glass micro-cards -->
-      <div class="hero-cards">
-        <div class="hcard hc1">
-          <div class="hcard-label">Today</div>
-          <div class="hcard-title">3 of 4 habits</div>
-          <div class="hcard-bar"><div class="hcard-fill" style="width:75%"></div></div>
-        </div>
-        <div class="hcard hc2">
-          <span class="hcard-emoji">🔥</span>
-          <div class="hcard-title">14 Day Streak</div>
-          <div class="hcard-sub">Run · Keep going</div>
-        </div>
-        <div class="hcard hc3">
-          <div class="hcard-check">✓</div>
-          <div class="hcard-title">Logged</div>
-          <div class="hcard-sub">&lt; 1 second</div>
-        </div>
+      <div class="hero-ring-wrap">
+        <div class="hero-ring-halo"></div>
+        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- Faint outer guide circle -->
+          <circle cx="160" cy="160" r="154" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <!-- Track ring -->
+          <circle cx="160" cy="160" r="138" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="18"/>
+          <!-- Filled progress ring (~70%) with purple glow -->
+          <circle class="hero-ring-stroke"
+                  cx="160" cy="160" r="138"
+                  fill="none"
+                  stroke="#5e5ce6"
+                  stroke-width="18"
+                  stroke-linecap="round"
+                  stroke-dasharray="607 260"
+                  transform="rotate(-90 160 160)"/>
+        </svg>
+        <div class="hero-ring-center">✓</div>
       </div>
     </div>
   </div>
@@ -1040,9 +980,9 @@
 </div>
 
 <!-- ═══════════════════════════════════════════
-     PROBLEM — light section
+     PROBLEM — dark section
 ════════════════════════════════════════════ -->
-<section class="section section-light dotted">
+<section class="section section-dark dotted">
   <div class="container">
     <p class="section-label reveal">The problem</p>
     <h2 class="reveal d1">Most habit apps<br>fail for one reason.</h2>
@@ -1082,18 +1022,25 @@
       <p class="lede reveal d3">Raise. Tap. Done. Your ring closes. Your streak grows. That's it.</p>
     </div>
     <div class="sol-ripple-box reveal-r d1">
-      <div class="tap-visual">
-        <div class="tap-ripple">
-          <div class="tap-ripple-ring"></div>
-          <div class="tap-ripple-ring"></div>
-          <div class="tap-core">✓</div>
-        </div>
-        <div class="tap-labels">
-          <span class="tap-label">🏃 Run</span>
-          <span class="tap-label">📖 Read</span>
-          <span class="tap-label">🧘 Zen</span>
-          <span class="tap-label">💧 Water</span>
-        </div>
+      <div class="sol-ring-wrap" aria-hidden="true">
+        <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="110" cy="110" r="94" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="14"/>
+          <circle class="sol-ring-stroke"
+                  cx="110" cy="110" r="94"
+                  fill="none"
+                  stroke="#5e5ce6"
+                  stroke-width="14"
+                  stroke-linecap="round"
+                  stroke-dasharray="414 177"
+                  transform="rotate(-90 110 110)"/>
+        </svg>
+        <div class="sol-ring-center">✓</div>
+      </div>
+      <div class="tap-labels">
+        <span class="feature-tag">🏃 Run</span>
+        <span class="feature-tag">📖 Read</span>
+        <span class="feature-tag">🧘 Zen</span>
+        <span class="feature-tag">💧 Water</span>
       </div>
     </div>
   </div>
@@ -1198,9 +1145,9 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     HOW IT WORKS — light section
+     HOW IT WORKS — dark section
 ════════════════════════════════════════════ -->
-<section class="section section-light" id="how">
+<section class="section section-dark dotted" id="how">
   <div class="container" style="text-align:center;">
     <p class="section-label reveal">Process</p>
     <h2 class="reveal d1">From install to streak<br>in three steps.</h2>
@@ -1210,16 +1157,28 @@
       <div class="step-num">01</div>
       <h3>Add the habits that matter</h3>
       <p>Choose from curated templates — Run, Read, Meditate, Hydrate, Sleep — or create custom habits with your own name, emoji, and color. Set a daily or flexible schedule.</p>
+      <div class="step-chips">
+        <span class="feature-tag">Templates</span>
+        <span class="feature-tag">Custom</span>
+      </div>
     </article>
     <article class="step-card reveal d2">
       <div class="step-num">02</div>
       <h3>Tap from your Apple Watch</h3>
       <p>Raise your wrist. Tap the habit. Done — in under one second, without your iPhone. ONIS sits on your wrist as a complication and a full glanceable app.</p>
+      <div class="step-chips">
+        <span class="feature-tag">Wrist</span>
+        <span class="feature-tag">Glance</span>
+      </div>
     </article>
     <article class="step-card reveal d3">
       <div class="step-num">03</div>
       <h3>Watch your rings close</h3>
       <p>Every tap closes a ring. Streaks track consistency automatically. Daily, weekly, and monthly views show exactly how far you've come — and how close you are today.</p>
+      <div class="step-chips">
+        <span class="feature-tag">Streak</span>
+        <span class="feature-tag">Rings</span>
+      </div>
     </article>
   </div>
 </section>
@@ -1270,9 +1229,9 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     FAQ — light section
+     FAQ — dark section
 ════════════════════════════════════════════ -->
-<section class="section section-light" id="faq">
+<section class="section section-dark dotted" id="faq">
   <div class="container" style="text-align:center;">
     <p class="section-label reveal">FAQ</p>
     <h2 class="reveal d1">Common questions.</h2>
@@ -1394,16 +1353,13 @@
     const heroCopy     = document.querySelector('.hero-copy');
     const heroOrbs     = Array.from(document.querySelectorAll('.hero-section .blob'));
     const ctaOrbs      = Array.from(document.querySelectorAll('.cta-orb'));
-    const hc1 = document.querySelector('.hc1');
-    const hc2 = document.querySelector('.hc2');
-    const hc3 = document.querySelector('.hc3');
-    const rippleCore   = document.querySelector('.ripple-core');
+    const heroRing     = document.querySelector('.hero-ring-wrap');
 
     const marqueeTrack = document.querySelector('.marquee-track');
 
-    const tapRipple    = document.querySelector('.tap-ripple');
-    const tapRings     = Array.from(document.querySelectorAll('.tap-ripple-ring'));
-    const solutionSection = tapRipple ? tapRipple.closest('section') : null;
+    const solRingWrap  = document.querySelector('.sol-ring-wrap');
+    const solRipple    = document.querySelector('.sol-ripple-box');
+    const solutionSection = solRipple ? solRipple.closest('section') : null;
 
     const showcase     = document.querySelector('.showcase-scroll');
     const scRingWrap   = document.querySelector('.sc-ring-wrap');
@@ -1541,34 +1497,12 @@
           heroCopy.style.opacity   = op.toFixed(3);
         }
 
-        if (rippleCore) {
-          const s  = lerp(1, 0.7, clamp(heroProg, 0, 1));
-          const op = clamp(1 - heroProg * 1.2, 0, 1);
-          rippleCore.style.transform = 'translate(-50%,-50%) scale(' + s.toFixed(3) + ')';
-          rippleCore.style.opacity   = op.toFixed(3);
-        }
-
-        if (!isMobile) {
-          const cardProg = clamp(heroProg * 1.4, 0, 1);
-          const op = (1 - cardProg).toFixed(3);
-          if (hc1) {
-            hc1.style.transform = 'translate3d(' + (-cardProg * 180).toFixed(1) + 'px,' + (cardProg * 60).toFixed(1) + 'px,0) rotate(' + (-cardProg * 6).toFixed(2) + 'deg)';
-            hc1.style.opacity = op;
-          }
-          if (hc2) {
-            hc2.style.transform = 'translate3d(' + (cardProg * 180).toFixed(1) + 'px,' + (-cardProg * 70).toFixed(1) + 'px,0) rotate(' + (cardProg * 5).toFixed(2) + 'deg)';
-            hc2.style.opacity = op;
-          }
-          if (hc3) {
-            hc3.style.transform = 'translate3d(' + (cardProg * 160).toFixed(1) + 'px,' + (cardProg * 50).toFixed(1) + 'px,0) rotate(' + (cardProg * 6).toFixed(2) + 'deg)';
-            hc3.style.opacity = op;
-          }
-        } else {
-          // Mobile: cards just fade out, no dispersal.
-          const op = (1 - clamp(heroProg * 1.4, 0, 1)).toFixed(3);
-          if (hc1) { hc1.style.transform = ''; hc1.style.opacity = op; }
-          if (hc2) { hc2.style.transform = ''; hc2.style.opacity = op; }
-          if (hc3) { hc3.style.transform = ''; hc3.style.opacity = op; }
+        if (heroRing && !isMobile) {
+          // Slow downward drift + gentle fade as the hero scrolls out.
+          const y  = scrollY * 0.15;
+          const op = clamp(1 - heroProg * 1.1, 0, 1);
+          heroRing.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
+          heroRing.style.opacity   = op.toFixed(3);
         }
       }
 
@@ -1583,8 +1517,9 @@
         if (marqueeTrack) marqueeTrack.style.transform = '';
         quoteCards.forEach(c => { c.style.transform = ''; });
         stepCards.forEach(c => { c.style.transform = ''; });
-        tapRings.forEach(r => { r.style.transform = ''; r.style.opacity = ''; });
         if (scRingWrap) scRingWrap.style.transform = '';
+        if (heroRing) { heroRing.style.transform = ''; }
+        if (solRingWrap) { solRingWrap.style.transform = ''; }
         scLabels.forEach(l => { l.style.transform = ''; l.style.opacity = ''; });
       }
 
@@ -1596,19 +1531,15 @@
           marqueeTrack.style.transform = 'translate3d(' + off.toFixed(1) + 'px,0,0)';
         }
 
-        // ── Solution: ripple expansion driven by section progress ──
-        if (bounds.solution && tapRings.length) {
-          const start  = bounds.solution.top - viewportH;
-          const range  = bounds.solution.height + viewportH;
-          const sProg  = clamp((scrollY - start) / range, 0, 1);
-          const baseScale = lerp(0.6, 1.4, sProg);
-          // Smooth bell curve: peaks at section center.
-          const fade = clamp(1 - Math.abs(sProg - 0.5) * 1.8, 0, 1);
-          tapRings.forEach((r, i) => {
-            const s = baseScale + i * 0.08;
-            r.style.transform = 'scale(' + s.toFixed(3) + ')';
-            r.style.opacity   = fade.toFixed(3);
-          });
+        // ── Solution: gentle scale + drift on the focal ring tied to section progress ──
+        if (bounds.solution && solRingWrap) {
+          const start = bounds.solution.top - viewportH;
+          const range = bounds.solution.height + viewportH;
+          const sProg = clamp((scrollY - start) / range, 0, 1);
+          // Quiet motion: 0.94 → 1.04 across the section.
+          const scale = lerp(0.94, 1.04, sProg);
+          const y     = lerp(12, -12, sProg);
+          solRingWrap.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0) scale(' + scale.toFixed(3) + ')';
         }
 
         // ── Testimonials: subtle drift as cards enter the viewport ──
