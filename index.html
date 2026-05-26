@@ -188,14 +188,10 @@
       filter: blur(90px);
       pointer-events: none;
     }
-    .orb-1 { width: 700px; height: 700px; background: rgba(94,92,230,0.18); top: -200px; right: -150px; animation: orbFloat 10s ease-in-out infinite; }
-    .orb-2 { width: 500px; height: 500px; background: rgba(255,107,53,0.13); bottom: -100px; left: -100px; animation: orbFloat 13s ease-in-out infinite -4s; }
-    .orb-3 { width: 350px; height: 350px; background: rgba(50,173,230,0.1); top: 40%; left: 35%; animation: orbFloat 8s ease-in-out infinite -7s; }
-    @keyframes orbFloat {
-      0%,100% { transform: translate(0,0) scale(1); }
-      33%     { transform: translate(24px,-32px) scale(1.06); }
-      66%     { transform: translate(-18px,18px) scale(0.95); }
-    }
+    .orb-1 { width: 700px; height: 700px; background: rgba(94,92,230,0.18); top: -200px; right: -150px; }
+    .orb-2 { width: 500px; height: 500px; background: rgba(255,107,53,0.13); bottom: -100px; left: -100px; }
+    .orb-3 { width: 350px; height: 350px; background: rgba(50,173,230,0.1); top: 40%; left: 35%; }
+    .blob, .orb { will-change: transform; }
 
     .hero-inner {
       position: relative;
@@ -305,9 +301,9 @@
       font-weight: 900;
       line-height: 1;
     }
-    .hc1 { top: 12%; left: 2%; animation: floatUp 6s ease-in-out infinite; }
-    .hc2 { top: 8%; right: 2%; animation: floatDown 7.5s ease-in-out infinite 1s; }
-    .hc3 { bottom: 18%; right: 4%; animation: floatUp 5.5s ease-in-out infinite 0.5s; }
+    .hc1 { top: 12%; left: 2%; will-change: transform, opacity; }
+    .hc2 { top: 8%; right: 2%; will-change: transform, opacity; }
+    .hc3 { bottom: 18%; right: 4%; will-change: transform, opacity; }
 
     /* Central ripple visual in hero */
     .hero-ripple-center {
@@ -319,11 +315,10 @@
       position: absolute;
       border-radius: 50%;
       border: 2px solid rgba(94,92,230,0.3);
-      animation: ripplePulse 3s ease-out infinite;
     }
-    .ripple-ring:nth-child(1) { width: 180px; height: 180px; top: 0; left: 0; animation-delay: 0s; }
-    .ripple-ring:nth-child(2) { width: 140px; height: 140px; top: 20px; left: 20px; animation-delay: 0.5s; border-color: rgba(94,92,230,0.5); }
-    .ripple-ring:nth-child(3) { width: 100px; height: 100px; top: 40px; left: 40px; animation-delay: 1s; border-color: rgba(94,92,230,0.7); }
+    .ripple-ring:nth-child(1) { width: 180px; height: 180px; top: 0; left: 0; }
+    .ripple-ring:nth-child(2) { width: 140px; height: 140px; top: 20px; left: 20px; border-color: rgba(94,92,230,0.5); }
+    .ripple-ring:nth-child(3) { width: 100px; height: 100px; top: 40px; left: 40px; border-color: rgba(94,92,230,0.7); }
     .ripple-core {
       position: absolute;
       width: 64px;
@@ -341,13 +336,6 @@
       color: white;
       font-weight: 900;
     }
-    @keyframes ripplePulse {
-      0%   { opacity: 0.8; transform: scale(0.92); }
-      60%  { opacity: 0.3; transform: scale(1.06); }
-      100% { opacity: 0;   transform: scale(1.18); }
-    }
-    @keyframes floatUp   { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
-    @keyframes floatDown { 0%,100% { transform: translateY(0); } 50% { transform: translateY(9px);  } }
 
     /* ── Marquee ── */
     .marquee-wrap {
@@ -361,19 +349,15 @@
       display: flex;
       gap: 40px;
       width: max-content;
-      animation: marquee 24s linear infinite;
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.07em;
       text-transform: uppercase;
       color: rgba(245,245,247,0.38);
       align-items: center;
+      will-change: transform;
     }
     .marquee-track .dot { color: var(--accent); opacity: 0.7; font-size: 1rem; }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
 
     /* ── Shared sections ── */
     .section { padding-block: clamp(80px, 11vw, 130px); }
@@ -497,10 +481,11 @@
       position: absolute;
       border-radius: 50%;
       border: 1.5px solid rgba(94,92,230,0.5);
-      animation: tapRipple 2.5s ease-out infinite;
+      opacity: 0;
+      will-change: transform, opacity;
     }
-    .tap-ripple-ring:nth-child(1) { width: 130px; height: 130px; animation-delay: 0s; }
-    .tap-ripple-ring:nth-child(2) { width: 95px; height: 95px; animation-delay: 0.4s; border-color: rgba(94,92,230,0.7); }
+    .tap-ripple-ring:nth-child(1) { width: 130px; height: 130px; }
+    .tap-ripple-ring:nth-child(2) { width: 95px; height: 95px; border-color: rgba(94,92,230,0.7); }
     .tap-core {
       width: 58px; height: 58px;
       border-radius: 50%;
@@ -513,11 +498,6 @@
       font-weight: 900;
       box-shadow: 0 0 40px rgba(94,92,230,0.65);
       z-index: 2;
-    }
-    @keyframes tapRipple {
-      0%   { opacity: 0.9; transform: scale(0.88); }
-      70%  { opacity: 0.2; transform: scale(1.1);  }
-      100% { opacity: 0;   transform: scale(1.25); }
     }
     .tap-labels {
       display: flex;
@@ -576,68 +556,6 @@
       transform: translateY(-4px);
       box-shadow: 0 20px 52px rgba(0,0,0,0.3), 0 0 0 1px rgba(94,92,230,0.15);
     }
-
-    /* Feature 1: Tap-to-log visual (no device) */
-    .f1-visual {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      width: 100%;
-    }
-    .f1-ripple {
-      position: relative;
-      width: 140px;
-      height: 140px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .f1-ring {
-      position: absolute;
-      border-radius: 50%;
-      animation: f1Pulse 2.8s ease-out infinite;
-    }
-    .f1-ring:nth-child(1) { width: 140px; height: 140px; background: rgba(94,92,230,0.07); border: 1.5px solid rgba(94,92,230,0.22); animation-delay: 0s; }
-    .f1-ring:nth-child(2) { width: 104px; height: 104px; background: rgba(94,92,230,0.1); border: 1.5px solid rgba(94,92,230,0.38); animation-delay: 0.35s; }
-    .f1-ring:nth-child(3) { width: 68px; height: 68px; background: rgba(94,92,230,0.14); border: 1.5px solid rgba(94,92,230,0.55); animation-delay: 0.7s; }
-    .f1-checkmark {
-      position: relative;
-      z-index: 2;
-      width: 46px; height: 46px;
-      border-radius: 50%;
-      background: var(--grad);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      box-shadow: 0 0 36px rgba(94,92,230,0.65);
-      color: white;
-      font-weight: 900;
-    }
-    @keyframes f1Pulse {
-      0%   { opacity: 1; transform: scale(0.92); }
-      65%  { opacity: 0.25; transform: scale(1.08); }
-      100% { opacity: 0; transform: scale(1.22); }
-    }
-    .f1-floaters {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .f1-floater {
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: rgba(94,92,230,0.1);
-      border: 1px solid rgba(94,92,230,0.25);
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #a5a3ff;
-      animation: floatUp 4s ease-in-out infinite;
-    }
-    .f1-floater:nth-child(2) { animation-delay: 0.7s; animation-name: floatDown; }
-    .f1-floater:nth-child(3) { animation-delay: 1.4s; animation-name: floatUp; }
 
     /* ── How it works ── */
     .steps-grid {
@@ -934,15 +852,15 @@
       white-space: nowrap;
       box-shadow: 0 8px 24px rgba(0,0,0,0.35);
       opacity: 0;
-      transform: scale(0.85) translateY(8px);
-      transition: opacity 0.45s cubic-bezier(0.2,0.8,0.2,1),
-                  transform 0.45s cubic-bezier(0.2,0.8,0.2,1);
+      will-change: transform, opacity;
     }
-    .sc-label.active  { opacity: 1; transform: scale(1) translateY(0); }
     .sc-label:nth-child(1) { top: 12%;  left: -28px; }
     .sc-label:nth-child(2) { top: 34%;  right: -28px; }
     .sc-label:nth-child(3) { bottom: 34%; left: -28px; }
     .sc-label:nth-child(4) { bottom: 12%; right: -28px; }
+    .sc-ring-wrap { will-change: transform; }
+    .ripple-core, .hero-copy, .quote-card { will-change: transform, opacity; }
+    .marquee-wrap { contain: layout paint; }
 
     .showcase-right { display: flex; align-items: center; justify-content: center; height: 100%; }
     .sc-dots { display: flex; flex-direction: column; gap: 12px; align-items: center; }
@@ -1393,8 +1311,8 @@
 ════════════════════════════════════════════ -->
 <section class="cta-section">
   <div class="hero-orbs" aria-hidden="true">
-    <div class="orb orb-1" style="opacity:0.55;"></div>
-    <div class="orb orb-2" style="opacity:0.45;"></div>
+    <div class="orb orb-1 cta-orb" style="opacity:0.55;"></div>
+    <div class="orb orb-2 cta-orb" style="opacity:0.45;"></div>
   </div>
   <div class="container cta-inner">
     <p class="section-label reveal">Download</p>
@@ -1458,96 +1376,320 @@
 </footer>
 
 <script>
-  // IntersectionObserver for scroll reveals
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => io.observe(el));
-
-  // Parallax blobs on scroll
-  const blobs = document.querySelectorAll('.blob');
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    blobs.forEach((b, i) => {
-      b.style.transform = `translateY(${y * (0.12 + i * 0.06)}px)`;
-    });
-  }, { passive: true });
-
-  // ── Scroll-driven features showcase ──
   (function () {
-    const showcase = document.querySelector('.showcase-scroll');
-    if (!showcase) return;
+    'use strict';
 
-    const scRing   = document.getElementById('sc-ring');
-    const scEmoji  = document.getElementById('sc-emoji');
-    const scSlides = Array.from(document.querySelectorAll('.showcase-slide'));
-    const scDots   = Array.from(document.querySelectorAll('.sc-dot'));
-    const scLabels = Array.from(document.querySelectorAll('.sc-label'));
+    // ── Reveal-on-scroll observer (always on) ──
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => io.observe(el));
 
-    // r=110 → C = 2π×110 ≈ 691.15
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ── Element refs ──
+    const heroSection  = document.querySelector('.hero-section');
+    const heroCopy     = document.querySelector('.hero-copy');
+    const heroOrbs     = Array.from(document.querySelectorAll('.hero-section .blob'));
+    const ctaOrbs      = Array.from(document.querySelectorAll('.cta-orb'));
+    const hc1 = document.querySelector('.hc1');
+    const hc2 = document.querySelector('.hc2');
+    const hc3 = document.querySelector('.hc3');
+    const rippleCore   = document.querySelector('.ripple-core');
+
+    const marqueeTrack = document.querySelector('.marquee-track');
+
+    const tapRipple    = document.querySelector('.tap-ripple');
+    const tapRings     = Array.from(document.querySelectorAll('.tap-ripple-ring'));
+    const solutionSection = tapRipple ? tapRipple.closest('section') : null;
+
+    const showcase     = document.querySelector('.showcase-scroll');
+    const scRingWrap   = document.querySelector('.sc-ring-wrap');
+    const scRing       = document.getElementById('sc-ring');
+    const scEmoji      = document.getElementById('sc-emoji');
+    const scSlides     = Array.from(document.querySelectorAll('.showcase-slide'));
+    const scDots       = Array.from(document.querySelectorAll('.sc-dot'));
+    const scLabels     = Array.from(document.querySelectorAll('.sc-label'));
+
+    const stepCards    = Array.from(document.querySelectorAll('.step-card'));
+    const quoteCards   = Array.from(document.querySelectorAll('.quote-card'));
+    const testimonialsSection = quoteCards[0] ? quoteCards[0].closest('section') : null;
+    const ctaSection   = document.querySelector('.cta-section');
+    const ctaH2        = ctaSection ? ctaSection.querySelector('h2') : null;
+
+    // ── Showcase config (preserved) ──
     const CIRCUM = 2 * Math.PI * 110;
-
     const features = [
-      { color: '#5e5ce6', fill: 0.78, emoji: '✓',  glow: 'rgba(94,92,230,0.5)'   },
-      { color: '#ff6b35', fill: 0.58, emoji: '🔥', glow: 'rgba(255,107,53,0.5)'  },
-      { color: '#30d158', fill: 0.92, emoji: '◎',  glow: 'rgba(48,209,88,0.5)'   },
-      { color: '#32ade6', fill: 0.40, emoji: '🔒', glow: 'rgba(50,173,230,0.5)'  },
+      { color: '#5e5ce6', fill: 0.78, emoji: '✓',  glow: 'rgba(94,92,230,0.5)'  },
+      { color: '#ff6b35', fill: 0.58, emoji: '🔥', glow: 'rgba(255,107,53,0.5)' },
+      { color: '#30d158', fill: 0.92, emoji: '◎',  glow: 'rgba(48,209,88,0.5)'  },
+      { color: '#32ade6', fill: 0.40, emoji: '🔒', glow: 'rgba(50,173,230,0.5)' },
     ];
+    let lastShowcaseStep = -1;
 
-    let lastStep = 0;
+    // ── Helpers ──
+    const clamp = (v, lo, hi) => v < lo ? lo : (v > hi ? hi : v);
+    const lerp  = (a, b, t)   => a + (b - a) * t;
 
-    function lerp(a, b, t) { return a + (b - a) * t; }
+    // ── Cached layout ──
+    let viewportH = window.innerHeight;
+    let viewportW = window.innerWidth;
+    let isMobile  = viewportW <= 900;
+    let bounds = { hero: null, solution: null, showcase: null, testimonials: null, cta: null };
+    let marqueeUnit = 0;
 
-    function applyStep(step, prog) {
+    function topOf(el) {
+      const r = el.getBoundingClientRect();
+      return r.top + (window.scrollY || window.pageYOffset);
+    }
+
+    function recompute() {
+      viewportH = window.innerHeight;
+      viewportW = window.innerWidth;
+      isMobile  = viewportW <= 900;
+
+      if (heroSection) bounds.hero = { top: topOf(heroSection), height: heroSection.offsetHeight };
+      if (solutionSection) bounds.solution = { top: topOf(solutionSection), height: solutionSection.offsetHeight };
+      if (showcase) bounds.showcase = { top: topOf(showcase), height: showcase.offsetHeight };
+      if (testimonialsSection) bounds.testimonials = { top: topOf(testimonialsSection), height: testimonialsSection.offsetHeight };
+      if (ctaSection) bounds.cta = { top: topOf(ctaSection), height: ctaSection.offsetHeight };
+
+      if (marqueeTrack) {
+        // Track contains items duplicated 2× — one cycle is half the rendered width.
+        marqueeUnit = marqueeTrack.scrollWidth / 2;
+      }
+    }
+
+    function applyShowcaseStep(step, prog) {
       const cur  = features[step];
       const next = features[Math.min(step + 1, 3)];
-
-      // Animate ring fill
       const fill = lerp(cur.fill, next.fill, prog);
       const dash = fill * CIRCUM;
-      scRing.setAttribute('stroke-dasharray', `${dash.toFixed(2)} ${(CIRCUM - dash).toFixed(2)}`);
-      scRing.setAttribute('stroke', cur.color);
-      scRing.style.filter = `drop-shadow(0 0 22px ${cur.glow})`;
-
-      // Update everything that changes per step
-      if (step !== lastStep) {
-        lastStep = step;
-
+      if (scRing) {
+        scRing.setAttribute('stroke-dasharray', dash.toFixed(2) + ' ' + (CIRCUM - dash).toFixed(2));
+        scRing.setAttribute('stroke', cur.color);
+        scRing.style.filter = 'drop-shadow(0 0 22px ' + cur.glow + ')';
+      }
+      if (step !== lastShowcaseStep) {
+        lastShowcaseStep = step;
         scSlides.forEach((s, i) => s.classList.toggle('active', i === step));
-
         scDots.forEach((d, i) => {
           const on = i === step;
           d.classList.toggle('active', on);
-          d.style.background  = on ? cur.color : '';
-          d.style.boxShadow   = on ? `0 0 12px ${cur.glow}` : '';
-          d.style.height      = on ? '32px' : '';
+          d.style.background = on ? cur.color : '';
+          d.style.boxShadow  = on ? '0 0 12px ' + cur.glow : '';
+          d.style.height     = on ? '32px' : '';
         });
-
-        scLabels.forEach((l, i) => l.classList.toggle('active', i === step));
-        scEmoji.textContent = cur.emoji;
+        if (scEmoji) scEmoji.textContent = cur.emoji;
       }
     }
 
-    function onScroll() {
-      const rect   = showcase.getBoundingClientRect();
-      const runway = showcase.offsetHeight - window.innerHeight;
-      // Mobile fallback: if the showcase isn't in sticky mode, do nothing
-      if (runway <= 0) return;
-      const progress = Math.max(0, Math.min(1, -rect.top / runway));
-      // Map 0–1 progress across 4 features (clamp to avoid index out of range)
-      const stepF = Math.min(3.9999, progress * 4);
-      const step  = Math.floor(stepF);
-      const prog  = stepF - step;
-      applyStep(step, prog);
+    // ── The single rAF-coordinated scroll handler ──
+    let ticking = false;
+
+    function update() {
+      ticking = false;
+      const scrollY = window.scrollY || window.pageYOffset;
+
+      // Showcase content swap runs even in reduced-motion (it's content, not motion).
+      if (!isMobile && bounds.showcase) {
+        const runway = bounds.showcase.height - viewportH;
+        if (runway > 0) {
+          const progress = clamp((scrollY - bounds.showcase.top) / runway, 0, 1);
+          const stepF = Math.min(3.9999, progress * 4);
+          const step  = Math.floor(stepF);
+          const prog  = stepF - step;
+          applyShowcaseStep(step, prog);
+
+          if (!reduceMotion) {
+            // Subtle ring rotation tied to overall scroll progress.
+            if (scRingWrap) {
+              const rot = -2 + progress * 8;
+              scRingWrap.style.transform = 'rotate(' + rot.toFixed(2) + 'deg)';
+            }
+            // Each label slides through its sub-step from -40px → +40px and fades in/out.
+            scLabels.forEach((l, i) => {
+              const localProg = stepF - i;
+              if (localProg >= 0 && localProg <= 1) {
+                const x  = -40 + localProg * 80;
+                const op = Math.sin(localProg * Math.PI);
+                l.style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,0)';
+                l.style.opacity   = op.toFixed(3);
+              } else {
+                l.style.opacity   = '0';
+                l.style.transform = 'translate3d(' + (localProg < 0 ? -40 : 40) + 'px,0,0)';
+              }
+            });
+          }
+        }
+      }
+
+      // Reduced-motion users: stop here. CSS already shows everything in resting state.
+      if (reduceMotion) return;
+
+      // ── Hero parallax & dispersal ──
+      if (bounds.hero) {
+        const h = Math.max(1, bounds.hero.height);
+        const heroProg = clamp(scrollY / h, 0, 1.4);
+
+        if (heroCopy) {
+          const y  = -heroProg * 80;
+          const op = clamp(1 - heroProg * 1.6, 0, 1);
+          heroCopy.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
+          heroCopy.style.opacity   = op.toFixed(3);
+        }
+
+        if (rippleCore) {
+          const s  = lerp(1, 0.7, clamp(heroProg, 0, 1));
+          const op = clamp(1 - heroProg * 1.2, 0, 1);
+          rippleCore.style.transform = 'translate(-50%,-50%) scale(' + s.toFixed(3) + ')';
+          rippleCore.style.opacity   = op.toFixed(3);
+        }
+
+        if (!isMobile) {
+          const cardProg = clamp(heroProg * 1.4, 0, 1);
+          const op = (1 - cardProg).toFixed(3);
+          if (hc1) {
+            hc1.style.transform = 'translate3d(' + (-cardProg * 180).toFixed(1) + 'px,' + (cardProg * 60).toFixed(1) + 'px,0) rotate(' + (-cardProg * 6).toFixed(2) + 'deg)';
+            hc1.style.opacity = op;
+          }
+          if (hc2) {
+            hc2.style.transform = 'translate3d(' + (cardProg * 180).toFixed(1) + 'px,' + (-cardProg * 70).toFixed(1) + 'px,0) rotate(' + (cardProg * 5).toFixed(2) + 'deg)';
+            hc2.style.opacity = op;
+          }
+          if (hc3) {
+            hc3.style.transform = 'translate3d(' + (cardProg * 160).toFixed(1) + 'px,' + (cardProg * 50).toFixed(1) + 'px,0) rotate(' + (cardProg * 6).toFixed(2) + 'deg)';
+            hc3.style.opacity = op;
+          }
+        } else {
+          // Mobile: cards just fade out, no dispersal.
+          const op = (1 - clamp(heroProg * 1.4, 0, 1)).toFixed(3);
+          if (hc1) { hc1.style.transform = ''; hc1.style.opacity = op; }
+          if (hc2) { hc2.style.transform = ''; hc2.style.opacity = op; }
+          if (hc3) { hc3.style.transform = ''; hc3.style.opacity = op; }
+        }
+      }
+
+      // ── Hero orb parallax (wider rate spread) ──
+      heroOrbs.forEach((b, i) => {
+        const rate = 0.10 + i * 0.10;
+        b.style.transform = 'translate3d(0,' + (scrollY * rate).toFixed(1) + 'px,0)';
+      });
+
+      // On mobile, strip any stale desktop-only transforms (they may linger after a resize).
+      if (isMobile) {
+        if (marqueeTrack) marqueeTrack.style.transform = '';
+        quoteCards.forEach(c => { c.style.transform = ''; });
+        stepCards.forEach(c => { c.style.transform = ''; });
+        tapRings.forEach(r => { r.style.transform = ''; r.style.opacity = ''; });
+        if (scRingWrap) scRingWrap.style.transform = '';
+        scLabels.forEach(l => { l.style.transform = ''; l.style.opacity = ''; });
+      }
+
+      // Skip heavier desktop-only effects on mobile.
+      if (!isMobile) {
+        // ── Marquee = scroll-velocity rail ──
+        if (marqueeTrack && marqueeUnit > 0) {
+          const off = -((scrollY * 0.6) % marqueeUnit);
+          marqueeTrack.style.transform = 'translate3d(' + off.toFixed(1) + 'px,0,0)';
+        }
+
+        // ── Solution: ripple expansion driven by section progress ──
+        if (bounds.solution && tapRings.length) {
+          const start  = bounds.solution.top - viewportH;
+          const range  = bounds.solution.height + viewportH;
+          const sProg  = clamp((scrollY - start) / range, 0, 1);
+          const baseScale = lerp(0.6, 1.4, sProg);
+          // Smooth bell curve: peaks at section center.
+          const fade = clamp(1 - Math.abs(sProg - 0.5) * 1.8, 0, 1);
+          tapRings.forEach((r, i) => {
+            const s = baseScale + i * 0.08;
+            r.style.transform = 'scale(' + s.toFixed(3) + ')';
+            r.style.opacity   = fade.toFixed(3);
+          });
+        }
+
+        // ── Testimonials: subtle drift as cards enter the viewport ──
+        if (quoteCards.length === 3) {
+          // One eased progress per card based on its top edge crossing the viewport.
+          // t goes 0 → 1 between r.top = viewportH and r.top = 0.4*viewportH; clamped above.
+          const offsets = [[-24, 0], [0, 24], [24, 0]];
+          quoteCards.forEach((c, i) => {
+            const r = c.getBoundingClientRect();
+            const t = clamp((viewportH - r.top) / (viewportH * 0.65), 0, 1);
+            const inv = 1 - t;
+            const dx = offsets[i][0] * inv;
+            const dy = offsets[i][1] * inv;
+            c.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0)';
+          });
+        }
+
+        // ── How-it-works: subtle stagger as cards enter ──
+        // The .reveal d1/d2/d3 classes drive the opacity entrance via the observer;
+        // here we add a scroll-tied translateX so the slide-in tracks the cursor.
+        if (stepCards.length) {
+          stepCards.forEach((c, i) => {
+            const r = c.getBoundingClientRect();
+            const t = clamp((viewportH - r.top) / (viewportH * 0.65), 0, 1);
+            const inv = 1 - t;
+            const dx = inv * (18 + i * 14); // 18, 32, 46 px from the right
+            c.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,0,0)';
+          });
+        }
+      }
+
+      // ── CTA: orbs drift locally + headline lifts ──
+      if (bounds.cta) {
+        const start = bounds.cta.top - viewportH;
+        const range = bounds.cta.height + viewportH;
+        const cProg = clamp((scrollY - start) / range, 0, 1);
+
+        ctaOrbs.forEach((b, i) => {
+          const rate = 0.12 + i * 0.10;
+          // Local offset so orbs only drift while section is in view.
+          const local = (scrollY - bounds.cta.top + viewportH) * rate;
+          b.style.transform = 'translate3d(0,' + local.toFixed(1) + 'px,0)';
+        });
+
+        if (ctaH2) {
+          const lift = -clamp(cProg, 0, 1) * 60;
+          ctaH2.style.transform = 'translate3d(0,' + lift.toFixed(1) + 'px,0)';
+        }
+      }
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    // Set correct initial visual state on load / refresh mid-page
-    onScroll();
+    function requestUpdate() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+
+    // Single shared scroll listener.
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+
+    // Recompute bounds on resize (debounced).
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { recompute(); requestUpdate(); }, 120);
+    });
+
+    // First paint: cache layout, then run once for correct initial state
+    // (covers refreshes mid-page and ensures showcase + CTA aren't blank).
+    function init() {
+      recompute();
+      requestUpdate();
+    }
+    if (document.readyState === 'complete') {
+      init();
+    } else {
+      window.addEventListener('load', init, { once: true });
+      // Also run early once so above-the-fold elements settle.
+      init();
+    }
   }());
 </script>
 
