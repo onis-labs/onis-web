@@ -1579,6 +1579,21 @@
               'translate3d(' + dx.toFixed(1) + 'px,0,0) rotate(' + rot.toFixed(2) + 'deg)';
           });
         }
+
+        // ── Problem cards: outer cards swing in from the sides, middle drops from above ──
+        if (problemCards.length === 3) {
+          const offsets = [[-180, 40, -6], [0, -100, 0], [180, 40, 6]]; // dx, dy, rotateDeg
+          problemCards.forEach((c, i) => {
+            const r = c.getBoundingClientRect();
+            const t = clamp((viewportH - r.top) / (viewportH * 0.7), 0, 1);
+            const inv = 1 - t;
+            const dx  = offsets[i][0] * inv;
+            const dy  = offsets[i][1] * inv;
+            const rot = offsets[i][2] * inv;
+            c.style.transform =
+              'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0) rotate(' + rot.toFixed(2) + 'deg)';
+          });
+        }
       }
 
       // ── CTA: orbs drift locally + headline lifts ──
