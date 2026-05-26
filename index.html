@@ -1370,6 +1370,7 @@
     const scLabels     = Array.from(document.querySelectorAll('.sc-label'));
 
     const stepCards    = Array.from(document.querySelectorAll('.step-card'));
+    const problemCards = Array.from(document.querySelectorAll('.problem-card'));
     const quoteCards   = Array.from(document.querySelectorAll('.quote-card'));
     const testimonialsSection = quoteCards[0] ? quoteCards[0].closest('section') : null;
     const ctaSection   = document.querySelector('.cta-section');
@@ -1523,6 +1524,7 @@
         if (marqueeTrack) marqueeTrack.style.transform = '';
         quoteCards.forEach(c => { c.style.transform = ''; });
         stepCards.forEach(c => { c.style.transform = ''; });
+        problemCards.forEach(c => { c.style.transform = ''; });
         if (scRingWrap) scRingWrap.style.transform = '';
         if (heroRing) { heroRing.style.transform = ''; }
         if (solRingWrap) { solRingWrap.style.transform = ''; }
