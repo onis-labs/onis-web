@@ -1460,10 +1460,12 @@
           applyShowcaseStep(step, prog);
 
           if (!reduceMotion) {
-            // Subtle ring rotation tied to overall scroll progress.
+            // Big visible ring spin + breathing scale across the pinned showcase.
             if (scRingWrap) {
-              const rot = -2 + progress * 8;
-              scRingWrap.style.transform = 'rotate(' + rot.toFixed(2) + 'deg)';
+              const rot = -30 + progress * 90;
+              const sc  = lerp(0.92, 1.08, progress);
+              scRingWrap.style.transform =
+                'rotate(' + rot.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
             }
             // Each label slides through its sub-step from -40px → +40px and fades in/out.
             scLabels.forEach((l, i) => {
@@ -1491,24 +1493,28 @@
         const heroProg = clamp(scrollY / h, 0, 1.4);
 
         if (heroCopy) {
-          const y  = -heroProg * 80;
-          const op = clamp(1 - heroProg * 1.6, 0, 1);
-          heroCopy.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
+          const y  = -heroProg * 240;
+          const op = clamp(1 - heroProg * 1.5, 0, 1);
+          const sc = lerp(1, 0.88, clamp(heroProg, 0, 1));
+          heroCopy.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0) scale(' + sc.toFixed(3) + ')';
           heroCopy.style.opacity   = op.toFixed(3);
         }
 
         if (heroRing && !isMobile) {
-          // Slow downward drift + gentle fade as the hero scrolls out.
-          const y  = scrollY * 0.15;
-          const op = clamp(1 - heroProg * 1.1, 0, 1);
-          heroRing.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
+          // Big, visible motion: drift down, rotate 180°, shrink and fade as hero exits.
+          const y   = scrollY * 0.55;
+          const rot = heroProg * 220;
+          const sc  = lerp(1, 0.55, clamp(heroProg, 0, 1));
+          const op  = clamp(1 - heroProg * 1.1, 0, 1);
+          heroRing.style.transform =
+            'translate3d(0,' + y.toFixed(1) + 'px,0) rotate(' + rot.toFixed(1) + 'deg) scale(' + sc.toFixed(3) + ')';
           heroRing.style.opacity   = op.toFixed(3);
         }
       }
 
-      // ── Hero orb parallax (wider rate spread) ──
+      // ── Hero orb parallax (dramatic rate spread) ──
       heroOrbs.forEach((b, i) => {
-        const rate = 0.10 + i * 0.10;
+        const rate = 0.30 + i * 0.28;
         b.style.transform = 'translate3d(0,' + (scrollY * rate).toFixed(1) + 'px,0)';
       });
 
@@ -1525,48 +1531,50 @@
 
       // Skip heavier desktop-only effects on mobile.
       if (!isMobile) {
-        // ── Marquee = scroll-velocity rail ──
+        // ── Marquee = scroll-velocity rail (fast, visible glide) ──
         if (marqueeTrack && marqueeUnit > 0) {
-          const off = -((scrollY * 0.6) % marqueeUnit);
+          const off = -((scrollY * 1.6) % marqueeUnit);
           marqueeTrack.style.transform = 'translate3d(' + off.toFixed(1) + 'px,0,0)';
         }
 
-        // ── Solution: gentle scale + drift on the focal ring tied to section progress ──
+        // ── Solution: dramatic ring rotation + scale tied to section progress ──
         if (bounds.solution && solRingWrap) {
           const start = bounds.solution.top - viewportH;
           const range = bounds.solution.height + viewportH;
           const sProg = clamp((scrollY - start) / range, 0, 1);
-          // Quiet motion: 0.94 → 1.04 across the section.
-          const scale = lerp(0.94, 1.04, sProg);
-          const y     = lerp(12, -12, sProg);
-          solRingWrap.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0) scale(' + scale.toFixed(3) + ')';
+          // Big visible motion across the section: scale 0.65 → 1.35, rotate −60° → +60°, drift.
+          const scale = lerp(0.65, 1.35, sProg);
+          const rot   = lerp(-60, 60, sProg);
+          const y     = lerp(80, -80, sProg);
+          solRingWrap.style.transform =
+            'translate3d(0,' + y.toFixed(1) + 'px,0) rotate(' + rot.toFixed(1) + 'deg) scale(' + scale.toFixed(3) + ')';
         }
 
-        // ── Testimonials: subtle drift as cards enter the viewport ──
+        // ── Testimonials: cards swing in from far + rotate to settle ──
         if (quoteCards.length === 3) {
-          // One eased progress per card based on its top edge crossing the viewport.
-          // t goes 0 → 1 between r.top = viewportH and r.top = 0.4*viewportH; clamped above.
-          const offsets = [[-24, 0], [0, 24], [24, 0]];
+          const offsets = [[-160, 30, -8], [0, 120, 0], [160, 30, 8]]; // dx, dy, rotateDeg
           quoteCards.forEach((c, i) => {
             const r = c.getBoundingClientRect();
-            const t = clamp((viewportH - r.top) / (viewportH * 0.65), 0, 1);
+            const t = clamp((viewportH - r.top) / (viewportH * 0.7), 0, 1);
             const inv = 1 - t;
-            const dx = offsets[i][0] * inv;
-            const dy = offsets[i][1] * inv;
-            c.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0)';
+            const dx  = offsets[i][0] * inv;
+            const dy  = offsets[i][1] * inv;
+            const rot = offsets[i][2] * inv;
+            c.style.transform =
+              'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0) rotate(' + rot.toFixed(2) + 'deg)';
           });
         }
 
-        // ── How-it-works: subtle stagger as cards enter ──
-        // The .reveal d1/d2/d3 classes drive the opacity entrance via the observer;
-        // here we add a scroll-tied translateX so the slide-in tracks the cursor.
+        // ── How-it-works: cards fly in from the right with rotation ──
         if (stepCards.length) {
           stepCards.forEach((c, i) => {
             const r = c.getBoundingClientRect();
-            const t = clamp((viewportH - r.top) / (viewportH * 0.65), 0, 1);
+            const t = clamp((viewportH - r.top) / (viewportH * 0.7), 0, 1);
             const inv = 1 - t;
-            const dx = inv * (18 + i * 14); // 18, 32, 46 px from the right
-            c.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,0,0)';
+            const dx  = inv * (140 + i * 60);   // 140, 200, 260 px from the right
+            const rot = inv * (4 + i * 2);      // up to 4°, 6°, 8°
+            c.style.transform =
+              'translate3d(' + dx.toFixed(1) + 'px,0,0) rotate(' + rot.toFixed(2) + 'deg)';
           });
         }
       }
@@ -1585,8 +1593,9 @@
         });
 
         if (ctaH2) {
-          const lift = -clamp(cProg, 0, 1) * 60;
-          ctaH2.style.transform = 'translate3d(0,' + lift.toFixed(1) + 'px,0)';
+          const lift = -clamp(cProg, 0, 1) * 180;
+          const sc   = lerp(0.96, 1.04, clamp(cProg, 0, 1));
+          ctaH2.style.transform = 'translate3d(0,' + lift.toFixed(1) + 'px,0) scale(' + sc.toFixed(3) + ')';
         }
       }
     }
