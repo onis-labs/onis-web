@@ -4,23 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Support — ONIS</title>
-  <meta name="description" content="Get help with ONIS habit tracker. Quick start guides, FAQ, troubleshooting, and direct support via email.">
+  <meta name="description" content="Get help with ONIS habit tracker by ONIS Labs. Quick start guides, FAQ, troubleshooting, and direct support via email.">
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="manifest" href="favicon/manifest.webmanifest">
+  <meta name="theme-color" content="#FAF7F2">
+  <!-- OG / SEO -->
+  <meta property="og:image" content="https://onis.club/images/screen-today.png">
+  <meta property="og:url" content="https://onis.club/support.html">
+  <link rel="canonical" href="https://onis.club/support.html">
   <style>
     :root {
-      --bg: #f5f5f7; --bg-dark: #1c1c1e; --surface: #ffffff; --surface-2: #f0f0f4;
-      --surface-dark: #2c2c2e; --text: #1d1d1f; --text-muted: #6e6e73;
-      --text-dark: #f5f5f7; --text-dim: rgba(245,245,247,0.58);
-      --accent: #5e5ce6; --accent-warm: #ff6b35;
-      --grad: linear-gradient(135deg,#5e5ce6 0%,#ff6b35 100%);
-      --border: rgba(0,0,0,0.07); --border-dark: rgba(255,255,255,0.09);
-      --sh-sm: 0 2px 12px rgba(0,0,0,0.06); --sh-md: 0 12px 40px rgba(0,0,0,0.09);
+      --bg:       #FAF7F2;
+      --bg-2:     #F2EDE4;
+      --surface:  #FFFFFF;
+      --ink:      #1A1208;
+      --ink-2:    #5C4A32;
+      --accent:   #C4622D;
+      --accent-2: #E8A87C;
+      --border:   rgba(196,98,45,0.15);
+      --sh-sm:    0 2px 12px rgba(26,18,8,0.06);
+      --sh-md:    0 12px 40px rgba(26,18,8,0.09);
       --r-sm: 14px; --r-md: 22px; --r-lg: 32px; --max: 1100px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-      background: var(--bg); color: var(--text); line-height: 1.65;
+      font-family: -apple-system, "SF Pro Display", BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg); color: var(--ink); line-height: 1.65;
       -webkit-font-smoothing: antialiased; overflow-x: hidden;
     }
     a { color: inherit; }
@@ -28,192 +43,146 @@
     .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
 
     /* NAV */
-    .nav-wrap { position: sticky; top: 0; z-index: 900; background: rgba(245,245,247,0.82); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(255,255,255,0.65); }
+    .nav-wrap {
+      position: sticky; top: 0; z-index: 900;
+      background: rgba(250,247,242,0.88);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
     nav { display: flex; align-items: center; gap: 16px; min-height: 68px; flex-wrap: wrap; }
-    .logo { font-weight: 800; font-size: 1.18rem; letter-spacing: -0.04em; text-decoration: none; color: var(--text); flex-shrink: 0; }
+    .nav-logo { flex-shrink: 0; text-decoration: none; line-height: 0; }
+    .nav-logo img { height: 28px; width: auto; display: block; }
     .nav-toggle { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; margin-left: auto; }
-    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.28s ease, opacity 0.2s ease; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.28s ease, opacity 0.2s ease; }
     .nav-links { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
-    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.92rem; font-weight: 500; padding: 6px 12px; border-radius: 999px; transition: color 0.2s, background 0.2s; }
-    .nav-links a:hover { color: var(--text); background: rgba(0,0,0,0.045); }
-    .btn-grad { display: inline-flex; align-items: center; border-radius: 999px; padding: 11px 22px; font-size: 0.92rem; font-weight: 600; text-decoration: none; background: var(--grad); color: #fff; box-shadow: 0 8px 26px rgba(94,92,230,0.38); transition: transform 0.3s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.3s; white-space: nowrap; flex-shrink: 0; }
-    .btn-grad:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 16px 40px rgba(94,92,230,0.44); }
+    .nav-links a { text-decoration: none; color: var(--ink-2); font-size: 0.92rem; font-weight: 500; padding: 6px 12px; border-radius: 999px; transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover { color: var(--ink); background: rgba(196,98,45,0.08); }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 6px; border-radius: 999px;
+      padding: 9px 18px; font-size: 0.88rem; font-weight: 600; text-decoration: none;
+      background: rgba(196,98,45,0.1); color: var(--accent); border: 1px solid var(--border);
+      transition: background 0.2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-back:hover { background: rgba(196,98,45,0.18); }
 
     /* SECTION HELPERS */
     .section { padding-block: clamp(64px, 10vw, 120px); }
-    .section-light { background: var(--bg); }
-    .section-dark { background: var(--bg-dark); color: var(--text-dark); }
-    .section-label { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-    .section-dark .section-label { color: #a5a3ff; }
-    h2 { font-size: clamp(1.9rem, 4.2vw, 3.2rem); letter-spacing: -0.04em; line-height: 1.06; margin-bottom: 14px; }
-    .section-dark h2 { color: #fff; }
-    .lede { font-size: 1.06rem; color: var(--text-muted); max-width: 60ch; line-height: 1.65; }
-    .section-dark .lede { color: var(--text-dim); }
+    .section-bg  { background: var(--bg); }
+    .section-bg2 { background: var(--bg-2); }
+    .section-label {
+      display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.11em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+    }
+    h2 { font-size: clamp(1.9rem, 4.2vw, 3.2rem); letter-spacing: -0.04em; line-height: 1.06; margin-bottom: 14px; color: var(--ink); font-weight: 900; }
+    .lede { font-size: 1.06rem; color: var(--ink-2); max-width: 60ch; line-height: 1.65; }
 
     /* HERO */
     .hero-band {
-      background: var(--bg-dark);
-      padding-block: clamp(72px, 10vw, 120px);
-      text-align: center;
+      background: var(--bg-2); padding-block: clamp(72px, 10vw, 120px); text-align: center;
+      border-bottom: 1px solid var(--border);
     }
     .hero-band h1 {
-      font-size: clamp(2.6rem, 6vw, 4.8rem);
-      letter-spacing: -0.05em;
-      line-height: 1.04;
-      color: #fff;
-      margin-bottom: 16px;
+      font-size: clamp(2.6rem, 6vw, 4.8rem); letter-spacing: -0.05em; line-height: 1.04;
+      color: var(--ink); margin-bottom: 16px; font-weight: 900;
     }
-    .hero-band p { font-size: 1.12rem; color: var(--text-dim); max-width: 52ch; margin: 0 auto; }
+    .hero-band p { font-size: 1.12rem; color: var(--ink-2); max-width: 52ch; margin: 0 auto; }
 
     /* QUICK START CARDS */
-    .qs-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 44px;
-    }
+    .qs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
     .qs-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-md);
-      padding: 28px;
-      box-shadow: var(--sh-sm);
-      text-align: center;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md);
+      padding: 28px; box-shadow: var(--sh-sm); text-align: center;
       transition: transform 0.3s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.3s;
     }
     .qs-card:hover { transform: translateY(-4px); box-shadow: var(--sh-md); }
-    .qs-icon {
-      width: 64px; height: 64px;
-      border-radius: 20px;
-      display: grid; place-items: center;
-      margin: 0 auto 18px;
-    }
-    .qs-card h3 { font-size: 1.1rem; letter-spacing: -0.02em; margin-bottom: 8px; }
-    .qs-card p  { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+    .qs-icon { width: 64px; height: 64px; border-radius: 20px; display: grid; place-items: center; margin: 0 auto 18px; }
+    .qs-card h3 { font-size: 1.08rem; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink); font-weight: 700; }
+    .qs-card p  { color: var(--ink-2); font-size: 0.95rem; line-height: 1.6; }
     .qs-step-badge {
-      display: inline-block;
-      padding: 4px 11px;
-      border-radius: 999px;
-      background: var(--grad);
-      color: #fff;
-      font-size: 0.76rem;
-      font-weight: 700;
-      margin-bottom: 14px;
+      display: inline-block; padding: 4px 11px; border-radius: 999px;
+      background: var(--accent); color: #fff; font-size: 0.76rem; font-weight: 700; margin-bottom: 14px;
     }
 
     /* FAQ ACCORDION */
     .faq-sections { max-width: 800px; margin: 0 auto; }
     .faq-group { margin-bottom: 36px; }
     .faq-group-title {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 12px;
-      padding-left: 4px;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 12px; padding-left: 4px;
     }
     .faq-items { display: grid; gap: 10px; }
     details {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-      overflow: hidden;
-      transition: box-shadow 0.25s;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm);
+      overflow: hidden; transition: box-shadow 0.25s, border-color 0.25s;
     }
-    details[open] { box-shadow: var(--sh-md); }
+    details[open] { box-shadow: var(--sh-md); border-color: rgba(196,98,45,0.3); }
     summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 17px 20px;
-      font-weight: 600;
-      font-size: 0.97rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      user-select: none;
-      color: var(--text);
+      list-style: none; cursor: pointer; padding: 17px 20px; font-weight: 600;
+      font-size: 0.97rem; display: flex; align-items: center; justify-content: space-between;
+      gap: 14px; user-select: none; color: var(--ink);
     }
     summary::-webkit-details-marker { display: none; }
-    summary::after { content: '+'; font-size: 1.4rem; font-weight: 300; color: var(--accent); line-height: 1; flex-shrink: 0; transition: transform 0.25s ease; }
+    summary::after {
+      content: '+'; font-size: 1.4rem; font-weight: 300; color: var(--accent);
+      line-height: 1; flex-shrink: 0; transition: transform 0.25s ease;
+    }
     details[open] summary::after { transform: rotate(45deg); }
-    details p { padding: 0 20px 16px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
+    details p { padding: 0 20px 16px; color: var(--ink-2); font-size: 0.95rem; line-height: 1.7; }
     details a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
-    details code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.88em; background: rgba(94,92,230,0.08); padding: 2px 6px; border-radius: 5px; color: var(--accent); }
+    details code {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.88em;
+      background: rgba(196,98,45,0.08); padding: 2px 6px; border-radius: 5px; color: var(--accent);
+    }
 
     /* TROUBLESHOOTING CARDS */
-    .trouble-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 44px;
-    }
+    .trouble-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
     .trouble-card {
-      background: var(--surface-dark);
-      border: 1px solid var(--border-dark);
-      border-radius: var(--r-md);
-      padding: 26px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md);
+      padding: 26px; box-shadow: var(--sh-sm);
     }
     .trouble-icon { font-size: 2rem; margin-bottom: 14px; }
-    .trouble-card h3 { font-size: 1.06rem; letter-spacing: -0.02em; color: #fff; margin-bottom: 16px; }
+    .trouble-card h3 { font-size: 1.06rem; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 16px; font-weight: 700; }
     .trouble-steps { list-style: none; padding: 0; }
     .trouble-steps li {
-      display: grid;
-      grid-template-columns: 1.4rem 1fr;
-      gap: 8px;
-      margin-bottom: 10px;
-      font-size: 0.92rem;
-      color: rgba(245,245,247,0.78);
-      line-height: 1.55;
+      display: grid; grid-template-columns: 1.4rem 1fr; gap: 8px; margin-bottom: 10px;
+      font-size: 0.92rem; color: var(--ink-2); line-height: 1.55;
     }
     .trouble-steps li::before { content: attr(data-n); font-weight: 700; color: var(--accent); padding-top: 1px; }
 
     /* CONTACT CTA */
     .contact-cta {
-      background: var(--grad);
-      border-radius: var(--r-lg);
-      padding: clamp(36px, 6vw, 60px);
-      text-align: center;
-      margin-top: 60px;
-      box-shadow: 0 20px 60px rgba(94,92,230,0.28);
+      background: var(--accent); border-radius: var(--r-lg);
+      padding: clamp(36px, 6vw, 60px); text-align: center; margin-top: 60px;
+      box-shadow: 0 20px 60px rgba(196,98,45,0.25);
     }
     .contact-cta h2 { color: #fff; margin-bottom: 10px; font-size: clamp(1.8rem, 4vw, 2.8rem); }
-    .contact-cta p  { color: rgba(255,255,255,0.78); font-size: 1.06rem; margin-bottom: 28px; }
+    .contact-cta p  { color: rgba(255,255,255,0.82); font-size: 1.06rem; margin-bottom: 28px; }
     .contact-email-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 28px;
-      border-radius: 16px;
-      background: #fff;
-      color: #1d1d1f;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1rem;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+      display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px;
+      border-radius: 16px; background: #fff; color: var(--ink); text-decoration: none;
+      font-weight: 700; font-size: 1rem; box-shadow: 0 8px 28px rgba(26,18,8,0.15);
       transition: transform 0.3s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.3s;
     }
-    .contact-email-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,0.28); }
+    .contact-email-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 16px 40px rgba(26,18,8,0.2); }
     .contact-response { color: rgba(255,255,255,0.6); font-size: 0.88rem; margin-top: 14px; }
 
     /* FOOTER */
-    footer { background: var(--surface); border-top: 1px solid var(--border); margin-top: clamp(72px, 10vw, 110px); }
-    .footer-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 32px; padding-block: 50px; }
-    .f-brand { font-weight: 800; font-size: 1.1rem; letter-spacing: -0.04em; margin-bottom: 10px; }
-    .f-tagline { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; max-width: 30ch; }
-    .f-col h4 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
-    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .f-col a { color: var(--text-muted); text-decoration: none; font-size: 0.93rem; transition: color 0.2s; }
-    .f-col a:hover { color: var(--text); }
-    .f-bottom { border-top: 1px solid var(--border); padding-block: 16px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-    .f-bottom p { color: var(--text-muted); font-size: 0.83rem; }
+    footer { background: var(--ink); border-top: 1px solid rgba(250,247,242,0.08); color: rgba(250,247,242,0.85); margin-top: clamp(72px, 10vw, 110px); }
+    .footer-inner { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; padding-block: 32px; }
+    .footer-brand { display: flex; align-items: center; gap: 14px; }
+    .footer-brand img { height: 24px; width: auto; filter: invert(1) brightness(0.85); }
+    .footer-brand span { font-size: 0.85rem; color: rgba(250,247,242,0.42); }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+    .footer-links a { color: rgba(250,247,242,0.5); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(250,247,242,0.9); }
+    .footer-copy { border-top: 1px solid rgba(250,247,242,0.08); padding: 16px 0 22px; }
+    .footer-copy p { color: rgba(250,247,242,0.26); font-size: 0.8rem; }
 
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
     @media (max-width: 860px) {
       .qs-grid, .trouble-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
       .nav-links { display: none; width: 100%; flex-direction: column; align-items: flex-start; padding: 12px 0 16px; border-top: 1px solid var(--border); gap: 2px; }
       .nav-links a { padding: 10px 12px; font-size: 1rem; width: 100%; border-radius: 10px; }
       .nav-hamburger { display: flex; }
@@ -221,11 +190,6 @@
       .nav-toggle:checked ~ .nav-hamburger span:nth-child(2) { opacity: 0; }
       .nav-toggle:checked ~ .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
       .nav-toggle:checked ~ .nav-links { display: flex; }
-      .btn-grad { display: none; }
-    }
-    @media (max-width: 540px) {
-      .footer-grid { grid-template-columns: 1fr; }
-      .trouble-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -233,7 +197,9 @@
 
 <header class="nav-wrap">
   <nav class="container">
-    <a href="index.html" class="logo">ONIS</a>
+    <a href="index.html" class="nav-logo">
+      <img src="images/onis-logo.png" alt="ONIS" height="28">
+    </a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
     <label for="nav-toggle" class="nav-hamburger" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
@@ -244,27 +210,23 @@
       <a href="privacy.html">Privacy</a>
       <a href="terms.html">Terms</a>
     </div>
-    <a href="index.html#download" class="btn-grad">Download free</a>
+    <a href="index.html" class="btn-back">← Back to ONIS</a>
   </nav>
 </header>
 
 <main>
 
-<!-- ═══════════════════════════════════════════
-     HERO
-════════════════════════════════════════════ -->
+<!-- HERO -->
 <section class="hero-band">
   <div class="container">
-    <p class="section-label" style="color:#a5a3ff;">Help Center</p>
+    <p class="section-label">Help Center</p>
     <h1>We're here to help.</h1>
     <p>Find answers below or email us directly. We respond to every message within 48 hours.</p>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     QUICK START — 3 SVG icon cards
-════════════════════════════════════════════ -->
-<section class="section section-light">
+<!-- QUICK START -->
+<section class="section section-bg">
   <div class="container">
     <p class="section-label">Quick start</p>
     <h2>Up and running in minutes.</h2>
@@ -273,12 +235,10 @@
 
       <article class="qs-card">
         <span class="qs-step-badge">Step 1</span>
-        <div class="qs-icon" style="background:rgba(94,92,230,0.1);">
-          <!-- Download icon SVG -->
+        <div class="qs-icon" style="background:rgba(196,98,45,0.1);">
           <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-            <rect width="34" height="34" rx="10" fill="rgba(94,92,230,0.12)"/>
-            <path d="M17 8 v14 M11 17 l6 5 l6-5" stroke="#5e5ce6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="9" y="24" width="16" height="2" rx="1" fill="#5e5ce6"/>
+            <path d="M17 8v14M11 17l6 5 6-5" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="9" y="24" width="16" height="2" rx="1" fill="var(--accent)"/>
           </svg>
         </div>
         <h3>Download ONIS</h3>
@@ -287,14 +247,12 @@
 
       <article class="qs-card">
         <span class="qs-step-badge">Step 2</span>
-        <div class="qs-icon" style="background:rgba(255,107,53,0.1);">
-          <!-- Watch pair icon SVG -->
+        <div class="qs-icon" style="background:rgba(196,98,45,0.1);">
           <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-            <rect x="11" y="6"  width="12" height="22" rx="4" fill="none" stroke="#ff6b35" stroke-width="1.8"/>
-            <rect x="13" y="9"  width="8"  height="13" rx="2" fill="rgba(255,107,53,0.15)"/>
-            <!-- Wifi/pair arcs -->
-            <path d="M22 17 a5 5 0 0 1 0 7"  fill="none" stroke="#ff6b35" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M24 15 a8 8 0 0 1 0 11" fill="none" stroke="#ff6b35" stroke-width="1.6" stroke-linecap="round" opacity="0.5"/>
+            <rect x="11" y="6"  width="12" height="22" rx="4" fill="none" stroke="var(--accent)" stroke-width="1.8"/>
+            <rect x="13" y="9"  width="8"  height="13" rx="2" fill="rgba(196,98,45,0.12)"/>
+            <path d="M22 17 a5 5 0 0 1 0 7"  fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M24 15 a8 8 0 0 1 0 11" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" opacity="0.5"/>
           </svg>
         </div>
         <h3>Pair your Apple Watch</h3>
@@ -303,15 +261,12 @@
 
       <article class="qs-card">
         <span class="qs-step-badge">Step 3</span>
-        <div class="qs-icon" style="background:rgba(48,209,88,0.1);">
-          <!-- Add habit icon SVG -->
+        <div class="qs-icon" style="background:rgba(196,98,45,0.1);">
           <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-            <circle cx="17" cy="17" r="12" fill="none" stroke="#30d158" stroke-width="1.8"/>
-            <!-- Partial arc (habit ring) -->
-            <circle cx="17" cy="17" r="12" fill="none" stroke="#30d158" stroke-width="2.2"
+            <circle cx="17" cy="17" r="12" fill="none" stroke="var(--accent)" stroke-width="1.8"/>
+            <circle cx="17" cy="17" r="12" fill="none" stroke="var(--accent)" stroke-width="2.2"
                     stroke-dasharray="54 75.4" stroke-linecap="round" transform="rotate(-90 17 17)" opacity="0.7"/>
-            <!-- Plus sign -->
-            <path d="M17 13 v8 M13 17 h8" stroke="#30d158" stroke-width="2" stroke-linecap="round"/>
+            <path d="M17 13v8M13 17h8" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
         <h3>Add your first habit</h3>
@@ -322,10 +277,8 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     FAQ ACCORDION — 14 items in 5 groups
-════════════════════════════════════════════ -->
-<section class="section section-light" id="faq" style="padding-top:0;">
+<!-- FAQ ACCORDION -->
+<section class="section section-bg2" id="faq" style="padding-top:0;">
   <div class="container">
     <p class="section-label">FAQ</p>
     <h2>Frequently asked questions.</h2>
@@ -333,7 +286,6 @@
 
     <div class="faq-sections">
 
-      <!-- Group 1: Getting started -->
       <div class="faq-group">
         <p class="faq-group-title">Getting started</p>
         <div class="faq-items">
@@ -356,7 +308,6 @@
         </div>
       </div>
 
-      <!-- Group 2: Habits & streaks -->
       <div class="faq-group">
         <p class="faq-group-title">Habits &amp; streaks</p>
         <div class="faq-items">
@@ -375,7 +326,6 @@
         </div>
       </div>
 
-      <!-- Group 3: Apple Watch -->
       <div class="faq-group">
         <p class="faq-group-title">Apple Watch</p>
         <div class="faq-items">
@@ -394,22 +344,20 @@
         </div>
       </div>
 
-      <!-- Group 4: HealthKit & Privacy -->
       <div class="faq-group">
         <p class="faq-group-title">HealthKit &amp; privacy</p>
         <div class="faq-items">
           <details>
             <summary>Where is my habit data stored?</summary>
-            <p>Your data is stored on your iPhone and Apple Watch. If iCloud Drive is enabled for ONIS, it syncs through <strong>Apple CloudKit</strong> — this means your data lives in your iCloud account (tied to your Apple ID), not on our servers. We cannot access, read, or export your CloudKit data. See our <a href="privacy.html">Privacy Policy</a> for full details.</p>
+            <p>Your data is stored on your iPhone and Apple Watch. If iCloud Drive is enabled for ONIS, it syncs through <strong>Apple CloudKit</strong> — this means your data lives in your iCloud account (tied to your Apple ID), not on our servers. ONIS Labs cannot access, read, or export your CloudKit data. See our <a href="privacy.html">Privacy Policy</a> for full details.</p>
           </details>
           <details>
             <summary>How do I delete all my data?</summary>
-            <p>To delete all local habit data: ONIS → Settings → <code>Reset All Data</code> → Confirm. To also delete iCloud sync data: iPhone Settings → [Your Name] → iCloud → Manage Account Storage → ONIS → Delete Data. To remove everything completely, perform both steps and then delete the app. See <a href="privacy.html#deletion">Privacy Policy Section 8</a> for step-by-step instructions.</p>
+            <p>To delete all local habit data: ONIS → Settings → <code>Reset All Data</code> → Confirm. To also delete iCloud sync data: iPhone Settings → [Your Name] → iCloud → Manage Account Storage → ONIS → Delete Data. To remove everything completely, perform both steps and then delete the app. See <a href="privacy.html">Privacy Policy Section 8</a> for step-by-step instructions.</p>
           </details>
         </div>
       </div>
 
-      <!-- Group 5: Troubleshooting -->
       <div class="faq-group">
         <p class="faq-group-title">Troubleshooting</p>
         <div class="faq-items">
@@ -428,10 +376,8 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     TROUBLESHOOTING CARDS — dark section
-════════════════════════════════════════════ -->
-<section class="section section-dark">
+<!-- TROUBLESHOOTING CARDS -->
+<section class="section section-bg">
   <div class="container">
     <p class="section-label">Troubleshooting</p>
     <h2>Step-by-step fixes.</h2>
@@ -468,9 +414,9 @@
         <ol class="trouble-steps">
           <li data-n="1">Ensure iCloud Drive is enabled: iPhone Settings → [Your Name] → iCloud → toggle on ONIS (if present).</li>
           <li data-n="2">Open ONIS after reinstalling and wait up to 2 minutes for iCloud data to download.</li>
-          <li data-n="3">If data doesn't appear, go to iPhone Settings → [Your Name] → iCloud → Manage Account Storage — check that ONIS data is still listed there (was not deleted before uninstall).</li>
+          <li data-n="3">If data doesn't appear, go to iPhone Settings → [Your Name] → iCloud → Manage Account Storage — check that ONIS data is still listed there.</li>
           <li data-n="4">Close and reopen ONIS to trigger a fresh iCloud pull.</li>
-          <li data-n="5">If data is still missing, email us at <a href="mailto:support@onis.club" style="color:#a5a3ff;">support@onis.club</a> — include your iOS version and device model.</li>
+          <li data-n="5">If data is still missing, email us at <a href="mailto:support@onis.club" style="color:var(--accent);">support@onis.club</a> — include your iOS version and device model.</li>
         </ol>
       </article>
 
@@ -478,19 +424,17 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     CONTACT CTA
-════════════════════════════════════════════ -->
-<section class="section section-light" style="padding-block:clamp(48px, 8vw, 100px);">
+<!-- CONTACT CTA -->
+<section class="section section-bg" style="padding-block:clamp(48px, 8vw, 100px);">
   <div class="container">
     <div class="contact-cta">
       <h2>Still need help?</h2>
       <p>Send us an email and a real human will get back to you — usually within 24 hours, always within 48.</p>
       <a href="mailto:support@onis.club" class="contact-email-btn">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-          <rect width="22" height="22" rx="6" fill="#f5f5f7"/>
-          <rect x="3" y="6" width="16" height="11" rx="2" fill="none" stroke="#1d1d1f" stroke-width="1.5"/>
-          <path d="M3 8 l8 6 l8-6" stroke="#1d1d1f" stroke-width="1.5" stroke-linecap="round"/>
+          <rect width="22" height="22" rx="6" fill="rgba(26,18,8,0.06)"/>
+          <rect x="3" y="6" width="16" height="11" rx="2" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+          <path d="M3 8l8 6 8-6" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
         support@onis.club
       </a>
@@ -502,36 +446,20 @@
 </main>
 
 <footer>
-  <div class="container footer-grid">
-    <div>
-      <p class="f-brand">ONIS</p>
-      <p class="f-tagline">A premium habit tracker for iPhone and Apple Watch focused on speed, privacy, and consistency.</p>
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="images/onis-logo.png" alt="ONIS" height="24">
+      <span>© 2026 ONIS Labs. All rights reserved.</span>
     </div>
-    <div class="f-col">
-      <h4>Product</h4>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="index.html#features">Features</a></li>
-        <li><a href="index.html#how">How it works</a></li>
-        <li><a href="support.html">Support</a></li>
-      </ul>
-    </div>
-    <div class="f-col">
-      <h4>Legal</h4>
-      <ul>
-        <li><a href="privacy.html">Privacy Policy</a></li>
-        <li><a href="terms.html">Terms of Use</a></li>
-      </ul>
-    </div>
-    <div class="f-col">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="mailto:support@onis.club">support@onis.club</a></li>
-      </ul>
-    </div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="index.html">Home</a>
+      <a href="index.html#features">Features</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="mailto:support@onis.club">support@onis.club</a>
+    </nav>
   </div>
-  <div class="container f-bottom">
-    <p>© 2026 ONIS. All rights reserved.</p>
+  <div class="container footer-copy">
     <p>Not affiliated with or endorsed by Apple Inc. Apple, Apple Watch, iPhone, iCloud, HealthKit, and CloudKit are trademarks of Apple Inc.</p>
   </div>
 </footer>

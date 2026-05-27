@@ -8,43 +8,44 @@
   <meta property="og:title" content="ONIS — Build habits in one tap">
   <meta property="og:description" content="The fastest habit tracker for iPhone and Apple Watch. One tap. Every day. Free.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://onis.club/images/screen-today.png">
   <meta property="og:url" content="https://onis.club/">
   <link rel="canonical" href="https://onis.club/">
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="manifest" href="favicon/manifest.webmanifest">
+  <meta name="theme-color" content="#FAF7F2">
   <style>
     /* ── Design Tokens ── */
     :root {
-      --bg:            #f5f5f7;
-      --bg-dark:       #111113;
-      --surface:       #ffffff;
-      --surface-2:     #f0f0f4;
-      --surface-dark:  #1c1c1e;
-      --surface-dark2: #242426;
-      --text:          #1d1d1f;
-      --text-muted:    #6e6e73;
-      --text-dark:     #f5f5f7;
-      --text-dim:      rgba(245,245,247,0.55);
-      --accent:        #5e5ce6;
-      --accent-warm:   #ff6b35;
-      --grad:          linear-gradient(135deg, #5e5ce6 0%, #bf5af2 50%, #ff6b35 100%);
-      --grad-simple:   linear-gradient(135deg, #5e5ce6 0%, #ff6b35 100%);
-      --border:        rgba(0,0,0,0.07);
-      --border-dark:   rgba(255,255,255,0.08);
-      --sh-sm:         0 2px 12px rgba(0,0,0,0.06);
-      --sh-md:         0 12px 40px rgba(0,0,0,0.09);
-      --sh-accent:     0 16px 48px rgba(94,92,230,0.24);
-      --r-sm:  14px;
-      --r-md:  22px;
-      --r-lg:  32px;
-      --max:   1100px;
+      --bg:       #FAF7F2;
+      --bg-2:     #F2EDE4;
+      --surface:  #FFFFFF;
+      --ink:      #1A1208;
+      --ink-2:    #5C4A32;
+      --accent:   #C4622D;
+      --accent-2: #E8A87C;
+      --border:   rgba(196,98,45,0.15);
+      --sh-sm:    0 2px 12px rgba(26,18,8,0.06);
+      --sh-md:    0 14px 44px rgba(26,18,8,0.1);
+      --sh-warm:  0 16px 48px rgba(196,98,45,0.22);
+      --r-sm:     14px;
+      --r-md:     22px;
+      --r-lg:     32px;
+      --max:      1100px;
     }
 
     /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, "SF Pro Display", BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: var(--bg);
-      color: var(--text);
+      color: var(--ink);
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
@@ -53,825 +54,367 @@
     img, svg { display: block; max-width: 100%; }
     .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
 
-    /* ── Gradient text ── */
-    .grad-text {
-      background: var(--grad);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      display: inline-block;
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.72s cubic-bezier(0.16,1,0.3,1), transform 0.72s cubic-bezier(0.16,1,0.3,1);
     }
+    .reveal.visible { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.07s; }
+    .d2 { transition-delay: 0.15s; }
+    .d3 { transition-delay: 0.23s; }
 
-    /* ── Scroll reveal animations ── */
-    .reveal   { opacity: 0; transform: translateY(36px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
-    .reveal-l { opacity: 0; transform: translateX(-36px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
-    .reveal-r { opacity: 0; transform: translateX(36px);  transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
-    .reveal.visible, .reveal-l.visible, .reveal-r.visible { opacity: 1; transform: none; }
-    .d1 { transition-delay: 0.08s; }
-    .d2 { transition-delay: 0.18s; }
-    .d3 { transition-delay: 0.28s; }
-    .d4 { transition-delay: 0.38s; }
-
-    /* ── Navigation ── */
+    /* ── Nav ── */
     .nav-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 900;
-      background: rgba(17,17,19,0.82);
+      position: sticky; top: 0; z-index: 900;
+      background: rgba(250,247,242,0.88);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      border-bottom: 1px solid var(--border);
     }
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      min-height: 64px;
-      flex-wrap: wrap;
-    }
-    .logo {
-      font-weight: 900;
-      font-size: 1.22rem;
-      letter-spacing: -0.06em;
-      text-decoration: none;
-      color: #fff;
-      flex-shrink: 0;
-    }
-    .logo span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .nav-toggle {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-      pointer-events: none;
-    }
+    nav { display: flex; align-items: center; gap: 16px; min-height: 64px; flex-wrap: wrap; }
+    .nav-logo { flex-shrink: 0; text-decoration: none; line-height: 0; }
+    .nav-logo img { height: 32px; width: auto; display: block; }
+    .nav-toggle { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
     .nav-hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 8px;
-      margin-left: auto;
-      border-radius: 8px;
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      padding: 8px; margin-left: auto; border-radius: 8px;
     }
     .nav-hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: rgba(245,245,247,0.75);
-      border-radius: 2px;
-      transition: transform 0.28s ease, opacity 0.2s ease;
+      display: block; width: 22px; height: 2px; background: var(--ink);
+      border-radius: 2px; transition: transform 0.28s ease, opacity 0.2s ease;
     }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      flex: 1;
-      justify-content: center;
-    }
+    .nav-links { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
     .nav-links a {
-      text-decoration: none;
-      color: rgba(245,245,247,0.6);
-      font-size: 0.9rem;
-      font-weight: 500;
-      padding: 6px 13px;
-      border-radius: 999px;
+      text-decoration: none; color: var(--ink-2); font-size: 0.9rem; font-weight: 500;
+      padding: 6px 13px; border-radius: 999px;
       transition: color 0.2s, background 0.2s;
     }
-    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.07); }
+    .nav-links a:hover { color: var(--ink); background: rgba(196,98,45,0.08); }
     .nav-cta { flex-shrink: 0; }
 
     /* ── Buttons ── */
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border-radius: 999px;
-      padding: 11px 22px;
-      font-size: 0.92rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: transform 0.3s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.3s;
-      white-space: nowrap;
-      border: none;
-      cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border-radius: 999px; padding: 11px 22px; font-size: 0.92rem; font-weight: 600;
+      text-decoration: none; transition: transform 0.3s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.3s;
+      white-space: nowrap; border: none; cursor: pointer;
     }
-    .btn-grad {
-      background: var(--grad);
-      color: #fff;
-      box-shadow: 0 8px 26px rgba(94,92,230,0.38);
+    .btn-accent {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 8px 24px rgba(196,98,45,0.3);
     }
-    .btn-grad:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 16px 40px rgba(94,92,230,0.5); }
+    .btn-accent:hover { transform: translateY(-2px) scale(1.02); box-shadow: var(--sh-warm); }
     .btn-ghost {
-      background: transparent;
-      color: rgba(245,245,247,0.78);
-      border: 1.5px solid rgba(255,255,255,0.2);
+      background: transparent; color: var(--ink-2);
+      border: 1.5px solid rgba(92,74,50,0.25);
     }
-    .btn-ghost:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+    .btn-ghost:hover { background: rgba(196,98,45,0.06); transform: translateY(-2px); }
     .btn-lg { padding: 15px 30px; font-size: 1rem; }
+    .btn-disabled { pointer-events: none !important; opacity: 0.45; }
+
+    /* ── App Store button ── */
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 14px; padding: 14px 26px;
+      border-radius: 16px; background: var(--ink); color: #FAF7F2;
+      text-decoration: none;
+      box-shadow: 0 12px 36px rgba(26,18,8,0.22);
+      transition: transform 0.3s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.3s;
+      pointer-events: none; opacity: 0.45;
+    }
+    .store-btn-text { text-align: left; }
+    .store-sub  { font-size: 0.72rem; font-weight: 500; opacity: 0.7; display: block; }
+    .store-main { font-size: 1rem; font-weight: 800; display: block; line-height: 1.2; }
 
     /* ── Hero ── */
     .hero-section {
-      background: var(--bg-dark);
-      padding-block: clamp(100px, 14vw, 160px) clamp(80px, 10vw, 120px);
-      position: relative;
-      overflow: hidden;
+      background: var(--bg);
+      padding-block: clamp(90px, 13vw, 150px) clamp(60px, 8vw, 100px);
+      overflow: hidden; position: relative;
     }
-    .hero-orbs {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(90px);
-      pointer-events: none;
-    }
-    .orb-1 { width: 700px; height: 700px; background: rgba(94,92,230,0.18); top: -200px; right: -150px; }
-    .orb-2 { width: 500px; height: 500px; background: rgba(255,107,53,0.13); bottom: -100px; left: -100px; }
-    .orb-3 { width: 350px; height: 350px; background: rgba(50,173,230,0.1); top: 40%; left: 35%; }
-    .blob, .orb { will-change: transform; }
-
     .hero-inner {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
     }
     .eyebrow {
-      display: inline-block;
-      font-size: 0.73rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #a5a3ff;
-      margin-bottom: 18px;
+      display: inline-block; font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px;
     }
     .hero-copy h1 {
-      font-size: clamp(3rem, 6.8vw, 5.6rem);
-      letter-spacing: -0.06em;
-      line-height: 0.98;
-      color: #fff;
-      margin-bottom: 22px;
-      font-weight: 900;
+      font-size: clamp(2.8rem, 6.5vw, 5.2rem);
+      letter-spacing: -0.055em; line-height: 0.97;
+      color: var(--ink); margin-bottom: 22px; font-weight: 900;
     }
     .hero-sub {
-      font-size: clamp(1rem, 1.8vw, 1.18rem);
-      color: var(--text-dim);
-      max-width: 44ch;
-      margin-bottom: 36px;
-      line-height: 1.68;
+      font-size: clamp(1rem, 1.7vw, 1.16rem); color: var(--ink-2);
+      max-width: 42ch; margin-bottom: 36px; line-height: 1.7;
     }
     .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-
-    /* ── Hero focal ring ── */
     .hero-visual {
-      position: relative;
-      min-height: 460px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: relative; display: flex; align-items: center; justify-content: center;
+      min-height: 480px;
     }
-    .hero-ring-wrap {
+    .hero-phone-wrap {
       position: relative;
-      width: clamp(280px, 36vw, 380px);
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: clamp(200px, 26vw, 290px);
       will-change: transform;
-      z-index: 1;
     }
-    .hero-ring-halo {
-      position: absolute;
-      inset: -22%;
-      border-radius: 50%;
-      background: radial-gradient(circle at center,
-        rgba(94,92,230,0.4) 0%,
-        rgba(94,92,230,0.12) 40%,
-        transparent 70%);
-      filter: blur(38px);
-      pointer-events: none;
-      z-index: 0;
+    .hero-phone-wrap img {
+      width: 100%; border-radius: 36px;
+      box-shadow: 0 32px 72px rgba(26,18,8,0.16), 0 8px 24px rgba(196,98,45,0.1);
     }
-    .hero-ring-wrap svg {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      overflow: visible;
+    .hero-glow {
+      position: absolute; inset: -15%; border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,98,45,0.15) 0%, transparent 70%);
+      filter: blur(48px); pointer-events: none; z-index: -1;
     }
-    .hero-ring-stroke {
-      filter: drop-shadow(0 0 24px rgba(94,92,230,0.55));
-    }
-    .hero-ring-center {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 2.6rem;
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      text-shadow: 0 0 24px rgba(94,92,230,0.45);
-    }
+
     /* ── Marquee ── */
     .marquee-wrap {
-      background: var(--bg-dark);
-      padding-block: 18px;
-      overflow: hidden;
-      border-top: 1px solid rgba(255,255,255,0.04);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      background: var(--bg-2); padding-block: 16px; overflow: hidden;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      contain: layout paint;
     }
     .marquee-track {
-      display: flex;
-      gap: 40px;
-      width: max-content;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(245,245,247,0.32);
-      align-items: center;
+      display: flex; gap: 40px; width: max-content;
+      font-size: 0.77rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); align-items: center;
+      animation: marquee-scroll 32s linear infinite;
       will-change: transform;
     }
-    .marquee-track .dot { color: #a5a3ff; opacity: 0.55; font-size: 1rem; }
-
-    /* ── Shared sections (all dark) ── */
-    .section {
-      padding-block: clamp(80px, 11vw, 130px);
-      background: var(--bg-dark);
-      color: var(--text-dark);
-    }
-    .section-dark { background: var(--bg-dark); color: var(--text-dark); }
-
-    /* Dot grid texture — only one variant, applied to any .section */
-    .section.dotted,
-    .section-dark.dotted {
-      background-image: radial-gradient(rgba(255,255,255,0.045) 1.2px, transparent 1.2px);
-      background-size: 28px 28px;
+    .marquee-track .dot { color: var(--accent-2); font-size: 1rem; opacity: 0.7; }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
 
+    /* ── Section shared ── */
+    .section { padding-block: clamp(80px, 11vw, 130px); }
+    .section-bg  { background: var(--bg); }
+    .section-bg2 { background: var(--bg-2); }
     .section-label {
-      display: inline-block;
-      font-size: 0.73rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #a5a3ff;
-      margin-bottom: 12px;
+      display: inline-block; font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
     }
-
     h2 {
-      font-size: clamp(2rem, 4.6vw, 3.6rem);
-      letter-spacing: -0.05em;
-      line-height: 1.05;
-      margin-bottom: 16px;
-      font-weight: 900;
-      color: #fff;
+      font-size: clamp(1.9rem, 4.2vw, 3.4rem); letter-spacing: -0.048em;
+      line-height: 1.06; margin-bottom: 16px; font-weight: 900; color: var(--ink);
     }
+    .lede { font-size: 1.05rem; color: var(--ink-2); max-width: 50ch; line-height: 1.7; }
 
-    .lede {
-      font-size: 1.05rem;
-      color: var(--text-dim);
-      max-width: 50ch;
-      line-height: 1.7;
-    }
-
-    /* ── Problem cards (dark glass) ── */
+    /* ── Why ONIS cards ── */
     .problem-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 48px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 48px;
     }
     .problem-card {
-      background: rgba(28,28,30,0.85);
-      border: 1px solid var(--border-dark);
-      border-radius: var(--r-md);
-      padding: 32px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md);
+      padding: 32px; box-shadow: var(--sh-sm);
       transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.35s;
     }
-    .problem-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 52px rgba(0,0,0,0.5), 0 0 0 1px rgba(94,92,230,0.25);
-    }
+    .problem-card:hover { transform: translateY(-6px); box-shadow: var(--sh-md); }
     .p-icon {
-      width: 40px; height: 40px;
-      border-radius: 12px;
-      display: grid; place-items: center;
-      font-size: 1.2rem;
-      margin-bottom: 20px;
+      width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+      margin-bottom: 20px; background: rgba(196,98,45,0.1);
     }
-    .pi-1 { background: rgba(94,92,230,0.16); box-shadow: 0 0 22px rgba(94,92,230,0.18) inset; }
-    .pi-2 { background: rgba(255,107,53,0.16); box-shadow: 0 0 22px rgba(255,107,53,0.18) inset; }
-    .pi-3 { background: rgba(48,209,88,0.16); box-shadow: 0 0 22px rgba(48,209,88,0.18) inset; }
     .problem-card h3 {
-      font-size: 1.08rem;
-      letter-spacing: -0.02em;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #fff;
+      font-size: 1.06rem; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 10px;
     }
-    .problem-card p  { color: var(--text-dim); font-size: 0.95rem; line-height: 1.7; }
+    .problem-card p { color: var(--ink-2); font-size: 0.94rem; line-height: 1.7; }
 
-    /* ── Solution ── */
-    .solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-
-    /* Solution focal ring box */
-    .sol-ripple-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 28px;
-      min-height: 320px;
-      background: rgba(28,28,30,0.85);
-      border: 1px solid var(--border-dark);
-      border-radius: var(--r-lg);
-      padding: 44px 32px;
-      position: relative;
-      overflow: hidden;
+    /* ── Features scroll-driven showcase ── */
+    .showcase-scroll { position: relative; height: 400vh; }
+    .showcase-sticky {
+      position: sticky; top: 0; height: 100vh; background: var(--bg-2);
+      display: grid; grid-template-columns: 1fr 300px 68px;
+      align-items: center; overflow: hidden; gap: 48px;
+      padding-inline: max(20px, calc((100vw - var(--max)) / 2));
     }
-    .sol-ripple-box::before {
-      content: '';
-      position: absolute;
-      width: 320px; height: 320px;
-      background: rgba(94,92,230,0.16);
-      border-radius: 50%;
-      filter: blur(70px);
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      pointer-events: none;
+    .showcase-left { display: flex; align-items: center; height: 100%; }
+    .showcase-slides-wrap { position: relative; width: 100%; min-height: 340px; }
+    .showcase-slide {
+      position: absolute; top: 0; left: 0; right: 0;
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.52s cubic-bezier(0.2,0.8,0.2,1), transform 0.52s cubic-bezier(0.2,0.8,0.2,1);
     }
-    .sol-ring-wrap {
-      position: relative;
-      width: 200px;
-      height: 200px;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .showcase-slide.active { opacity: 1; transform: translateY(0); }
+    .sc-num {
+      display: block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
     }
-    .sol-ring-wrap svg {
-      width: 100%;
-      height: 100%;
-      overflow: visible;
+    .showcase-slide h2 {
+      font-size: clamp(1.75rem, 2.9vw, 2.65rem); color: var(--ink); margin-bottom: 14px;
     }
-    .sol-ring-stroke {
-      filter: drop-shadow(0 0 18px rgba(94,92,230,0.55));
+    .showcase-slide p {
+      font-size: 1.02rem; color: var(--ink-2); line-height: 1.72;
+      max-width: 44ch; margin-bottom: 20px;
     }
-    .sol-ring-center {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 2rem;
-      font-weight: 900;
-    }
-    .tap-labels {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 280px;
-    }
-
-    /* ── Feature panels (dark) ── */
-    .feature-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-    .feature-copy p { font-size: 1.06rem; line-height: 1.72; color: var(--text-dim); }
-    .feature-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+    .feature-tags { display: flex; gap: 8px; flex-wrap: wrap; }
     .feature-tag {
-      padding: 5px 14px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      background: rgba(255,255,255,0.07);
-      color: rgba(245,245,247,0.7);
+      padding: 5px 13px; border-radius: 999px; font-size: 0.8rem; font-weight: 700;
+      background: rgba(196,98,45,0.1); color: var(--accent); border: 1px solid var(--border);
     }
-    .fvb {
-      border-radius: var(--r-lg);
-      padding: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 270px;
-      background: rgba(28,28,30,0.85);
-      border: 1px solid var(--border-dark);
-      transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.35s;
+    .showcase-center {
+      display: flex; align-items: center; justify-content: center; height: 100%;
     }
-    .fvb:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 52px rgba(0,0,0,0.5), 0 0 0 1px rgba(94,92,230,0.25);
+    .sc-phone-wrap {
+      position: relative; width: 220px; height: 440px; flex-shrink: 0;
+    }
+    .sc-phone-img {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: contain; border-radius: 28px;
+      opacity: 0; transition: opacity 0.55s cubic-bezier(0.2,0.8,0.2,1);
+      box-shadow: 0 24px 60px rgba(26,18,8,0.16), 0 6px 20px rgba(196,98,45,0.1);
+    }
+    .sc-phone-img.active { opacity: 1; }
+    .showcase-right {
+      display: flex; align-items: center; justify-content: center; height: 100%;
+    }
+    .sc-dots { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+    .sc-dot {
+      width: 8px; height: 8px; border-radius: 999px; background: rgba(196,98,45,0.2);
+      transition: height 0.4s cubic-bezier(0.2,0.8,0.2,1), background 0.4s ease, box-shadow 0.4s ease;
+    }
+    .sc-dot.active {
+      height: 32px; background: var(--accent); box-shadow: 0 0 12px rgba(196,98,45,0.4);
     }
 
-    /* ── How it works (dark glass) ── */
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 52px;
+    /* ── Screenshots strip ── */
+    .screenshots-strip {
+      overflow-x: auto; display: flex; gap: 20px; padding: 28px 0 36px;
+      scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
     }
-    .step-card {
-      background: rgba(28,28,30,0.85);
-      border: 1px solid var(--border-dark);
-      border-radius: var(--r-md);
-      padding: 32px 28px;
-      transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.35s;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .step-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 52px rgba(0,0,0,0.5), 0 0 0 1px rgba(94,92,230,0.25);
-    }
-    .step-num {
-      font-size: 4rem;
-      font-weight: 900;
-      letter-spacing: -0.07em;
-      line-height: 1;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 8px;
-    }
-    .step-card h3 {
-      font-size: 1.1rem;
-      letter-spacing: -0.02em;
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: #fff;
-    }
-    .step-card p  { color: var(--text-dim); font-size: 0.94rem; line-height: 1.7; }
-    .step-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: auto;
-      padding-top: 18px;
+    .screenshots-strip::-webkit-scrollbar { height: 4px; }
+    .screenshots-strip::-webkit-scrollbar-track { background: var(--bg-2); border-radius: 99px; }
+    .screenshots-strip::-webkit-scrollbar-thumb { background: rgba(196,98,45,0.25); border-radius: 99px; }
+    .ss-card { flex-shrink: 0; width: 200px; scroll-snap-align: start; }
+    .ss-card img {
+      width: 100%; border-radius: 24px; display: block;
+      box-shadow: 0 12px 36px rgba(26,18,8,0.12), 0 2px 8px rgba(196,98,45,0.08);
     }
 
     /* ── Testimonials ── */
-    .quotes-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 48px;
-    }
+    .quotes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 48px; }
     .quote-card {
-      background: rgba(28,28,30,0.85);
-      border: 1px solid var(--border-dark);
-      border-radius: var(--r-md);
-      padding: 28px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md);
+      padding: 28px; box-shadow: var(--sh-sm);
       transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.35s;
     }
-    .quote-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 52px rgba(0,0,0,0.35), 0 0 0 1px rgba(94,92,230,0.15);
-    }
-    .quote-stars {
-      display: flex;
-      gap: 3px;
-      margin-bottom: 14px;
-      color: #ffd60a;
-      font-size: 0.88rem;
-      letter-spacing: 0.06em;
-      opacity: 0.92;
-    }
+    .quote-card:hover { transform: translateY(-5px); box-shadow: var(--sh-md); }
+    .quote-stars { display: flex; gap: 3px; margin-bottom: 14px; color: var(--accent); font-size: 0.9rem; }
     .quote-text {
-      color: rgba(245,245,247,0.85);
-      font-size: 0.98rem;
-      line-height: 1.75;
-      margin-bottom: 22px;
-      font-style: italic;
+      color: var(--ink-2); font-size: 0.97rem; line-height: 1.74; margin-bottom: 22px; font-style: italic;
     }
-    .quote-footer { display: flex; align-items: center; gap: 13px; }
+    .quote-footer { display: flex; align-items: center; gap: 12px; }
     .q-avatar {
-      width: 38px; height: 38px;
-      border-radius: 50%;
-      display: grid; place-items: center;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: #fff;
-      flex-shrink: 0;
+      width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center;
+      font-size: 0.8rem; font-weight: 700; flex-shrink: 0;
     }
-    .av1 { background: linear-gradient(135deg,#5e5ce6,#9b59ff); }
-    .av2 { background: linear-gradient(135deg,#ff6b35,#ff375f); }
-    .av3 { background: linear-gradient(135deg,#30d158,#32ade6); }
-    .q-name { font-weight: 700; color: #fff; font-size: 0.9rem; }
-    .q-role { color: var(--text-dim); font-size: 0.78rem; }
+    .av1 { background: rgba(196,98,45,0.12); color: var(--accent); }
+    .av2 { background: rgba(196,98,45,0.22); color: var(--accent); }
+    .av3 { background: rgba(232,168,124,0.3); color: var(--ink); }
+    .q-name { font-weight: 700; color: var(--ink); font-size: 0.9rem; }
+    .q-role { color: var(--ink-2); font-size: 0.78rem; }
 
-    /* ── FAQ (dark glass) ── */
-    .faq-list {
-      max-width: 740px;
-      margin: 44px auto 0;
-      display: grid;
-      gap: 10px;
+    /* ── How it works ── */
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 52px;
     }
-    details {
-      background: rgba(28,28,30,0.85);
-      border: 1px solid var(--border-dark);
-      border-radius: var(--r-sm);
-      overflow: hidden;
-      transition: box-shadow 0.25s, border-color 0.25s;
+    .step-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md);
+      padding: 32px 28px; display: flex; flex-direction: column; gap: 10px;
+      box-shadow: var(--sh-sm);
+      transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.35s;
     }
-    details[open] {
-      box-shadow: 0 14px 44px rgba(0,0,0,0.4);
-      border-color: rgba(94,92,230,0.22);
+    .step-card:hover { transform: translateY(-5px); box-shadow: var(--sh-md); }
+    .step-num-badge {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: #fff;
+      display: grid; place-items: center; font-size: 1.1rem; font-weight: 900;
+      margin-bottom: 8px; flex-shrink: 0;
+      box-shadow: 0 6px 18px rgba(196,98,45,0.3);
     }
-    summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 20px 24px;
-      font-weight: 700;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      user-select: none;
-      color: #fff;
-      letter-spacing: -0.01em;
-    }
-    summary::-webkit-details-marker { display: none; }
-    summary::after {
-      content: '+';
-      font-size: 1.5rem;
-      font-weight: 300;
-      color: #a5a3ff;
-      line-height: 1;
-      flex-shrink: 0;
-      transition: transform 0.25s ease;
-    }
-    details[open] summary::after { transform: rotate(45deg); }
-    details p { padding: 0 24px 20px; color: var(--text-dim); font-size: 0.96rem; line-height: 1.72; }
-    details a { color: #a5a3ff; }
+    .step-card h3 { font-size: 1.08rem; letter-spacing: -0.02em; font-weight: 700; color: var(--ink); }
+    .step-card p  { color: var(--ink-2); font-size: 0.94rem; line-height: 1.7; }
 
-    /* ── CTA ── */
+    /* ── CTA section ── */
     .cta-section {
-      background: var(--bg-dark);
-      padding-block: clamp(80px, 12vw, 140px);
-      position: relative;
-      overflow: hidden;
+      background: var(--accent); padding-block: clamp(80px, 12vw, 140px); text-align: center;
     }
-    .cta-section .orb-1 { opacity: 0.7; }
-    .cta-inner {
-      position: relative;
-      z-index: 1;
-      max-width: 600px;
-      margin-inline: auto;
-      text-align: center;
-    }
+    .cta-inner { max-width: 600px; margin-inline: auto; }
     .cta-inner h2 {
-      color: #fff;
-      font-size: clamp(2.4rem, 6vw, 4.4rem);
-      margin-bottom: 16px;
-      letter-spacing: -0.06em;
+      color: #fff; font-size: clamp(2.2rem, 5.5vw, 4rem); letter-spacing: -0.055em; margin-bottom: 16px;
     }
-    .cta-inner p  { color: var(--text-dim); font-size: 1.1rem; margin-bottom: 36px; }
-    .store-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 16px;
-      padding: 16px 30px;
-      border-radius: 18px;
-      background: #fff;
-      color: #1d1d1f;
-      text-decoration: none;
-      box-shadow:
-        0 12px 36px rgba(0,0,0,0.35),
-        0 0 0 1px rgba(0,0,0,0.04) inset,
-        0 1px 0 rgba(255,255,255,0.6) inset;
-      transition: transform 0.3s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.3s;
+    .cta-inner p  { color: rgba(255,255,255,0.82); font-size: 1.1rem; margin-bottom: 36px; }
+    .store-btn-light {
+      display: inline-flex; align-items: center; gap: 14px; padding: 16px 30px;
+      border-radius: 18px; background: #fff; color: var(--ink); text-decoration: none;
+      box-shadow: 0 14px 40px rgba(26,18,8,0.2);
+      pointer-events: none; opacity: 0.45;
     }
-    .store-btn:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow:
-        0 22px 52px rgba(0,0,0,0.42),
-        0 0 0 1px rgba(0,0,0,0.04) inset,
-        0 1px 0 rgba(255,255,255,0.6) inset;
-    }
-    .store-btn-text { text-align: left; }
-    .store-sub  { font-size: 0.72rem; font-weight: 500; opacity: 0.52; display: block; }
-    .store-main { font-size: 1.06rem; font-weight: 800; display: block; line-height: 1.25; }
+    .store-btn-light .store-sub  { opacity: 0.55; font-size: 0.72rem; font-weight: 500; display: block; }
+    .store-btn-light .store-main { font-size: 1rem; font-weight: 800; display: block; line-height: 1.2; }
 
     /* ── Footer ── */
-    footer { background: #0d0d0f; border-top: 1px solid rgba(255,255,255,0.06); color: var(--text-dark); }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.8fr 1fr 1fr 1fr;
-      gap: 32px;
-      padding-block: 58px;
+    footer {
+      background: var(--ink); border-top: 1px solid rgba(250,247,242,0.08);
+      color: rgba(250,247,242,0.85);
     }
-    .f-brand {
-      font-weight: 900;
-      font-size: 1.15rem;
-      letter-spacing: -0.06em;
-      margin-bottom: 10px;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      display: inline-block;
+    .footer-inner {
+      display: flex; flex-wrap: wrap; gap: 24px; align-items: center;
+      justify-content: space-between; padding-block: 40px;
     }
-    .f-tagline { color: rgba(245,245,247,0.5); font-size: 0.88rem; line-height: 1.65; max-width: 28ch; margin-top: 4px; }
-    .f-col h4 {
-      font-size: 0.76rem; font-weight: 800;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(245,245,247,0.3); margin-bottom: 16px;
+    .footer-brand { display: flex; align-items: center; gap: 14px; }
+    .footer-brand img { height: 28px; width: auto; filter: invert(1) brightness(0.85); }
+    .footer-brand span { font-size: 0.88rem; color: rgba(250,247,242,0.42); }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+    .footer-links a {
+      color: rgba(250,247,242,0.5); text-decoration: none; font-size: 0.9rem;
+      transition: color 0.2s;
     }
-    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .f-col a { color: rgba(245,245,247,0.5); text-decoration: none; font-size: 0.92rem; transition: color 0.2s; }
-    .f-col a:hover { color: rgba(245,245,247,0.9); }
-    .f-bottom {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding-block: 18px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
+    .footer-links a:hover { color: rgba(250,247,242,0.9); }
+    .footer-copy {
+      border-top: 1px solid rgba(250,247,242,0.08);
+      padding-top: 18px; padding-bottom: 26px;
     }
-    .f-bottom p { color: rgba(245,245,247,0.3); font-size: 0.82rem; }
+    .footer-copy p { color: rgba(250,247,242,0.26); font-size: 0.8rem; line-height: 1.6; }
 
-    /* ── Scroll-Driven Features Showcase ── */
-    .showcase-scroll { position: relative; height: 400vh; }
-    .showcase-sticky {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      background: var(--bg-dark);
-      display: grid;
-      grid-template-columns: 1fr 360px 68px;
-      align-items: center;
-      overflow: hidden;
-      padding-inline: max(20px, calc((100vw - var(--max)) / 2));
-    }
-    .showcase-sticky::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(rgba(255,255,255,0.038) 1.2px, transparent 1.2px);
-      background-size: 28px 28px;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .showcase-left, .showcase-center, .showcase-right { position: relative; z-index: 1; }
-
-    .showcase-left { display: flex; align-items: center; height: 100%; padding-right: 32px; }
-    .showcase-slides-wrap { position: relative; width: 100%; min-height: 320px; }
-    .showcase-slide {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.52s cubic-bezier(0.2,0.8,0.2,1),
-                  transform 0.52s cubic-bezier(0.2,0.8,0.2,1);
-    }
-    .showcase-slide.active { opacity: 1; transform: translateY(0); }
-
-    .sc-num {
-      display: block;
-      font-size: 0.73rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #a5a3ff;
-      margin-bottom: 14px;
-    }
-    .showcase-slide h2 {
-      font-size: clamp(1.9rem, 3.2vw, 2.85rem);
-      color: #fff;
-      letter-spacing: -0.05em;
-      line-height: 1.06;
-      margin-bottom: 14px;
-    }
-    .showcase-slide p {
-      font-size: 1.04rem;
-      color: var(--text-dim);
-      line-height: 1.72;
-      max-width: 44ch;
-      margin-bottom: 20px;
-    }
-    .showcase-slide .feature-tag {
-      background: rgba(255,255,255,0.07);
-      color: rgba(245,245,247,0.7);
-    }
-
-    .showcase-center { display: flex; align-items: center; justify-content: center; height: 100%; }
-    .sc-ring-wrap { position: relative; width: 260px; height: 260px; flex-shrink: 0; }
-    .sc-ring-wrap svg { width: 100%; height: 100%; overflow: visible; }
-    #sc-ring { transition: stroke 0.55s ease; will-change: stroke-dasharray, stroke; }
-    .sc-center-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-    .sc-labels { position: absolute; inset: -32px; pointer-events: none; }
-    .sc-label {
-      position: absolute;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: rgba(22,22,24,0.9);
-      border: 1px solid rgba(255,255,255,0.1);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #fff;
-      white-space: nowrap;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-      opacity: 0;
-      will-change: transform, opacity;
-    }
-    .sc-label:nth-child(1) { top: 12%;  left: -28px; }
-    .sc-label:nth-child(2) { top: 34%;  right: -28px; }
-    .sc-label:nth-child(3) { bottom: 34%; left: -28px; }
-    .sc-label:nth-child(4) { bottom: 12%; right: -28px; }
-    .sc-ring-wrap { will-change: transform; }
-    .hero-copy, .quote-card, .hero-ring-wrap { will-change: transform, opacity; }
-    .marquee-wrap { contain: layout paint; }
-
-    .showcase-right { display: flex; align-items: center; justify-content: center; height: 100%; }
-    .sc-dots { display: flex; flex-direction: column; gap: 12px; align-items: center; }
-    .sc-dot {
-      width: 8px; height: 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.18);
-      transition: height 0.4s cubic-bezier(0.2,0.8,0.2,1),
-                  background 0.4s ease, box-shadow 0.4s ease;
-    }
-    .sc-dot.active { height: 32px; background: #5e5ce6; box-shadow: 0 0 12px rgba(94,92,230,0.5); }
-
+    /* ── Showcase mobile fallback ── */
     @media (max-width: 900px) {
       .showcase-scroll { height: auto; }
       .showcase-sticky {
-        position: relative; height: auto;
-        grid-template-columns: 1fr;
+        position: relative; height: auto; grid-template-columns: 1fr;
         padding: clamp(60px,10vw,80px) max(20px, calc((100vw - var(--max)) / 2));
-        gap: 40px; overflow: visible;
+        gap: 36px; overflow: visible;
       }
-      .showcase-left { height: auto; padding-right: 0; }
+      .showcase-left { height: auto; }
       .showcase-slides-wrap { min-height: auto; }
       .showcase-slide {
         position: relative; top: auto; left: auto; right: auto;
         opacity: 1 !important; transform: none !important;
-        margin-bottom: 36px;
-        padding: 26px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.07);
+        margin-bottom: 24px; padding: 24px;
+        background: rgba(250,247,242,0.7); border: 1px solid var(--border);
         border-radius: var(--r-md);
       }
       .showcase-slide:last-child { margin-bottom: 0; }
       .showcase-center { height: auto; }
-      .sc-ring-wrap { width: 200px; height: 200px; margin-inline: auto; }
+      .sc-phone-wrap { width: 180px; height: 360px; margin-inline: auto; }
       .showcase-right { display: none; }
-      .sc-label { display: none !important; }
-      .sc-center-overlay { font-size: 2.4rem; }
     }
 
     /* ── Reduced motion ── */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
       html { scroll-behavior: auto; }
-      .reveal, .reveal-l, .reveal-r { opacity: 1 !important; transform: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
     }
 
     /* ── Responsive ── */
     @media (max-width: 900px) {
-      .hero-inner, .solution-grid, .feature-panel { grid-template-columns: 1fr; }
-      .problem-grid, .steps-grid, .quotes-grid    { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-      .hero-visual { min-height: 340px; margin-top: 32px; }
-      .hero-ring-wrap { width: clamp(240px, 70vw, 320px); }
-      .feature-panel .feature-copy { order: -1; }
+      .hero-inner  { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 320px; order: -1; }
+      .problem-grid, .steps-grid, .quotes-grid { grid-template-columns: 1fr; }
       .nav-links {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 12px 0 16px;
-        border-top: 1px solid rgba(255,255,255,0.08);
-        gap: 2px;
+        display: none; width: 100%; flex-direction: column; align-items: flex-start;
+        padding: 12px 0 16px; border-top: 1px solid var(--border); gap: 2px;
       }
       .nav-links a { padding: 10px 12px; font-size: 1rem; width: 100%; border-radius: 10px; }
       .nav-hamburger { display: flex; }
@@ -882,8 +425,8 @@
       .nav-cta { display: none; }
     }
     @media (max-width: 540px) {
-      .footer-grid { grid-template-columns: 1fr; }
       .hero-ctas { flex-direction: column; align-items: flex-start; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
     }
   </style>
 </head>
@@ -894,18 +437,19 @@
 ════════════════════════════════════════════ -->
 <header class="nav-wrap">
   <nav class="container">
-    <a href="index.html" class="logo"><span>ONIS</span></a>
+    <a href="index.html" class="nav-logo">
+      <img src="images/onis-logo.png" alt="ONIS" height="32">
+    </a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
     <label for="nav-toggle" class="nav-hamburger" aria-label="Toggle navigation menu">
       <span></span><span></span><span></span>
     </label>
     <div class="nav-links">
       <a href="#features">Features</a>
-      <a href="#how">How it works</a>
-      <a href="#faq">FAQ</a>
-      <a href="support.html">Support</a>
+      <a href="#why">Why ONIS</a>
+      <a href="#" style="pointer-events:none; opacity:0.45;">App Store</a>
     </div>
-    <a href="#download" class="btn btn-grad nav-cta">Download free</a>
+    <a href="#" class="btn btn-accent nav-cta btn-disabled" aria-label="App Store — coming soon">App Store</a>
   </nav>
 </header>
 
@@ -914,46 +458,34 @@
 <!-- ═══════════════════════════════════════════
      HERO
 ════════════════════════════════════════════ -->
-<section class="hero-section">
-  <div class="hero-orbs" aria-hidden="true">
-    <div class="orb orb-1 blob"></div>
-    <div class="orb orb-2 blob"></div>
-    <div class="orb orb-3 blob"></div>
-  </div>
-
+<section class="hero-section" id="hero">
   <div class="container hero-inner">
-    <div class="hero-copy">
+    <div class="hero-copy" id="hero-copy">
       <span class="eyebrow">iPhone + Apple Watch</span>
-      <h1>Build habits<br><span class="grad-text">in one tap.</span></h1>
+      <h1>Build habits<br>that stick.</h1>
       <p class="hero-sub">
-        ONIS puts your daily habits on your wrist. Raise your wrist. Tap. Done.
-        The fastest, most effortless habit tracker ever built for Apple Watch.
+        ONIS puts your daily habits on your wrist. Raise. Tap. Done — in under a second,
+        without ever reaching for your phone.
       </p>
-      <div class="hero-ctas" id="download">
-        <a href="#" class="btn btn-grad btn-lg">Download on the App Store</a>
-        <a href="#how" class="btn btn-ghost btn-lg">See how it works</a>
+      <div class="hero-ctas">
+        <a href="#" class="store-btn" aria-label="Download on the App Store — coming soon">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <rect width="26" height="26" rx="7" fill="rgba(250,247,242,0.12)"/>
+            <path d="M13 7v10M8.5 13.5l4.5 4.5 4.5-4.5" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="6.5" y="20" width="13" height="1.8" rx="0.9" fill="#FAF7F2"/>
+          </svg>
+          <div class="store-btn-text">
+            <span class="store-sub">Download on the</span>
+            <span class="store-main">App Store</span>
+          </div>
+        </a>
+        <a href="#features" class="btn btn-ghost btn-lg">See features</a>
       </div>
     </div>
-
-    <div class="hero-visual" aria-hidden="true">
-      <div class="hero-ring-wrap">
-        <div class="hero-ring-halo"></div>
-        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
-          <!-- Faint outer guide circle -->
-          <circle cx="160" cy="160" r="154" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-          <!-- Track ring -->
-          <circle cx="160" cy="160" r="138" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="18"/>
-          <!-- Filled progress ring (~70%) with purple glow -->
-          <circle class="hero-ring-stroke"
-                  cx="160" cy="160" r="138"
-                  fill="none"
-                  stroke="#5e5ce6"
-                  stroke-width="18"
-                  stroke-linecap="round"
-                  stroke-dasharray="607 260"
-                  transform="rotate(-90 160 160)"/>
-        </svg>
-        <div class="hero-ring-center">✓</div>
+    <div class="hero-visual">
+      <div class="hero-phone-wrap" id="hero-phone">
+        <div class="hero-glow"></div>
+        <img src="images/screen-today.png" alt="ONIS today view on iPhone" loading="eager">
       </div>
     </div>
   </div>
@@ -964,86 +496,77 @@
 ════════════════════════════════════════════ -->
 <div class="marquee-wrap" aria-hidden="true">
   <div class="marquee-track">
-    <span>One tap logging</span><span class="dot">·</span>
+    <span>Morning run</span><span class="dot">·</span>
     <span>Apple Watch native</span><span class="dot">·</span>
+    <span>Read daily</span><span class="dot">·</span>
     <span>Build streaks</span><span class="dot">·</span>
-    <span>HealthKit aware</span><span class="dot">·</span>
-    <span>No account needed</span><span class="dot">·</span>
+    <span>Meditate</span><span class="dot">·</span>
     <span>Zero friction</span><span class="dot">·</span>
+    <span>Drink water</span><span class="dot">·</span>
+    <span>One tap logging</span><span class="dot">·</span>
+    <span>Cold shower</span><span class="dot">·</span>
+    <span>No account needed</span><span class="dot">·</span>
+    <span>Sleep 8 hours</span><span class="dot">·</span>
     <span>Always on wrist</span><span class="dot">·</span>
-    <span>One tap logging</span><span class="dot">·</span>
+    <!-- duplicate for seamless loop -->
+    <span>Morning run</span><span class="dot">·</span>
     <span>Apple Watch native</span><span class="dot">·</span>
+    <span>Read daily</span><span class="dot">·</span>
     <span>Build streaks</span><span class="dot">·</span>
-    <span>HealthKit aware</span><span class="dot">·</span>
-    <span>No account needed</span><span class="dot">·</span>
+    <span>Meditate</span><span class="dot">·</span>
     <span>Zero friction</span><span class="dot">·</span>
+    <span>Drink water</span><span class="dot">·</span>
+    <span>One tap logging</span><span class="dot">·</span>
+    <span>Cold shower</span><span class="dot">·</span>
+    <span>No account needed</span><span class="dot">·</span>
+    <span>Sleep 8 hours</span><span class="dot">·</span>
     <span>Always on wrist</span><span class="dot">·</span>
   </div>
 </div>
 
 <!-- ═══════════════════════════════════════════
-     PROBLEM — dark section
+     WHY ONIS
 ════════════════════════════════════════════ -->
-<section class="section section-dark dotted">
+<section class="section section-bg" id="why">
   <div class="container">
-    <p class="section-label reveal">The problem</p>
-    <h2 class="reveal d1">Most habit apps<br>fail for one reason.</h2>
-    <p class="lede reveal d2">Friction. When tracking a habit takes more effort than the habit itself, you give up. ONIS was built to eliminate friction at the source.</p>
+    <p class="section-label reveal">Why ONIS</p>
+    <h2 class="reveal d1">Most habit apps fail<br>for one reason.</h2>
+    <p class="lede reveal d2">Friction. When tracking takes more effort than the habit itself, you stop. ONIS eliminates friction at the source.</p>
     <div class="problem-grid">
-      <article class="problem-card reveal d1">
-        <div class="p-icon pi-1">📱</div>
-        <h3>Your phone is too far away</h3>
-        <p>Unlocking your phone, finding the app, tapping through a UI — that's four steps before you've logged anything. Most people quietly abandon the habit instead.</p>
-      </article>
-      <article class="problem-card reveal d2">
-        <div class="p-icon pi-2">📊</div>
-        <h3>Complex dashboards burn you out</h3>
-        <p>Score systems, streaks with penalties, weekly reviews — habit apps that feel like work are apps you stop using within days. Simplicity is the only sustainable model.</p>
-      </article>
-      <article class="problem-card reveal d3">
-        <div class="p-icon pi-3">👁</div>
-        <h3>Out of sight means out of mind</h3>
-        <p>Apps buried in folders don't build habits. You need your habits visible, present, and on the device you check hundreds of times a day: your wrist.</p>
-      </article>
-    </div>
-  </div>
-</section>
 
-<!-- ═══════════════════════════════════════════
-     SOLUTION — dark section
-════════════════════════════════════════════ -->
-<section class="section section-dark dotted">
-  <div class="container solution-grid">
-    <div>
-      <p class="section-label reveal">The solution</p>
-      <h2 class="reveal d1">ONIS removes<br>every excuse.</h2>
-      <p class="lede reveal d2" style="margin-bottom:20px;">
-        Your wrist is always there. Apple Watch is the fastest input device you own.
-        ONIS makes every habit a single tap — no phone, no unlocking, no friction.
-      </p>
-      <p class="lede reveal d3">Raise. Tap. Done. Your ring closes. Your streak grows. That's it.</p>
-    </div>
-    <div class="sol-ripple-box reveal-r d1">
-      <div class="sol-ring-wrap" aria-hidden="true">
-        <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="110" cy="110" r="94" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="14"/>
-          <circle class="sol-ring-stroke"
-                  cx="110" cy="110" r="94"
-                  fill="none"
-                  stroke="#5e5ce6"
-                  stroke-width="14"
-                  stroke-linecap="round"
-                  stroke-dasharray="414 177"
-                  transform="rotate(-90 110 110)"/>
-        </svg>
-        <div class="sol-ring-center">✓</div>
-      </div>
-      <div class="tap-labels">
-        <span class="feature-tag">🏃 Run</span>
-        <span class="feature-tag">📖 Read</span>
-        <span class="feature-tag">🧘 Zen</span>
-        <span class="feature-tag">💧 Water</span>
-      </div>
+      <article class="problem-card reveal d1">
+        <div class="p-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+            <circle cx="11" cy="11" r="9" stroke="var(--accent)" stroke-width="1.6"/>
+            <path d="M11 7v5l3 3" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Your phone is too far away</h3>
+        <p>Unlocking your phone, finding the app, navigating a UI — that's four steps before you've logged anything. Most people quietly quit instead of tracking.</p>
+      </article>
+
+      <article class="problem-card reveal d2">
+        <div class="p-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+            <rect x="3" y="3" width="16" height="16" rx="3" stroke="var(--accent)" stroke-width="1.6"/>
+            <path d="M7 11h8M7 7.5h5M7 14.5h3" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Complex dashboards burn you out</h3>
+        <p>Score systems, penalty streaks, weekly reviews — apps that feel like work get abandoned within days. Simplicity is the only sustainable model.</p>
+      </article>
+
+      <article class="problem-card reveal d3">
+        <div class="p-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+            <circle cx="11" cy="8" r="3" stroke="var(--accent)" stroke-width="1.6"/>
+            <path d="M4.5 19.5c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Out of sight, out of mind</h3>
+        <p>Apps buried in folders don't build habits. You need them visible, present, on the device you check hundreds of times a day: your wrist.</p>
+      </article>
+
     </div>
   </div>
 </section>
@@ -1054,14 +577,14 @@
 <section class="showcase-scroll" id="features" aria-label="App features">
   <div class="showcase-sticky">
 
-    <!-- Left: feature text slides (only one visible at a time) -->
+    <!-- Left: feature text slides -->
     <div class="showcase-left">
       <div class="showcase-slides-wrap">
 
         <div class="showcase-slide active" data-slide="0">
           <span class="sc-num">Feature 01</span>
           <h2>One tap from<br>your wrist.</h2>
-          <p>Add ONIS as a complication on any watch face. Raise your wrist, tap the habit, and it's logged — in under a second, without ever reaching for your iPhone.</p>
+          <p>Add ONIS as a complication on any watch face. Raise your wrist, tap the habit, and it's logged — in under a second, without your iPhone.</p>
           <div class="feature-tags">
             <span class="feature-tag">Watch Complication</span>
             <span class="feature-tag">Always on wrist</span>
@@ -1071,19 +594,8 @@
 
         <div class="showcase-slide" data-slide="1">
           <span class="sc-num">Feature 02</span>
-          <h2>Streaks that keep<br>you honest.</h2>
-          <p>Watch your streak grow one day at a time. Visual streak chains, milestone celebrations at 7, 30, and 100 days, and a gentle daily reminder work with your psychology — not against it.</p>
-          <div class="feature-tags">
-            <span class="feature-tag">Daily streaks</span>
-            <span class="feature-tag">Milestone badges</span>
-            <span class="feature-tag">Gentle reminders</span>
-          </div>
-        </div>
-
-        <div class="showcase-slide" data-slide="2">
-          <span class="sc-num">Feature 03</span>
           <h2>Progress<br>at a glance.</h2>
-          <p>Your habits become visual goals. Each habit gets its own progress ring. See exactly where you stand today — daily, weekly, and monthly views update the moment you tap.</p>
+          <p>See exactly how you're doing today, this week, and this month. Beautiful charts and rings update the moment you tap — no manual entry required.</p>
           <div class="feature-tags">
             <span class="feature-tag">Daily view</span>
             <span class="feature-tag">Weekly trends</span>
@@ -1091,49 +603,42 @@
           </div>
         </div>
 
+        <div class="showcase-slide" data-slide="2">
+          <span class="sc-num">Feature 03</span>
+          <h2>AI coaching<br>when you need it.</h2>
+          <p>Get intelligent suggestions based on your habit patterns. ONIS identifies where you struggle and offers gentle nudges to help you stay consistent.</p>
+          <div class="feature-tags">
+            <span class="feature-tag">Smart insights</span>
+            <span class="feature-tag">Personalized tips</span>
+            <span class="feature-tag">On-device AI</span>
+          </div>
+        </div>
+
         <div class="showcase-slide" data-slide="3">
           <span class="sc-num">Feature 04</span>
-          <h2>HealthKit aware.<br>Privacy first.</h2>
-          <p>Optionally connect Apple Health so workouts, steps, and mindful minutes count without double-logging. Your health data is never sold, shared, or used for ads — ever.</p>
+          <h2>Set up in<br>minutes.</h2>
+          <p>No account needed. Choose from curated templates or create custom habits with your own name, emoji, and color. First streak before breakfast.</p>
           <div class="feature-tags">
-            <span class="feature-tag">Opt-in only</span>
-            <span class="feature-tag">No data selling</span>
-            <span class="feature-tag">iCloud encrypted</span>
+            <span class="feature-tag">No account</span>
+            <span class="feature-tag">Habit templates</span>
+            <span class="feature-tag">Custom habits</span>
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- Center: large animated habit ring driven by scroll -->
+    <!-- Center: phone screenshots crossfade -->
     <div class="showcase-center">
-      <div class="sc-ring-wrap">
-        <!-- r=110, C=2π×110≈691.15 — stroke-dasharray animated by JS -->
-        <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="130" cy="130" r="126" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-          <circle cx="130" cy="130" r="110" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="16"/>
-          <circle id="sc-ring"
-                  cx="130" cy="130" r="110"
-                  fill="none"
-                  stroke="#5e5ce6"
-                  stroke-width="16"
-                  stroke-linecap="round"
-                  stroke-dasharray="539.1 152.05"
-                  transform="rotate(-90 130 130)"/>
-        </svg>
-        <!-- Center icon overlay — updated by JS -->
-        <div class="sc-center-overlay"><span id="sc-emoji">✓</span></div>
-        <!-- Floating habit label chips — one active at a time -->
-        <div class="sc-labels" aria-hidden="true">
-          <span class="sc-label active">🏃 Run · Tap to log</span>
-          <span class="sc-label">🔥 14 day streak</span>
-          <span class="sc-label">📊 Progress view</span>
-          <span class="sc-label">🔒 Private by design</span>
-        </div>
+      <div class="sc-phone-wrap">
+        <img class="sc-phone-img active" src="images/screen-today.png"      alt="Today view"      data-img="0">
+        <img class="sc-phone-img"        src="images/screen-stats.png"      alt="Stats view"      data-img="1">
+        <img class="sc-phone-img"        src="images/screen-coach.png"      alt="Coach view"      data-img="2">
+        <img class="sc-phone-img"        src="images/screen-onboarding.png" alt="Onboarding view" data-img="3">
       </div>
     </div>
 
-    <!-- Right: vertical progress dots -->
+    <!-- Right: progress dots -->
     <div class="showcase-right" aria-hidden="true">
       <div class="sc-dots">
         <div class="sc-dot active"></div>
@@ -1147,52 +652,34 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     HOW IT WORKS — dark section
+     APP SCREENSHOTS STRIP
 ════════════════════════════════════════════ -->
-<section class="section section-dark dotted" id="how">
-  <div class="container" style="text-align:center;">
-    <p class="section-label reveal">Process</p>
-    <h2 class="reveal d1">From install to streak<br>in three steps.</h2>
+<section class="section section-bg">
+  <div class="container">
+    <p class="section-label reveal">The app</p>
+    <h2 class="reveal d1">See every screen.</h2>
+    <p class="lede reveal d2">A clean, warm interface designed for speed and clarity on both iPhone and Apple Watch.</p>
   </div>
-  <div class="container steps-grid">
-    <article class="step-card reveal d1">
-      <div class="step-num">01</div>
-      <h3>Add the habits that matter</h3>
-      <p>Choose from curated templates — Run, Read, Meditate, Hydrate, Sleep — or create custom habits with your own name, emoji, and color. Set a daily or flexible schedule.</p>
-      <div class="step-chips">
-        <span class="feature-tag">Templates</span>
-        <span class="feature-tag">Custom</span>
-      </div>
-    </article>
-    <article class="step-card reveal d2">
-      <div class="step-num">02</div>
-      <h3>Tap from your Apple Watch</h3>
-      <p>Raise your wrist. Tap the habit. Done — in under one second, without your iPhone. ONIS sits on your wrist as a complication and a full glanceable app.</p>
-      <div class="step-chips">
-        <span class="feature-tag">Wrist</span>
-        <span class="feature-tag">Glance</span>
-      </div>
-    </article>
-    <article class="step-card reveal d3">
-      <div class="step-num">03</div>
-      <h3>Watch your rings close</h3>
-      <p>Every tap closes a ring. Streaks track consistency automatically. Daily, weekly, and monthly views show exactly how far you've come — and how close you are today.</p>
-      <div class="step-chips">
-        <span class="feature-tag">Streak</span>
-        <span class="feature-tag">Rings</span>
-      </div>
-    </article>
+  <div class="container" style="margin-top:32px; overflow:hidden;">
+    <div class="screenshots-strip">
+      <div class="ss-card"><img src="images/screen-today.png"      alt="Today view"></div>
+      <div class="ss-card"><img src="images/screen-stats.png"      alt="Stats view"></div>
+      <div class="ss-card"><img src="images/screen-coach.png"      alt="Coach view"></div>
+      <div class="ss-card"><img src="images/screen-onboarding.png" alt="Onboarding view"></div>
+      <div class="ss-card"><img src="images/screen-watch.png"      alt="Apple Watch view"></div>
+    </div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════
-     TESTIMONIALS — dark section
+     TESTIMONIALS
 ════════════════════════════════════════════ -->
-<section class="section section-dark dotted">
+<section class="section section-bg2">
   <div class="container">
     <p class="section-label reveal">From users</p>
     <h2 class="reveal d1">What consistent people say.</h2>
     <div class="quotes-grid">
+
       <article class="quote-card reveal d1">
         <div class="quote-stars">★★★★★</div>
         <p class="quote-text">"I've tried every habit app. The Watch tap is genuinely different — it logs before my brain can make an excuse. Three months straight now."</p>
@@ -1204,6 +691,7 @@
           </div>
         </div>
       </article>
+
       <article class="quote-card reveal d2">
         <div class="quote-stars">★★★★★</div>
         <p class="quote-text">"Most apps stressed me out with penalty streaks and graphs. ONIS is calm. I see my rings, know where I stand, and move on. Nothing more."</p>
@@ -1215,6 +703,7 @@
           </div>
         </div>
       </article>
+
       <article class="quote-card reveal d3">
         <div class="quote-stars">★★★★★</div>
         <p class="quote-text">"The streak visual is a cheat code. Seeing 30 days makes missing day 31 feel genuinely costly. I haven't missed a reading day in six weeks."</p>
@@ -1226,65 +715,56 @@
           </div>
         </div>
       </article>
+
     </div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════
-     FAQ — dark section
+     HOW IT WORKS
 ════════════════════════════════════════════ -->
-<section class="section section-dark dotted" id="faq">
+<section class="section section-bg" id="how">
   <div class="container" style="text-align:center;">
-    <p class="section-label reveal">FAQ</p>
-    <h2 class="reveal d1">Common questions.</h2>
-    <p class="lede reveal d2" style="margin:0 auto 8px;">Everything you'd want to know before downloading.</p>
+    <p class="section-label reveal">How it works</p>
+    <h2 class="reveal d1">From install to streak<br>in three steps.</h2>
   </div>
-  <div class="faq-list">
-    <details class="reveal d1">
-      <summary>Is ONIS free to download?</summary>
-      <p>Yes. ONIS is completely free to download and use — no subscription, no paywalled features, and no hidden purchases.</p>
-    </details>
-    <details class="reveal d2">
-      <summary>Do I need an Apple Watch to use ONIS?</summary>
-      <p>Apple Watch is where ONIS shines brightest, but the app works on iPhone alone too. You can track habits, view streaks, and see progress without a Watch — but the wrist-tap experience is what ONIS was built for.</p>
-    </details>
-    <details class="reveal d3">
-      <summary>Where is my data stored?</summary>
-      <p>Your habit data lives on your device. If you have iCloud Drive enabled, ONIS syncs automatically through Apple's CloudKit — your data stays in your iCloud account, not on our servers. We never see or have access to it.</p>
-    </details>
-    <details class="reveal d1">
-      <summary>How do I delete all my data?</summary>
-      <p>To delete all habit data: open ONIS → Settings → Reset All Data. To also remove iCloud sync data: iPhone Settings → [Your Name] → iCloud → Manage Account Storage → ONIS → Delete Data. You can also delete the app entirely to remove all local data.</p>
-    </details>
-    <details class="reveal d2">
-      <summary>Does ONIS access Apple Health?</summary>
-      <p>Only if you choose to allow it. ONIS can optionally read Health data — like steps, workouts, and mindful minutes — to reduce double-logging. This access is entirely opt-in, controlled in iPhone Settings → Privacy &amp; Security → Health → ONIS. Health data is never used for advertising or shared with anyone.</p>
-    </details>
-    <details class="reveal d3">
-      <summary>What iOS and watchOS version do I need?</summary>
-      <p>ONIS requires iOS 17 or later and, for Apple Watch features, watchOS 10 or later on your paired Apple Watch.</p>
-    </details>
+  <div class="container steps-grid">
+
+    <article class="step-card reveal d1">
+      <div class="step-num-badge">1</div>
+      <h3>Set your habits</h3>
+      <p>Pick from curated templates — Run, Read, Meditate, Hydrate — or create custom habits with your own emoji and color. Set a daily or flexible schedule.</p>
+    </article>
+
+    <article class="step-card reveal d2">
+      <div class="step-num-badge">2</div>
+      <h3>Tap on Apple Watch</h3>
+      <p>Raise your wrist. Tap the habit. Done — in under one second, without your iPhone. ONIS sits on your wrist as a complication and a full glanceable app.</p>
+    </article>
+
+    <article class="step-card reveal d3">
+      <div class="step-num-badge">3</div>
+      <h3>See your progress</h3>
+      <p>Every tap closes a ring. Streaks track consistency automatically. Daily, weekly, and monthly views show exactly how far you've come — and how close you are today.</p>
+    </article>
+
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════
-     DOWNLOAD CTA — dark section
+     CTA SECTION
 ════════════════════════════════════════════ -->
 <section class="cta-section">
-  <div class="hero-orbs" aria-hidden="true">
-    <div class="orb orb-1 cta-orb" style="opacity:0.55;"></div>
-    <div class="orb orb-2 cta-orb" style="opacity:0.45;"></div>
-  </div>
   <div class="container cta-inner">
-    <p class="section-label reveal">Download</p>
-    <h2 class="reveal d1">Start today.<br><span class="grad-text">Your habits are waiting.</span></h2>
+    <p class="section-label reveal" style="color:rgba(255,255,255,0.68);">Download</p>
+    <h2 class="reveal d1">Start building habits today.</h2>
     <p class="reveal d2">Free for iPhone and Apple Watch. No account required.</p>
     <div class="reveal d3">
-      <a href="#" class="store-btn" aria-label="Download ONIS on the App Store">
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
-          <rect width="30" height="30" rx="8" fill="#1d1d1f"/>
-          <path d="M15 8 v12 M10.5 15 l4.5 5 l4.5-5" stroke="#f5f5f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <rect x="8" y="22.5" width="14" height="2" rx="1" fill="#f5f5f7"/>
+      <a href="#" class="store-btn-light" aria-label="Download ONIS on the App Store — coming soon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect width="28" height="28" rx="7" fill="var(--ink)"/>
+          <path d="M14 7v11M9.5 14l4.5 4.5 4.5-4.5" stroke="#FAF7F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="7.5" y="20.5" width="13" height="1.8" rx="0.9" fill="#FAF7F2"/>
         </svg>
         <div class="store-btn-text">
           <span class="store-sub">Download on the</span>
@@ -1301,37 +781,19 @@
      FOOTER
 ════════════════════════════════════════════ -->
 <footer>
-  <div class="container footer-grid">
-    <div>
-      <p class="f-brand">ONIS</p>
-      <p class="f-tagline">A premium habit tracker for iPhone and Apple Watch. Built for people who take consistency seriously.</p>
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="images/onis-logo.png" alt="ONIS" height="28">
+      <span>© 2026 ONIS Labs. All rights reserved.</span>
     </div>
-    <div class="f-col">
-      <h4>Product</h4>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#how">How it works</a></li>
-        <li><a href="support.html">Support</a></li>
-      </ul>
-    </div>
-    <div class="f-col">
-      <h4>Legal</h4>
-      <ul>
-        <li><a href="privacy.html">Privacy Policy</a></li>
-        <li><a href="terms.html">Terms of Use</a></li>
-      </ul>
-    </div>
-    <div class="f-col">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="mailto:support@onis.club">support@onis.club</a></li>
-        <li><a href="support.html">Help Center</a></li>
-      </ul>
-    </div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="support.html">Support</a>
+      <a href="mailto:support@onis.club">support@onis.club</a>
+    </nav>
   </div>
-  <div class="container f-bottom">
-    <p>© 2026 ONIS. All rights reserved.</p>
+  <div class="container footer-copy">
     <p>Not affiliated with or endorsed by Apple Inc. Apple, Apple Watch, iPhone, iCloud, HealthKit, and CloudKit are trademarks of Apple Inc.</p>
   </div>
 </footer>
@@ -1340,315 +802,92 @@
   (function () {
     'use strict';
 
-    // ── Reveal-on-scroll observer (always on) ──
+    // ── Reveal-on-scroll observer ──
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => io.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // ── Element refs ──
-    const heroSection  = document.querySelector('.hero-section');
-    const heroCopy     = document.querySelector('.hero-copy');
-    const heroOrbs     = Array.from(document.querySelectorAll('.hero-section .blob'));
-    const ctaOrbs      = Array.from(document.querySelectorAll('.cta-orb'));
-    const heroRing     = document.querySelector('.hero-ring-wrap');
+    const heroSection = document.querySelector('.hero-section');
+    const heroPhone   = document.getElementById('hero-phone');
+    const showcase    = document.querySelector('.showcase-scroll');
+    const scSlides    = Array.from(document.querySelectorAll('.showcase-slide'));
+    const scDots      = Array.from(document.querySelectorAll('.sc-dot'));
+    const scPhoneImgs = Array.from(document.querySelectorAll('.sc-phone-img'));
 
-    const marqueeTrack = document.querySelector('.marquee-track');
-
-    const solRingWrap  = document.querySelector('.sol-ring-wrap');
-    const solRipple    = document.querySelector('.sol-ripple-box');
-    const solutionSection = solRipple ? solRipple.closest('section') : null;
-
-    const showcase     = document.querySelector('.showcase-scroll');
-    const scRingWrap   = document.querySelector('.sc-ring-wrap');
-    const scRing       = document.getElementById('sc-ring');
-    const scEmoji      = document.getElementById('sc-emoji');
-    const scSlides     = Array.from(document.querySelectorAll('.showcase-slide'));
-    const scDots       = Array.from(document.querySelectorAll('.sc-dot'));
-    const scLabels     = Array.from(document.querySelectorAll('.sc-label'));
-
-    const stepCards    = Array.from(document.querySelectorAll('.step-card'));
-    const problemCards = Array.from(document.querySelectorAll('.problem-card'));
-    const quoteCards   = Array.from(document.querySelectorAll('.quote-card'));
-    const testimonialsSection = quoteCards[0] ? quoteCards[0].closest('section') : null;
-    const ctaSection   = document.querySelector('.cta-section');
-    const ctaH2        = ctaSection ? ctaSection.querySelector('h2') : null;
-
-    // ── Showcase config (preserved) ──
-    const CIRCUM = 2 * Math.PI * 110;
-    const features = [
-      { color: '#5e5ce6', fill: 0.78, emoji: '✓',  glow: 'rgba(94,92,230,0.5)'  },
-      { color: '#ff6b35', fill: 0.58, emoji: '🔥', glow: 'rgba(255,107,53,0.5)' },
-      { color: '#30d158', fill: 0.92, emoji: '◎',  glow: 'rgba(48,209,88,0.5)'  },
-      { color: '#32ade6', fill: 0.40, emoji: '🔒', glow: 'rgba(50,173,230,0.5)' },
-    ];
     let lastShowcaseStep = -1;
-
-    // ── Helpers ──
     const clamp = (v, lo, hi) => v < lo ? lo : (v > hi ? hi : v);
-    const lerp  = (a, b, t)   => a + (b - a) * t;
 
-    // ── Cached layout ──
     let viewportH = window.innerHeight;
     let viewportW = window.innerWidth;
     let isMobile  = viewportW <= 900;
-    let bounds = { hero: null, solution: null, showcase: null, testimonials: null, cta: null };
-    let marqueeUnit = 0;
+    let bounds    = {};
 
     function topOf(el) {
-      const r = el.getBoundingClientRect();
-      return r.top + (window.scrollY || window.pageYOffset);
+      return el.getBoundingClientRect().top + (window.scrollY || window.pageYOffset);
     }
 
     function recompute() {
       viewportH = window.innerHeight;
       viewportW = window.innerWidth;
       isMobile  = viewportW <= 900;
-
-      if (heroSection) bounds.hero = { top: topOf(heroSection), height: heroSection.offsetHeight };
-      if (solutionSection) bounds.solution = { top: topOf(solutionSection), height: solutionSection.offsetHeight };
-      if (showcase) bounds.showcase = { top: topOf(showcase), height: showcase.offsetHeight };
-      if (testimonialsSection) bounds.testimonials = { top: topOf(testimonialsSection), height: testimonialsSection.offsetHeight };
-      if (ctaSection) bounds.cta = { top: topOf(ctaSection), height: ctaSection.offsetHeight };
-
-      if (marqueeTrack) {
-        // Track contains items duplicated 2× — one cycle is half the rendered width.
-        marqueeUnit = marqueeTrack.scrollWidth / 2;
-      }
+      if (heroSection) bounds.hero     = { top: topOf(heroSection), height: heroSection.offsetHeight };
+      if (showcase)    bounds.showcase = { top: topOf(showcase),    height: showcase.offsetHeight    };
     }
 
-    function applyShowcaseStep(step, prog) {
-      const cur  = features[step];
-      const next = features[Math.min(step + 1, 3)];
-      const fill = lerp(cur.fill, next.fill, prog);
-      const dash = fill * CIRCUM;
-      if (scRing) {
-        scRing.setAttribute('stroke-dasharray', dash.toFixed(2) + ' ' + (CIRCUM - dash).toFixed(2));
-        scRing.setAttribute('stroke', cur.color);
-        scRing.style.filter = 'drop-shadow(0 0 22px ' + cur.glow + ')';
-      }
-      if (step !== lastShowcaseStep) {
-        lastShowcaseStep = step;
-        scSlides.forEach((s, i) => s.classList.toggle('active', i === step));
-        scDots.forEach((d, i) => {
-          const on = i === step;
-          d.classList.toggle('active', on);
-          d.style.background = on ? cur.color : '';
-          d.style.boxShadow  = on ? '0 0 12px ' + cur.glow : '';
-          d.style.height     = on ? '32px' : '';
-        });
-        if (scEmoji) scEmoji.textContent = cur.emoji;
-      }
+    function applyShowcaseStep(step) {
+      if (step === lastShowcaseStep) return;
+      lastShowcaseStep = step;
+      scSlides.forEach((s, i)    => s.classList.toggle('active', i === step));
+      scDots.forEach((d, i)      => d.classList.toggle('active', i === step));
+      scPhoneImgs.forEach((img, i) => img.classList.toggle('active', i === step));
     }
 
-    // ── The single rAF-coordinated scroll handler ──
     let ticking = false;
 
     function update() {
       ticking = false;
       const scrollY = window.scrollY || window.pageYOffset;
 
-      // Showcase content swap runs even in reduced-motion (it's content, not motion).
+      // Showcase step swap — runs even in reduced-motion (it's a content switch).
       if (!isMobile && bounds.showcase) {
         const runway = bounds.showcase.height - viewportH;
         if (runway > 0) {
           const progress = clamp((scrollY - bounds.showcase.top) / runway, 0, 1);
-          const stepF = Math.min(3.9999, progress * 4);
-          const step  = Math.floor(stepF);
-          const prog  = stepF - step;
-          applyShowcaseStep(step, prog);
-
-          if (!reduceMotion) {
-            // Big visible ring spin + breathing scale across the pinned showcase.
-            if (scRingWrap) {
-              const rot = -30 + progress * 90;
-              const sc  = lerp(0.92, 1.08, progress);
-              scRingWrap.style.transform =
-                'rotate(' + rot.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
-            }
-            // Each label slides through its sub-step from -40px → +40px and fades in/out.
-            scLabels.forEach((l, i) => {
-              const localProg = stepF - i;
-              if (localProg >= 0 && localProg <= 1) {
-                const x  = -40 + localProg * 80;
-                const op = Math.sin(localProg * Math.PI);
-                l.style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,0)';
-                l.style.opacity   = op.toFixed(3);
-              } else {
-                l.style.opacity   = '0';
-                l.style.transform = 'translate3d(' + (localProg < 0 ? -40 : 40) + 'px,0,0)';
-              }
-            });
-          }
+          const step = Math.min(3, Math.floor(progress * 4));
+          applyShowcaseStep(step);
         }
       }
 
-      // Reduced-motion users: stop here. CSS already shows everything in resting state.
       if (reduceMotion) return;
 
-      // ── Hero parallax & dispersal ──
-      if (bounds.hero) {
-        const h = Math.max(1, bounds.hero.height);
-        const heroProg = clamp(scrollY / h, 0, 1.4);
-
-        if (heroCopy) {
-          const y  = -heroProg * 240;
-          const op = clamp(1 - heroProg * 1.5, 0, 1);
-          const sc = lerp(1, 0.88, clamp(heroProg, 0, 1));
-          heroCopy.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0) scale(' + sc.toFixed(3) + ')';
-          heroCopy.style.opacity   = op.toFixed(3);
-        }
-
-        if (heroRing && !isMobile) {
-          // Big, visible motion: drift down, rotate 180°, shrink and fade as hero exits.
-          const y   = scrollY * 0.55;
-          const rot = heroProg * 220;
-          const sc  = lerp(1, 0.55, clamp(heroProg, 0, 1));
-          const op  = clamp(1 - heroProg * 1.1, 0, 1);
-          heroRing.style.transform =
-            'translate3d(0,' + y.toFixed(1) + 'px,0) rotate(' + rot.toFixed(1) + 'deg) scale(' + sc.toFixed(3) + ')';
-          heroRing.style.opacity   = op.toFixed(3);
-        }
-      }
-
-      // ── Hero orb parallax (dramatic rate spread) ──
-      heroOrbs.forEach((b, i) => {
-        const rate = 0.30 + i * 0.28;
-        b.style.transform = 'translate3d(0,' + (scrollY * rate).toFixed(1) + 'px,0)';
-      });
-
-      // On mobile, strip any stale desktop-only transforms (they may linger after a resize).
-      if (isMobile) {
-        if (marqueeTrack) marqueeTrack.style.transform = '';
-        quoteCards.forEach(c => { c.style.transform = ''; });
-        stepCards.forEach(c => { c.style.transform = ''; });
-        problemCards.forEach(c => { c.style.transform = ''; });
-        if (scRingWrap) scRingWrap.style.transform = '';
-        if (heroRing) { heroRing.style.transform = ''; }
-        if (solRingWrap) { solRingWrap.style.transform = ''; }
-        scLabels.forEach(l => { l.style.transform = ''; l.style.opacity = ''; });
-      }
-
-      // Skip heavier desktop-only effects on mobile.
-      if (!isMobile) {
-        // ── Marquee = scroll-velocity rail (fast, visible glide) ──
-        if (marqueeTrack && marqueeUnit > 0) {
-          const off = -((scrollY * 1.6) % marqueeUnit);
-          marqueeTrack.style.transform = 'translate3d(' + off.toFixed(1) + 'px,0,0)';
-        }
-
-        // ── Solution: dramatic ring rotation + scale tied to section progress ──
-        if (bounds.solution && solRingWrap) {
-          const start = bounds.solution.top - viewportH;
-          const range = bounds.solution.height + viewportH;
-          const sProg = clamp((scrollY - start) / range, 0, 1);
-          // Big visible motion across the section: scale 0.65 → 1.35, rotate −60° → +60°, drift.
-          const scale = lerp(0.65, 1.35, sProg);
-          const rot   = lerp(-60, 60, sProg);
-          const y     = lerp(80, -80, sProg);
-          solRingWrap.style.transform =
-            'translate3d(0,' + y.toFixed(1) + 'px,0) rotate(' + rot.toFixed(1) + 'deg) scale(' + scale.toFixed(3) + ')';
-        }
-
-        // ── Testimonials: cards swing in from far + rotate to settle ──
-        if (quoteCards.length === 3) {
-          const offsets = [[-160, 30, -8], [0, 120, 0], [160, 30, 8]]; // dx, dy, rotateDeg
-          quoteCards.forEach((c, i) => {
-            const r = c.getBoundingClientRect();
-            const t = clamp((viewportH - r.top) / (viewportH * 0.7), 0, 1);
-            const inv = 1 - t;
-            const dx  = offsets[i][0] * inv;
-            const dy  = offsets[i][1] * inv;
-            const rot = offsets[i][2] * inv;
-            c.style.transform =
-              'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0) rotate(' + rot.toFixed(2) + 'deg)';
-          });
-        }
-
-        // ── How-it-works: cards fly in from the right with rotation ──
-        if (stepCards.length) {
-          stepCards.forEach((c, i) => {
-            const r = c.getBoundingClientRect();
-            const t = clamp((viewportH - r.top) / (viewportH * 0.7), 0, 1);
-            const inv = 1 - t;
-            const dx  = inv * (140 + i * 60);   // 140, 200, 260 px from the right
-            const rot = inv * (4 + i * 2);      // up to 4°, 6°, 8°
-            c.style.transform =
-              'translate3d(' + dx.toFixed(1) + 'px,0,0) rotate(' + rot.toFixed(2) + 'deg)';
-          });
-        }
-
-        // ── Problem cards: outer cards swing in from the sides, middle drops from above ──
-        if (problemCards.length === 3) {
-          const offsets = [[-180, 40, -6], [0, -100, 0], [180, 40, 6]]; // dx, dy, rotateDeg
-          problemCards.forEach((c, i) => {
-            const r = c.getBoundingClientRect();
-            const t = clamp((viewportH - r.top) / (viewportH * 0.7), 0, 1);
-            const inv = 1 - t;
-            const dx  = offsets[i][0] * inv;
-            const dy  = offsets[i][1] * inv;
-            const rot = offsets[i][2] * inv;
-            c.style.transform =
-              'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0) rotate(' + rot.toFixed(2) + 'deg)';
-          });
-        }
-      }
-
-      // ── CTA: orbs drift locally + headline lifts ──
-      if (bounds.cta) {
-        const start = bounds.cta.top - viewportH;
-        const range = bounds.cta.height + viewportH;
-        const cProg = clamp((scrollY - start) / range, 0, 1);
-
-        ctaOrbs.forEach((b, i) => {
-          const rate = 0.12 + i * 0.10;
-          // Local offset so orbs only drift while section is in view.
-          const local = (scrollY - bounds.cta.top + viewportH) * rate;
-          b.style.transform = 'translate3d(0,' + local.toFixed(1) + 'px,0)';
-        });
-
-        if (ctaH2) {
-          const lift = -clamp(cProg, 0, 1) * 180;
-          const sc   = lerp(0.96, 1.04, clamp(cProg, 0, 1));
-          ctaH2.style.transform = 'translate3d(0,' + lift.toFixed(1) + 'px,0) scale(' + sc.toFixed(3) + ')';
-        }
+      // Hero phone parallax — subtle upward drift as hero scrolls out.
+      if (bounds.hero && heroPhone && !isMobile) {
+        const h    = Math.max(1, bounds.hero.height);
+        const prog = clamp(scrollY / h, 0, 1);
+        const y    = -prog * 70;
+        heroPhone.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
       }
     }
 
     function requestUpdate() {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
     }
 
-    // Single shared scroll listener.
     window.addEventListener('scroll', requestUpdate, { passive: true });
 
-    // Recompute bounds on resize (debounced).
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => { recompute(); requestUpdate(); }, 120);
     });
 
-    // First paint: cache layout, then run once for correct initial state
-    // (covers refreshes mid-page and ensures showcase + CTA aren't blank).
-    function init() {
-      recompute();
-      requestUpdate();
-    }
-    if (document.readyState === 'complete') {
-      init();
-    } else {
-      window.addEventListener('load', init, { once: true });
-      // Also run early once so above-the-fold elements settle.
-      init();
-    }
+    function init() { recompute(); requestUpdate(); }
+    if (document.readyState === 'complete') { init(); }
+    else { window.addEventListener('load', init, { once: true }); init(); }
   }());
 </script>
 
