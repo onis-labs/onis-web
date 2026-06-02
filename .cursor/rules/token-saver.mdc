@@ -1,0 +1,39 @@
+---
+description: Save tokens and avoid risky changes
+alwaysApply: true
+---
+
+Before editing:
+- confirm project folder, git remote, and branch
+- inspect only relevant files
+- make small diffs
+- avoid reading unrelated folders
+- do not rewrite whole files unless necessary
+- do not use GitHub unless it helps the task
+
+For this project:
+- this is ONIS Web
+- allowed GitHub repo: onis-labs/onis-web
+- do not touch PathBuild
+- do not touch onis-ios unless explicitly asked
+
+When changing web UI:
+- use shared design tokens
+- avoid random inline colors
+- avoid random padding
+- spacing must be divisible by 4 or 8
+- keep font sizes minimal
+- do not touch deployment settings
+- do not touch production environment variables
+
+Never touch:
+- API keys
+- .env files
+- auth
+- payments
+- database schema
+- git remotes
+- production data
+- deployment settings
+
+Never commit, push, create PRs, or create issues unless explicitly approved.
