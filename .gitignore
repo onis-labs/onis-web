@@ -1,14 +1,5 @@
 .claude/settings.local.json
 .gstack/
 
-# Next.js
-/node_modules
-/.next/
-/out/
-next-env.d.ts
-*.tsbuildinfo
-npm-debug.log*
-
-# build intermediates
-/frames/
-/hero_base.png
+# Archived Next.js app — preserved on disk, excluded from the live static site
+/_archive-nextjs/
