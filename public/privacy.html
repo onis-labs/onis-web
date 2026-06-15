@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — ONIS</title>
+  <meta name="description" content="Privacy Policy for ONIS habit tracker on iPhone and Apple Watch. Learn how ONIS Labs handles your data — which is to say, we mostly don't.">
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="manifest" href="favicon/manifest.webmanifest">
+  <meta name="theme-color" content="#FAF7F2">
+  <!-- OG / SEO -->
+  <meta property="og:image" content="https://onis.club/images/screen-today.png">
+  <meta property="og:url" content="https://onis.club/privacy.html">
+  <link rel="canonical" href="https://onis.club/privacy.html">
+  <style>
+    :root {
+      --bg:       #FAF7F2;
+      --bg-2:     #F2EDE4;
+      --surface:  #FFFFFF;
+      --ink:      #1A1208;
+      --ink-2:    #5C4A32;
+      --accent:   #C4622D;
+      --accent-2: #E8A87C;
+      --border:   rgba(196,98,45,0.15);
+      --sh-sm:    0 2px 12px rgba(26,18,8,0.06);
+      --sh-md:    0 12px 40px rgba(26,18,8,0.09);
+      --r-sm: 14px; --r-md: 22px; --r-lg: 32px;
+      --max: 900px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, "SF Pro Display", BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg); color: var(--ink); line-height: 1.68;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    a { color: inherit; }
+    img, svg { display: block; max-width: 100%; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+
+    /* NAV */
+    .nav-wrap {
+      position: sticky; top: 0; z-index: 900;
+      background: rgba(250,247,242,0.88);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav { display: flex; align-items: center; gap: 16px; min-height: 68px; flex-wrap: wrap; }
+    .nav-logo { flex-shrink: 0; text-decoration: none; line-height: 0; }
+    .nav-logo img { height: 28px; width: auto; display: block; }
+    .nav-toggle { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; margin-left: auto; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.28s ease, opacity 0.2s ease; }
+    .nav-links { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
+    .nav-links a { text-decoration: none; color: var(--ink-2); font-size: 0.92rem; font-weight: 500; padding: 6px 12px; border-radius: 999px; transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover { color: var(--ink); background: rgba(196,98,45,0.08); }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 6px; border-radius: 999px;
+      padding: 9px 18px; font-size: 0.88rem; font-weight: 600; text-decoration: none;
+      background: rgba(196,98,45,0.1); color: var(--accent); border: 1px solid var(--border);
+      transition: background 0.2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-back:hover { background: rgba(196,98,45,0.18); }
+
+    /* MAIN */
+    main { padding-block: clamp(56px, 9vw, 96px) clamp(80px, 12vw, 130px); }
+
+    .page-eyebrow {
+      display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px;
+      border-radius: 999px; background: rgba(196,98,45,0.1); border: 1px solid var(--border);
+      color: var(--accent); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    h1 { font-size: clamp(2.4rem, 5.8vw, 4.2rem); letter-spacing: -0.05em; line-height: 1.04; margin-bottom: 18px; color: var(--ink); font-weight: 900; }
+    .page-lede { font-size: 1.1rem; color: var(--ink-2); max-width: 66ch; margin-bottom: 40px; line-height: 1.65; }
+
+    /* POLICY CARDS */
+    .policy-stack { display: grid; gap: 14px; margin-top: 8px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md);
+      box-shadow: var(--sh-sm); padding: 28px 28px 24px;
+    }
+    .card h2 {
+      font-size: 1.22rem; letter-spacing: -0.03em; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 700;
+    }
+    .card p { color: var(--ink-2); line-height: 1.7; margin-bottom: 10px; font-size: 0.97rem; }
+    .card p:last-child { margin-bottom: 0; }
+    .card ul, .card ol { padding-left: 20px; color: var(--ink-2); font-size: 0.97rem; line-height: 1.7; }
+    .card li + li { margin-top: 8px; }
+    .card a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+    .card strong { color: var(--ink); }
+    .card code {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.88em;
+      background: rgba(196,98,45,0.08); padding: 2px 6px; border-radius: 5px; color: var(--accent);
+    }
+
+    /* Callout card */
+    .callout-card {
+      background: linear-gradient(135deg, rgba(196,98,45,0.07), rgba(232,168,124,0.06));
+      border: 1px solid rgba(196,98,45,0.22);
+    }
+    .callout-card h2 { color: var(--accent); }
+    .callout-list { list-style: none; padding: 0; }
+    .callout-list li {
+      display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;
+      font-size: 0.97rem; color: var(--ink-2);
+    }
+    .callout-list li::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0; margin-top: 7px;
+    }
+
+    /* HealthKit badge */
+    .hk-badge {
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px;
+      border-radius: 999px; background: rgba(196,98,45,0.1); border: 1px solid var(--border);
+      color: var(--accent); font-size: 0.78rem; font-weight: 700; margin-bottom: 14px;
+    }
+
+    /* FOOTER */
+    footer { background: var(--ink); border-top: 1px solid rgba(250,247,242,0.08); color: rgba(250,247,242,0.85); margin-top: clamp(72px, 10vw, 110px); }
+    .footer-inner { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; padding-block: 32px; }
+    .footer-brand { display: flex; align-items: center; gap: 14px; }
+    .footer-brand img { height: 24px; width: auto; filter: invert(1) brightness(0.85); }
+    .footer-brand span { font-size: 0.85rem; color: rgba(250,247,242,0.42); }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+    .footer-links a { color: rgba(250,247,242,0.5); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(250,247,242,0.9); }
+    .footer-copy { border-top: 1px solid rgba(250,247,242,0.08); padding: 16px 0 22px; }
+    .footer-copy p { color: rgba(250,247,242,0.26); font-size: 0.8rem; }
+
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    @media (max-width: 760px) {
+      .nav-links { display: none; width: 100%; flex-direction: column; align-items: flex-start; padding: 12px 0 16px; border-top: 1px solid var(--border); gap: 2px; }
+      .nav-links a { padding: 10px 12px; font-size: 1rem; width: 100%; border-radius: 10px; }
+      .nav-hamburger { display: flex; }
+      .nav-toggle:checked ~ .nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .nav-toggle:checked ~ .nav-hamburger span:nth-child(2) { opacity: 0; }
+      .nav-toggle:checked ~ .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+      .nav-toggle:checked ~ .nav-links { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="nav-wrap">
+  <nav class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="images/onis-logo.png" alt="ONIS" height="28">
+    </a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+    <label for="nav-toggle" class="nav-hamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </label>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="support.html">Support</a>
+      <a href="terms.html">Terms</a>
+    </div>
+    <a href="index.html" class="btn-back">← Back to ONIS</a>
+  </nav>
+</header>
+
+<main>
+  <div class="container">
+    <span class="page-eyebrow">Privacy Policy</span>
+    <h1>Your habits are<br>private by design.</h1>
+    <p class="page-lede">
+      This Privacy Policy describes how ONIS Labs handles information when you use the ONIS iPhone and Apple Watch app.
+      The short version: we collect almost nothing, store what we do collect in your iCloud, and never sell or share your data.
+    </p>
+
+    <div class="policy-stack">
+
+      <div class="card callout-card">
+        <h2>Effective Date</h2>
+        <p><strong>Effective date:</strong> May 21, 2026 &nbsp;·&nbsp; <strong>Last updated:</strong> May 21, 2026</p>
+        <p style="margin-top:8px;">When this policy changes materially, we update this page and revise the "Last updated" date. Continued use of ONIS after changes take effect constitutes acceptance of the updated policy.</p>
+      </div>
+
+      <div class="card">
+        <h2>Privacy at a glance</h2>
+        <ul class="callout-list">
+          <li>No account or registration is required to use ONIS.</li>
+          <li>Your habit data is stored on your device and — if you choose — in your own iCloud account via Apple CloudKit.</li>
+          <li>We do not operate our own servers that store user habit data.</li>
+          <li>We do not run ads, ad trackers, or third-party analytics SDKs.</li>
+          <li>We do not sell, rent, or share your personal information with anyone.</li>
+          <li>Apple Health (HealthKit) data is only read if you grant explicit permission, and is never used for advertising.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>1. Information we collect</h2>
+        <p>ONIS does not collect or require personal information to function. The data the app creates is generated entirely by you. Specifically, ONIS stores:</p>
+        <ul>
+          <li><strong>Habit content you create:</strong> habit names, descriptions, emoji, and color choices.</li>
+          <li><strong>Habit completion data:</strong> timestamps of when you mark a habit complete.</li>
+          <li><strong>Streak and history data:</strong> current streak counts, completion history, and milestone records.</li>
+          <li><strong>Reminder preferences:</strong> the times and days you configure for optional notifications.</li>
+          <li><strong>App settings:</strong> display preferences, sort order, and configuration choices.</li>
+          <li><strong>Apple Health data (optional):</strong> specific data types you explicitly authorize — see Section 4 below.</li>
+        </ul>
+        <p style="margin-top:12px;">We do not collect your name, email address, location, contacts, photos, or any other personal data unless you voluntarily include that content in a habit name or description.</p>
+      </div>
+
+      <div class="card">
+        <h2>2. How your data is collected and stored</h2>
+        <p>All data listed above is collected directly from your interactions with the ONIS app. No data is collected passively or in the background beyond what iOS and watchOS require to run the app (e.g., standard system crash logs managed by Apple).</p>
+        <p><strong>On-device storage:</strong> Habit data is stored locally on your iPhone and Apple Watch using Apple's standard on-device storage frameworks.</p>
+        <p><strong>iCloud sync (optional):</strong> If iCloud Drive is enabled for ONIS on your device, your habit data syncs across your iPhone and Apple Watch using <strong>Apple CloudKit</strong> — Apple's private cloud infrastructure tied to your Apple ID. This sync is end-to-end encrypted as part of Apple's iCloud security model. We do not have access to, and cannot read, your CloudKit records.</p>
+      </div>
+
+      <div class="card">
+        <h2>3. How we use your data</h2>
+        <p>The data ONIS stores is used for one purpose: <strong>to provide the habit tracking functionality you expect</strong>. Specifically:</p>
+        <ul>
+          <li>Displaying your habit list, progress rings, and streak counts in the app.</li>
+          <li>Sending local notifications for reminders you configure (processed entirely on-device by iOS).</li>
+          <li>Syncing your data across your own iPhone and Apple Watch via your iCloud account.</li>
+        </ul>
+        <p style="margin-top:12px;">We do not use your data for advertising, profiling, model training, or any purpose other than running the app for you.</p>
+      </div>
+
+      <div class="card">
+        <div class="hk-badge">🏃 Apple HealthKit</div>
+        <h2>4. Apple Health (HealthKit) data</h2>
+        <p>ONIS may request optional access to Apple HealthKit to reduce duplicate logging. For example, if you have a "Run" habit, ONIS can optionally read your completed workouts from the Health app so you don't have to tap twice.</p>
+        <p><strong>What ONIS may request:</strong></p>
+        <ul>
+          <li>Workout sessions (type, duration, start time)</li>
+          <li>Mindful minutes</li>
+          <li>Step count</li>
+        </ul>
+        <p style="margin-top:12px;"><strong>What ONIS never does with Health data:</strong></p>
+        <ul>
+          <li>ONIS does <strong>not</strong> use HealthKit data for advertising or marketing purposes.</li>
+          <li>ONIS does <strong>not</strong> sell, share, or transmit your HealthKit data to any third party.</li>
+          <li>ONIS does <strong>not</strong> write to HealthKit unless a specific in-app feature explicitly states that it does so.</li>
+          <li>HealthKit data is <strong>not</strong> stored on any external server. It is read on-device and used only to pre-fill habit completions locally.</li>
+        </ul>
+        <p style="margin-top:12px;"><strong>Your control:</strong> Health access is entirely opt-in. You can grant, restrict, or revoke access at any time via iPhone Settings → Privacy &amp; Security → Health → ONIS. If you deny access, all ONIS features continue to work normally — you simply log habits manually.</p>
+        <p style="margin-top:8px;font-size:0.88rem;color:var(--ink-2);">This section satisfies Apple's required disclosure for apps that access HealthKit data (App Store Review Guideline 5.1.2(vi) and 5.1.3).</p>
+      </div>
+
+      <div class="card">
+        <h2>5. iCloud and CloudKit sync</h2>
+        <p>When iCloud sync is active for ONIS, your app data is stored in and transmitted through <strong>Apple CloudKit</strong>, which is part of your iCloud account. The following is important to understand:</p>
+        <ul>
+          <li>Your CloudKit data is associated with your Apple ID, not with ONIS Labs.</li>
+          <li>We do not operate CloudKit servers — Apple does. We cannot access, read, modify, or delete your CloudKit records.</li>
+          <li>iCloud data is subject to Apple's iCloud Terms &amp; Conditions and Apple's Privacy Policy.</li>
+          <li>If you delete the ONIS app, iCloud data may persist in your iCloud account until you remove it manually (see Section 8 for instructions).</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>6. Third-party services</h2>
+        <p>ONIS does <strong>not</strong> include or integrate any of the following:</p>
+        <ul>
+          <li>Third-party advertising networks or ad SDKs.</li>
+          <li>Third-party analytics platforms (e.g., Mixpanel, Amplitude, Firebase Analytics, Segment).</li>
+          <li>Third-party crash reporting tools beyond standard Apple crash logs.</li>
+          <li>Social network SDKs (e.g., Facebook, X/Twitter, TikTok).</li>
+          <li>External databases that receive user habit content.</li>
+        </ul>
+        <p style="margin-top:12px;">The only external services ONIS may use are Apple's own: iCloud/CloudKit for sync, and Apple's App Analytics for aggregate, anonymous crash and usage data managed by Apple — not us.</p>
+      </div>
+
+      <div class="card">
+        <h2>7. Analytics and crash reports</h2>
+        <p>ONIS may receive aggregate, anonymized analytics through <strong>Apple's App Analytics</strong> — a service Apple provides to app developers. This data is managed entirely by Apple, does not identify individual users, and we cannot cross-reference it with your habit data. Whether Apple shares this data depends on the privacy settings you configure in your iPhone Settings → Privacy &amp; Security → Analytics &amp; Improvements.</p>
+        <p>We have no other analytics instrumentation in the app.</p>
+      </div>
+
+      <div class="card">
+        <h2>8. Data retention and how to delete your data</h2>
+        <p>Your habit data persists until you choose to delete it. There is no automatic expiry. Here is how to delete it:</p>
+
+        <p style="margin-top:12px;"><strong>Delete all habit data within the app:</strong></p>
+        <ul>
+          <li>Open ONIS on your iPhone</li>
+          <li>Go to Settings (gear icon)</li>
+          <li>Tap <code>Reset All Data</code></li>
+          <li>Confirm — this immediately deletes all habits, completions, and streak history from your device</li>
+        </ul>
+
+        <p style="margin-top:14px;"><strong>Delete iCloud sync data:</strong></p>
+        <ul>
+          <li>iPhone Settings → [Your Name] → iCloud</li>
+          <li>Tap <code>Manage Account Storage</code></li>
+          <li>Find ONIS and tap <code>Delete Data from iCloud</code></li>
+        </ul>
+
+        <p style="margin-top:14px;"><strong>Delete everything completely:</strong></p>
+        <ul>
+          <li>First perform both steps above</li>
+          <li>Then delete the ONIS app from your iPhone and Apple Watch</li>
+        </ul>
+
+        <p style="margin-top:14px;">You may also email <a href="mailto:support@onis.club">support@onis.club</a> to request data deletion assistance. Since your data is in your iCloud account (not our servers), we will guide you through the steps above.</p>
+      </div>
+
+      <div class="card">
+        <h2>9. Revoking consent and controlling access</h2>
+        <p>You can revoke any permission ONIS has been granted at any time:</p>
+        <ul>
+          <li><strong>Disable Health access:</strong> iPhone Settings → Privacy &amp; Security → Health → ONIS → toggle off all categories.</li>
+          <li><strong>Disable iCloud sync:</strong> iPhone Settings → [Your Name] → iCloud → toggle off ONIS.</li>
+          <li><strong>Disable notifications:</strong> iPhone Settings → ONIS → Notifications → toggle off Allow Notifications.</li>
+        </ul>
+        <p style="margin-top:12px;">Revoking any of the above permissions does not delete previously stored data. See Section 8 for deletion instructions.</p>
+      </div>
+
+      <div class="card">
+        <h2>10. Children's privacy</h2>
+        <p>ONIS is not directed to children under the age of 13 (or the equivalent minimum age in your jurisdiction). We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has used ONIS and provided personal information, please contact us at <a href="mailto:support@onis.club">support@onis.club</a> and we will assist with deletion.</p>
+      </div>
+
+      <div class="card">
+        <h2>11. Your rights — GDPR, CCPA, and international users</h2>
+        <p><strong>European Economic Area (EEA) and UK — GDPR:</strong> If you are located in the EEA or UK, you have the right to: access personal data we hold about you; request correction or deletion; object to or restrict processing; and data portability. Because ONIS is designed to store your data in your own iCloud account, most of these rights are exercisable directly by you through the controls described in Sections 8 and 9.</p>
+        <p><strong>California — CCPA:</strong> California residents have the right to know what personal information is collected, the right to delete, and the right to opt out of sale. We do not sell personal information. To exercise any CCPA rights, contact us at <a href="mailto:support@onis.club">support@onis.club</a>.</p>
+        <p><strong>Other jurisdictions:</strong> We comply with applicable local privacy laws. Contact us if you have questions about your rights in your jurisdiction.</p>
+      </div>
+
+      <div class="card">
+        <h2>12. Changes to this policy</h2>
+        <p>We may update this Privacy Policy from time to time to reflect changes in the app or applicable law. When we make material changes, we will update the "Last updated" date at the top of this page. If changes are significant, we may also notify users within the app. Your continued use of ONIS after the update constitutes acceptance of the revised policy.</p>
+      </div>
+
+      <div class="card">
+        <h2>13. Contact us</h2>
+        <p>If you have questions, concerns, or requests about this Privacy Policy or your data, please contact ONIS Labs:</p>
+        <p style="margin-top:10px;"><strong>Email:</strong> <a href="mailto:support@onis.club">support@onis.club</a></p>
+        <p>We typically respond within 48 hours.</p>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="images/onis-logo.png" alt="ONIS" height="24">
+      <span>© 2026 ONIS Labs. All rights reserved.</span>
+    </div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="support.html">Support</a>
+      <a href="mailto:support@onis.club">support@onis.club</a>
+    </nav>
+  </div>
+  <div class="container footer-copy">
+    <p>Not affiliated with or endorsed by Apple Inc.</p>
+  </div>
+</footer>
+
+</body>
+</html>
