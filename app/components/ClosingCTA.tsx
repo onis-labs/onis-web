@@ -6,7 +6,7 @@ import { colors, labelStyle, serif, sans } from "../lib/tokens";
 
 export default function ClosingCTA() {
   return (
-    <section style={{ background: colors.canvas }}>
+    <section style={{ background: colors.canvas, overflowX: "clip" }}>
       <div
         style={{
           maxWidth: 720,

@@ -31,6 +31,38 @@ a {
   color: #1a1a17;
 }
 
+/* Hero layout: phone + copy. Single column (centered) on mobile,
+   two columns (copy left, phone right) from 768px up. */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 6vw, 56px);
+  align-items: center;
+  justify-items: center;
+  max-width: 1080px;
+  width: 100%;
+  text-align: center;
+}
+.hero-text {
+  max-width: 540px;
+}
+@media (min-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1.05fr 0.95fr;
+    text-align: left;
+  }
+  .hero-text {
+    justify-self: start;
+  }
+  .hero-text p {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .hero-phone-wrap {
+    justify-self: center;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
