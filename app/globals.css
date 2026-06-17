@@ -110,6 +110,21 @@ a {
   }
 }
 
+/* The Bigger Picture — four sourced stats, 2x2 on desktop, stacked on mobile. */
+.bigpic-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(48px, 9vw, 76px);
+  justify-items: center;
+}
+@media (min-width: 680px) {
+  .bigpic-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(56px, 7vh, 84px) clamp(32px, 4vw, 56px);
+    align-items: start;
+  }
+}
+
 /* Primary CTA — square editorial button with a calm hover. */
 .btn-primary {
   display: inline-block;
