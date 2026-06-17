@@ -88,10 +88,25 @@ export default function MathSection() {
         </Reveal>
 
         <div className="stats-grid" style={{ marginTop: "clamp(48px, 7vh, 80px)" }}>
-          <Stat value={<CountUp target={2190} />} label="cigarettes a year, if you don't count" delay={0.05} />
-          <Stat value="1 tap" label="to log, from your wrist" delay={0.15} />
+          <Stat value={<CountUp target={730} />} label="energy drinks a year, at two a day" delay={0.05} />
+          <Stat value="1 tap" label="to log it, the moment it happens" delay={0.15} />
           <Stat value="$0" label="leaves your phone. ever." delay={0.25} />
         </div>
+
+        <Reveal delay={0.35} style={{ textAlign: "center" }}>
+          <p
+            style={{
+              fontFamily: serif,
+              fontStyle: "italic",
+              color: colors.dim,
+              fontSize: "clamp(1.05rem, 2.2vw, 1.35rem)",
+              maxWidth: 560,
+              margin: "clamp(56px, 8vh, 88px) auto 0",
+            }}
+          >
+            Two a day never feels like much. A year of it does.
+          </p>
+        </Reveal>
       </div>
     </section>
   );

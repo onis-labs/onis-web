@@ -20,12 +20,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://onis.club"),
   title: "ONIS — make it count. honestly.",
   description:
-    "An honest tracker for the habits you don't talk about. One tap to log cigarettes, vape, nicotine, alcohol and more. Nothing leaves your phone — no account, no cloud, no analytics. $4.99 once.",
+    "An honest tracker for the habit you want to cut down. One tap to log energy drinks, alcohol and more — stay under your target, week by week. Nothing leaves your phone: no account, no cloud, no analytics. $4.99 once.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "ONIS — make it count. honestly.",
     description:
-      "An honest tracker for the habits you don't talk about. One tap from your wrist. Nothing leaves your phone. $4.99 once, no subscription.",
+      "An honest tracker for the habit you want to cut down. One tap from your wrist. Nothing leaves your phone. $4.99 once, no subscription.",
     url: "https://onis.club/",
     type: "website",
     images: ["/images/onis-appicon.png"],
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ONIS — make it count. honestly.",
     description:
-      "An honest tracker for the habits you don't talk about. One tap from your wrist. Nothing leaves your phone.",
+      "An honest tracker for the habit you want to cut down. One tap from your wrist. Nothing leaves your phone.",
     images: ["/images/onis-appicon.png"],
   },
   icons: {

@@ -14,15 +14,15 @@ const padT = 24;
 const padB = 44;
 const plotW = W - padL - padR;
 const plotH = H - padT - padB;
-const MAXV = 6;
+const MAXV = 3;
 
 const xAt = (week: number) => padL + (week / 12) * plotW;
 const yAt = (v: number) => padT + ((MAXV - v) / MAXV) * plotH;
 
-// Without ONIS: holds around six a day.
-const baseline = [6, 6.1, 5.9, 6.05, 6.1, 5.95, 6, 6.05, 5.9, 6, 6.08, 5.95, 6];
+// Without ONIS: holds around two a day.
+const baseline = [2.2, 2.3, 2.1, 2.25, 2.2, 2.3, 2.15, 2.25, 2.1, 2.2, 2.3, 2.2, 2.2];
 // With ONIS: steps down, week by week.
-const plan = [6, 5.5, 5, 4.6, 4, 3.5, 3, 2.7, 2.3, 2, 1.6, 1.3, 1];
+const plan = [2.2, 2.0, 1.8, 1.6, 1.4, 1.2, 1.05, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4];
 
 const toPath = (vals: number[]) =>
   vals
@@ -63,7 +63,7 @@ export default function DifferenceSection() {
           <svg
             viewBox={`0 0 ${W} ${H}`}
             role="img"
-            aria-label="Two paths: without ONIS, counts stay around six a day; with ONIS, counts step down week by week."
+            aria-label="Two paths: without ONIS, counts stay around two a day; with ONIS, counts step down week by week."
             style={{ display: "block", width: "100%", height: "auto", overflow: "visible" }}
           >
             <defs>
@@ -92,7 +92,7 @@ export default function DifferenceSection() {
             </defs>
 
             {/* faint gridlines */}
-            {[2, 4, 6].map((v) => (
+            {[1, 2, 3].map((v) => (
               <line
                 key={v}
                 x1={padL}
@@ -104,7 +104,7 @@ export default function DifferenceSection() {
               />
             ))}
             {/* y-axis numbers */}
-            {[2, 4, 6].map((v) => (
+            {[1, 2, 3].map((v) => (
               <text
                 key={`y-${v}`}
                 x={padL - 10}
@@ -149,7 +149,7 @@ export default function DifferenceSection() {
                 strokeDasharray="5 6"
                 strokeLinecap="round"
               />
-              <circle cx={xAt(12)} cy={yAt(6)} r={4} fill={colors.dim} />
+              <circle cx={xAt(12)} cy={yAt(2.2)} r={4} fill={colors.dim} />
             </g>
 
             {/* With ONIS — terracotta, steps down */}
@@ -162,7 +162,7 @@ export default function DifferenceSection() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-              <circle cx={xAt(12)} cy={yAt(1)} r={5} fill={colors.accent} />
+              <circle cx={xAt(12)} cy={yAt(0.4)} r={5} fill={colors.accent} />
             </g>
 
             {/* x labels */}
@@ -231,7 +231,7 @@ export default function DifferenceSection() {
                 Without ONIS
               </span>
               <span style={{ fontFamily: sans, fontWeight: 300, color: colors.dim, fontSize: "0.95rem" }}>
-                stays around six a day
+                stays around two a day
               </span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
