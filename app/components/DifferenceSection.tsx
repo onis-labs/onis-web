@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Reveal from "./Reveal";
 import AccentPeriod from "./AccentPeriod";
-import { colors, labelStyle, serif, sans } from "../lib/tokens";
+import { colors, labelStyle, serif, sans, ease, layout } from "../lib/tokens";
 
 // Chart geometry.
 const W = 600;
@@ -29,8 +29,6 @@ const toPath = (vals: number[]) =>
     .map((v, i) => `${i === 0 ? "M" : "L"}${xAt(i).toFixed(1)},${yAt(v).toFixed(1)}`)
     .join(" ");
 
-const EASE: [number, number, number, number] = [0.25, 0, 0, 1];
-
 export default function DifferenceSection() {
   const reduce = useReducedMotion();
 
@@ -38,7 +36,7 @@ export default function DifferenceSection() {
     <section
       style={{
         background: colors.canvas,
-        padding: "clamp(96px, 16vh, 200px) clamp(24px, 6vw, 80px)",
+        padding: `${layout.padY} ${layout.padX}`,
       }}
     >
       <div style={{ maxWidth: 760, margin: "0 auto" }}>
@@ -77,7 +75,7 @@ export default function DifferenceSection() {
                   initial={{ width: reduce ? plotW : 0 }}
                   whileInView={{ width: plotW }}
                   viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 1.2, ease: EASE }}
+                  transition={{ duration: 1.2, ease }}
                 />
               </clipPath>
               <clipPath id="diff-reveal-b">
@@ -88,7 +86,7 @@ export default function DifferenceSection() {
                   initial={{ width: reduce ? plotW : 0 }}
                   whileInView={{ width: plotW }}
                   viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 1.2, delay: 0.2, ease: EASE }}
+                  transition={{ duration: 1.2, delay: 0.2, ease }}
                 />
               </clipPath>
             </defs>

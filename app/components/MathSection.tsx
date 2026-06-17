@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
 import Reveal from "./Reveal";
-import { colors, labelStyle, serif } from "../lib/tokens";
+import { colors, labelStyle, serif, layout } from "../lib/tokens";
 
 function CountUp({
   target,
@@ -44,7 +44,7 @@ export default function MathSection() {
       id="the-math"
       style={{
         background: colors.canvas,
-        padding: "clamp(96px, 16vh, 200px) 24px",
+        padding: `${layout.padY} ${layout.padX}`,
         display: "flex",
         justifyContent: "center",
       }}

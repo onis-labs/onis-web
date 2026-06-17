@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import Reveal from "./Reveal";
 import AccentPeriod from "./AccentPeriod";
-import { colors, labelStyle, serif, sans } from "../lib/tokens";
+import { colors, labelStyle, serif, sans, layout } from "../lib/tokens";
 
 type Feature = { icon: ReactNode; title: string; body: string };
 
@@ -61,10 +61,10 @@ export default function FeaturesSection() {
     <section
       style={{
         background: colors.cardCream,
-        padding: "clamp(96px, 16vh, 184px) clamp(24px, 6vw, 80px)",
+        padding: `${layout.padY} ${layout.padX}`,
       }}
     >
-      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+      <div style={{ maxWidth: layout.wideMax, margin: "0 auto" }}>
         <Reveal>
           <p style={labelStyle}>Built On Restraint</p>
         </Reveal>

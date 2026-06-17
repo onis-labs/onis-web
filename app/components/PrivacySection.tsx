@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Reveal from "./Reveal";
 import AccentPeriod from "./AccentPeriod";
-import { colors, labelStyle, serif, sans } from "../lib/tokens";
+import { colors, labelStyle, serif, sans, ease, layout } from "../lib/tokens";
 
 const creamDim = "rgba(244,240,230,0.72)";
 
@@ -15,7 +15,7 @@ export default function PrivacySection() {
       style={{
         background: colors.ink,
         color: colors.canvas,
-        padding: "clamp(112px, 20vh, 220px) clamp(24px, 6vw, 80px)",
+        padding: `${layout.padYInk} ${layout.padX}`,
       }}
     >
       <div style={{ maxWidth: 760, margin: "0 auto" }}>
@@ -51,7 +51,7 @@ export default function PrivacySection() {
                 initial={{ scaleX: reduce ? 1 : 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.7, delay: 0.4, ease: [0.25, 0, 0, 1] }}
+                transition={{ duration: 0.7, delay: 0.4, ease }}
               />
             </span>{" "}
             leaves your phone

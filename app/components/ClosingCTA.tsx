@@ -2,7 +2,7 @@
 
 import Reveal from "./Reveal";
 import AccentPeriod from "./AccentPeriod";
-import { colors, labelStyle, serif, sans } from "../lib/tokens";
+import { colors, labelStyle, serif, sans, layout } from "../lib/tokens";
 
 export default function ClosingCTA() {
   return (
@@ -12,7 +12,7 @@ export default function ClosingCTA() {
           maxWidth: 720,
           margin: "0 auto",
           textAlign: "center",
-          padding: "clamp(96px, 18vh, 220px) clamp(24px, 6vw, 80px) 0",
+          padding: `${layout.padY} ${layout.padX} 0`,
         }}
       >
         <Reveal>

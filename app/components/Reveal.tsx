@@ -2,9 +2,9 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import type { CSSProperties, ReactNode } from "react";
+import { ease } from "../lib/tokens";
 
 // Shared scroll-reveal: y 24 -> 0, opacity 0 -> 1, once, calm ease.
-const EASE: [number, number, number, number] = [0.25, 0, 0, 1];
 
 export default function Reveal({
   children,
@@ -25,7 +25,7 @@ export default function Reveal({
       initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24 }}
       whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, delay, ease: EASE }}
+      transition={{ duration: 0.7, delay, ease }}
     >
       {children}
     </motion.div>
