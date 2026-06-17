@@ -32,88 +32,88 @@ a {
 }
 
 /* ── Hero ─────────────────────────────────────────────────────────────
-   Composed two-part hero. Mobile: one column, phone above text, centered.
-   ≥900px: two columns, headline left / phone right, left-aligned. */
+   Centered, confident headline (Apollo) over a wide product film (Madrone).
+   Massive type, generous whitespace, restraint. */
 .hero {
   position: relative;
   overflow: hidden;
   background: #f4f0e6;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
-  padding: clamp(96px, 13vh, 152px) clamp(24px, 6vw, 80px)
-    clamp(96px, 13vh, 152px);
+  padding: clamp(72px, 11vh, 132px) clamp(24px, 6vw, 80px)
+    clamp(80px, 12vh, 140px);
 }
 
-/* Soft terracotta light — always present, so the hero glows even if the
-   generated texture image is missing (graceful fallback). */
+/* A whisper of warm light behind the headline — not a texture. */
 .hero-glow {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    radial-gradient(
-      115% 90% at 82% 36%,
-      rgba(184, 90, 63, 0.1),
-      transparent 58%
-    ),
-    radial-gradient(
-      70% 60% at 90% 26%,
-      rgba(184, 90, 63, 0.06),
-      transparent 60%
-    );
+  background: radial-gradient(
+    78% 56% at 50% 26%,
+    rgba(184, 90, 63, 0.07),
+    transparent 62%
+  );
 }
 
-/* The generated ripple texture, layered faintly over the glow. */
-.hero-texture {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: url("/images/hero-texture.png");
-  background-size: cover;
-  background-position: center right;
-  opacity: 0.55;
-}
-
-.hero-grid {
+.hero-inner {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(40px, 7vw, 72px);
-  align-items: center;
-  justify-items: center;
   max-width: 1120px;
-  width: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
-.hero-phone-wrap {
-  order: 1;
+
+/* Wide product film — Madrone-style banner. Cinematic on desktop,
+   a touch taller on mobile so the moment reads. */
+.hero-film-wrap {
+  width: 100%;
+  margin-top: clamp(48px, 8vh, 88px);
 }
-.hero-text {
-  order: 2;
-  max-width: 540px;
+.hero-film {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #faf7f0;
+  box-shadow:
+    0 2px 4px rgba(26, 26, 23, 0.05),
+    0 50px 90px -44px rgba(26, 26, 23, 0.4);
 }
-@media (min-width: 900px) {
-  .hero-grid {
-    grid-template-columns: 1.02fr 0.98fr;
-    gap: clamp(48px, 6vw, 96px);
-    text-align: left;
+@media (min-width: 760px) {
+  .hero-film {
+    aspect-ratio: 2.4 / 1;
   }
-  .hero-text {
-    order: 1;
-    justify-self: start;
-  }
-  .hero-text p {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-  .hero-phone-wrap {
-    order: 2;
-    justify-self: center;
+}
+.hero-film-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.hero-mock {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(48px, 8vh, 88px);
+}
+
+/* Big-numbers section — the key premium move. Stacked + huge on mobile,
+   three across with breathing room on desktop. */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(56px, 10vw, 88px);
+  justify-items: center;
+}
+@media (min-width: 760px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(32px, 4vw, 56px);
+    align-items: start;
   }
 }
 
@@ -161,9 +161,6 @@ a {
 .hero-reveal.d1 {
   animation-delay: 0.04s;
 }
-.hero-reveal.d-phone {
-  animation-delay: 0.12s;
-}
 .hero-reveal.d2 {
   animation-delay: 0.12s;
 }
@@ -172,6 +169,24 @@ a {
 }
 .hero-reveal.d4 {
   animation-delay: 0.28s;
+}
+.hero-reveal.d-film {
+  animation-delay: 0.36s;
+}
+
+/* Fallback-only: calm tap pulse on the +1 button (phone mockup). */
+@keyframes tap-pulse {
+  0%,
+  70%,
+  100% {
+    transform: scale(1);
+  }
+  82% {
+    transform: scale(0.9);
+  }
+}
+.tap-pulse {
+  animation: tap-pulse 2.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
