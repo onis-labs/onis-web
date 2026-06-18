@@ -7,6 +7,17 @@ import { colors, labelStyle, serif, sans, ease, layout } from "../lib/tokens";
 
 const creamDim = "rgba(244,240,230,0.72)";
 
+// The full, unambiguous privacy guarantees — written for a person and for App
+// Review. Every line maps to Apple's "Data Not Collected" label.
+const guarantees = [
+  "No account required",
+  "No email collected",
+  "No analytics",
+  "No third-party tracking",
+  "No data sold or shared",
+  "All data stored locally on your device",
+];
+
 export default function PrivacySection() {
   const reduce = useReducedMotion();
 
@@ -76,13 +87,56 @@ export default function PrivacySection() {
           </p>
         </Reveal>
 
+        <Reveal delay={0.25}>
+          <ul
+            style={{
+              listStyle: "none",
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: "14px 32px",
+              margin: "40px 0 0",
+              padding: 0,
+            }}
+          >
+            {guarantees.map((g) => (
+              <li key={g} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke={colors.accent}
+                  strokeWidth={2.2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                  style={{ flexShrink: 0 }}
+                >
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                <span
+                  style={{
+                    fontFamily: sans,
+                    fontWeight: 300,
+                    color: colors.canvas,
+                    fontSize: "0.98rem",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {g}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+
         <Reveal delay={0.3}>
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
               gap: 32,
-              marginTop: 64,
+              marginTop: 56,
               borderTop: "1px solid rgba(244,240,230,0.14)",
               paddingTop: 40,
             }}

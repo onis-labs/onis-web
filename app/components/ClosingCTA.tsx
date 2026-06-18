@@ -62,6 +62,30 @@ export default function ClosingCTA() {
           </p>
         </Reveal>
 
+        <Reveal delay={0.35}>
+          <p
+            style={{
+              fontFamily: sans,
+              fontWeight: 300,
+              color: colors.dim,
+              fontSize: "0.95rem",
+              marginTop: 16,
+            }}
+          >
+            Questions before you buy? Email{" "}
+            <a
+              href="mailto:support@onis.club"
+              style={{
+                color: colors.accent,
+                textDecoration: "underline",
+                textUnderlineOffset: 3,
+              }}
+            >
+              support@onis.club
+            </a>
+          </p>
+        </Reveal>
+
         {/* Radial glow + official Apple badge. Badge is static — never animated. */}
         <div
           style={{
@@ -133,6 +157,9 @@ export default function ClosingCTA() {
           </a>
           <a href="/support.html" style={{ color: colors.dim }}>
             Support
+          </a>
+          <a href="mailto:support@onis.club" style={{ color: colors.dim }}>
+            support@onis.club
           </a>
         </nav>
 
