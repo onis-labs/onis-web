@@ -94,6 +94,42 @@ a {
   }
 }
 
+/* 200vh sticky scrub wrapper — pins the hero while the composite is scrubbed. */
+.hero-scroll {
+  position: relative;
+  background: #f4f0e6;
+  height: 200vh;
+}
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 580px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: clamp(40px, 6vh, 88px) clamp(24px, 6vw, 80px);
+}
+
+/* Photo of the hand + phone, with the real app screen composited on top. */
+.hero-composite {
+  position: relative;
+  width: clamp(210px, 58vw, 384px);
+  line-height: 0;
+}
+.hero-hand-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hero-screen {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 6% / 3%;
+  container-type: inline-size;
+  background: #f4f0e6;
+}
+
 /* Big-numbers section — the key premium move. Stacked + huge on mobile,
    three across with breathing room on desktop. */
 .stats-grid {
