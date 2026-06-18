@@ -78,9 +78,10 @@ function Dots({ accent, fill }: { accent: string; fill: number }) {
   );
 }
 
-function Card({ icon, iconBg, title, period, count, target, below, accent, barFrac, btnScale, dotFill }: {
+function Card({ icon, iconBg, title, period, count, target, below, accent, barFrac, btnScale, dotFill, touch }: {
   icon: ReactNode; iconBg: string; title: string; period: string; count: ReactNode; target: number;
   below: ReactNode; accent: string; barFrac: number; btnScale: number; dotFill: number;
+  touch?: { thumbOn: number; ripple: number; press: number };
 }) {
   return (
     <div style={{ background: APP.card, border: `1px solid ${APP.cardBorder}`, borderRadius: "5.5cqw", boxShadow: APP.cardShadow, padding: "5cqw 5cqw 4.6cqw" }}>
@@ -102,7 +103,17 @@ function Card({ icon, iconBg, title, period, count, target, below, accent, barFr
             <div style={{ height: "100%", width: `${barFrac * 100}%`, background: accent, borderRadius: "1cqw" }} />
           </div>
         </div>
-        <span style={{ width: "15cqw", height: "15cqw", borderRadius: "50%", background: accent, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: sans, fontWeight: 600, fontSize: "4.6cqw", marginLeft: "4.4cqw", flex: "none", transform: `scale(${btnScale})`, boxShadow: `0 3cqw 7cqw -3cqw ${accent}` }}>+1</span>
+        <span style={{ position: "relative", flex: "none", marginLeft: "4.4cqw", width: "15cqw", height: "15cqw" }}>
+          <span style={{ position: "absolute", inset: 0, borderRadius: "50%", background: accent, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: sans, fontWeight: 600, fontSize: "4.6cqw", transform: `scale(${btnScale})`, boxShadow: `0 3cqw 7cqw -3cqw ${accent}` }}>+1</span>
+          {touch && (
+            <>
+              {/* contact ripple — emanates from the button on touch */}
+              <span aria-hidden style={{ position: "absolute", left: "50%", top: "50%", width: "15cqw", height: "15cqw", borderRadius: "50%", border: `1cqw solid ${colors.accent}`, transform: `translate(-50%,-50%) scale(${0.45 + touch.ripple * 1.4})`, opacity: touch.ripple > 0 ? (1 - touch.ripple) * 0.5 : 0, pointerEvents: "none", zIndex: 3 }} />
+              {/* fingertip pressing the glass */}
+              <span aria-hidden style={{ position: "absolute", left: "50%", top: "50%", width: "21cqw", height: "23cqw", borderRadius: "50%", background: "radial-gradient(circle at 40% 34%, rgba(125,96,78,0.16), rgba(70,50,40,0.33) 80%)", border: "0.5cqw solid rgba(255,255,255,0.22)", boxShadow: `0 ${1 + (1 - touch.thumbOn) * 3}cqw ${3 + (1 - touch.thumbOn) * 7}cqw -2cqw rgba(26,26,23,0.4)`, transform: `translate(-50%,-50%) translate(${(1 - touch.thumbOn) * -3}cqw, ${(1 - touch.thumbOn) * 9}cqw) scale(${1 + 0.04 * (1 - touch.thumbOn) - 0.04 * touch.press})`, pointerEvents: "none", zIndex: 4 }} />
+            </>
+          )}
+        </span>
       </div>
       <p style={{ ...tiny, fontSize: "2.6cqw", marginTop: "4cqw" }}>Last 7 days</p>
       <Dots accent={accent} fill={dotFill} />
@@ -110,11 +121,11 @@ function Card({ icon, iconBg, title, period, count, target, below, accent, barFr
   );
 }
 
-function HomeScreen({ tapP, btnScale }: { tapP: number; btnScale: number }) {
-  const logged = tapP >= 0.5;
+function HomeScreen({ countP, btnScale, thumbOn, ripple, press }: { countP: number; btnScale: number; thumbOn: number; ripple: number; press: number }) {
+  const logged = countP >= 0.5;
   const countRoll = (
     <span style={{ display: "inline-block", height: "1em", overflow: "hidden", lineHeight: 1, verticalAlign: "bottom" }}>
-      <span style={{ display: "block", transform: `translateY(${-tapP}em)` }}>
+      <span style={{ display: "block", transform: `translateY(${-countP}em)` }}>
         <span style={{ display: "block", height: "1em", lineHeight: 1 }}>0</span>
         <span style={{ display: "block", height: "1em", lineHeight: 1 }}>1</span>
       </span>
@@ -134,7 +145,7 @@ function HomeScreen({ tapP, btnScale }: { tapP: number; btnScale: number }) {
         <span style={{ width: "8cqw", height: "8cqw", borderRadius: "50%", border: `1px solid ${APP.cardBorder}`, display: "flex", alignItems: "center", justifyContent: "center", color: colors.ink, fontSize: "4.6cqw", fontWeight: 300 }}>+</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "3.6cqw" }}>
-        <Card icon={<Bolt c={APP.energy} />} iconBg={APP.energySoft} title="Energy drinks" period="Today" count={countRoll} target={2} below={logged ? 1 : 2} accent={APP.energy} barFrac={tapP * 0.5} btnScale={btnScale} dotFill={ss(tapP, 0.45, 1)} />
+        <Card icon={<Bolt c={APP.energy} />} iconBg={APP.energySoft} title="Energy drinks" period="Today" count={countRoll} target={2} below={logged ? 1 : 2} accent={APP.energy} barFrac={countP * 0.5} btnScale={btnScale} dotFill={ss(countP, 0.45, 1)} touch={{ thumbOn, ripple, press }} />
         <Card icon={<Wine c={APP.alcohol} />} iconBg={APP.alcoholSoft} title="Alcohol" period="This week" count={0} target={7} below={7} accent={APP.alcohol} barFrac={0} btnScale={1} dotFill={0} />
       </div>
       <div style={{ flex: 1 }} />
@@ -183,9 +194,12 @@ function Wine({ c }: { c: string }) {
 }
 
 export default function HeroComposite({ progress, reduce }: { progress: number; reduce: boolean }) {
-  const tapP = reduce ? 0 : ss(progress, 0.3, 0.5);
-  const press = reduce ? 0 : Math.max(0, 1 - Math.abs(progress - 0.36) / 0.08);
-  const btnScale = 1 - 0.06 * press;
+  // Sequence (cause before effect): thumb lands → button depresses + ripple → count rolls → thumb lifts.
+  const thumbOn = reduce ? 1 : ss(progress, 0.26, 0.36) - ss(progress, 0.54, 0.64);
+  const press = reduce ? 0 : ss(progress, 0.36, 0.4) - ss(progress, 0.46, 0.54);
+  const ripple = reduce ? 0 : ss(progress, 0.36, 0.54);
+  const countP = reduce ? 0 : ss(progress, 0.4, 0.54); // count changes only AFTER contact (~0.36)
+  const btnScale = 1 - 0.08 * press;
   const coachOpacity = reduce ? 0 : ss(progress, 0.66, 0.82);
   const todayOpacity = 1 - coachOpacity;
 
@@ -195,7 +209,7 @@ export default function HeroComposite({ progress, reduce }: { progress: number; 
       <img className="hero-hand-img" src="/images/hero-hand.png" alt="A hand holding a phone running ONIS" />
       <div className="hero-screen" style={{ left: SCREEN.left, top: SCREEN.top, width: SCREEN.width, height: SCREEN.height }}>
         <div style={{ position: "absolute", inset: 0, opacity: todayOpacity }}>
-          <HomeScreen tapP={tapP} btnScale={btnScale} />
+          <HomeScreen countP={countP} btnScale={btnScale} thumbOn={thumbOn} ripple={ripple} press={press} />
         </div>
         <div style={{ position: "absolute", inset: 0, opacity: coachOpacity }}>
           <CoachScreen />
