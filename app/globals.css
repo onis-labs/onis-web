@@ -111,23 +111,38 @@ a {
   padding: clamp(28px, 4.5vh, 64px) clamp(24px, 6vw, 80px);
 }
 
-/* Photo of the hand + phone, with the real app screen composited on top. */
-.hero-composite {
+/* Our own clean iPhone-style mockup (not Apple device artwork): an ink bezel
+   with rounded corners + a dynamic-island pill, framing the real app screen. */
+.hero-phone {
   position: relative;
-  width: clamp(200px, 54vw, 400px);
-  line-height: 0;
-}
-.hero-hand-img {
-  display: block;
-  width: 100%;
-  height: auto;
+  width: clamp(210px, 50vw, 300px);
+  aspect-ratio: 9 / 19;
+  background: #1a1a17;
+  border-radius: 14% / 6.6%;
+  padding: 2.6%;
+  box-shadow:
+    0 34px 64px -28px rgba(26, 26, 23, 0.4),
+    0 10px 24px -16px rgba(26, 26, 23, 0.3);
 }
 .hero-screen {
-  position: absolute;
+  position: relative;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  border-radius: 6% / 3%;
+  border-radius: 11% / 5%;
   container-type: inline-size;
   background: #f4f0e6;
+}
+.hero-island {
+  position: absolute;
+  top: 2.4cqw;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26cqw;
+  height: 7.2cqw;
+  border-radius: 99px;
+  background: #1a1a17;
+  z-index: 5;
 }
 
 /* Big-numbers section — the key premium move. Stacked + huge on mobile,
