@@ -108,13 +108,13 @@ a {
   overflow: hidden;
   display: flex;
   align-items: center;
-  padding: clamp(40px, 6vh, 88px) clamp(24px, 6vw, 80px);
+  padding: clamp(28px, 4.5vh, 64px) clamp(24px, 6vw, 80px);
 }
 
 /* Photo of the hand + phone, with the real app screen composited on top. */
 .hero-composite {
   position: relative;
-  width: clamp(210px, 58vw, 384px);
+  width: clamp(200px, 54vw, 400px);
   line-height: 0;
 }
 .hero-hand-img {
