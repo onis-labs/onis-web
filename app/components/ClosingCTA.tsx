@@ -76,7 +76,7 @@ export default function ClosingCTA() {
             <a
               href="mailto:support@onis.club"
               style={{
-                color: colors.accent,
+                color: colors.accentHover,
                 textDecoration: "underline",
                 textUnderlineOffset: 3,
               }}
@@ -105,20 +105,38 @@ export default function ClosingCTA() {
               pointerEvents: "none",
             }}
           />
-          {/* Official "Download on the App Store" artwork.
-              Replace idXXXXXXXXX with the real App Store ID before launch. */}
-          <a
-            href="https://apps.apple.com/app/idXXXXXXXXX"
-            aria-label="Download ONIS on the App Store"
-            style={{ position: "relative", display: "inline-block" }}
+          {/* App Store listing is not live yet: render the official badge as a
+              NON-clickable "coming soon" state. No placeholder or fake URL. */}
+          <div
+            role="img"
+            aria-label="ONIS — coming soon to the App Store"
+            style={{
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 14,
+            }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/app-store-badge.svg"
-              alt="Download on the App Store"
-              style={{ height: 48, width: "auto", display: "block" }}
+              alt=""
+              style={{ height: 48, width: "auto", display: "block", opacity: 0.5 }}
             />
-          </a>
+            <span
+              style={{
+                fontFamily: sans,
+                fontSize: "0.72rem",
+                fontWeight: 600,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: colors.body,
+              }}
+            >
+              Coming soon to the App Store
+            </span>
+          </div>
         </div>
       </div>
 
@@ -148,7 +166,7 @@ export default function ClosingCTA() {
         </span>
 
         {/* Footer links → the real static legal pages served from public/. */}
-        <nav style={{ display: "flex", gap: 20, fontFamily: sans, fontSize: "0.85rem" }}>
+        <nav className="site-footer-nav" style={{ display: "flex", gap: 20, fontFamily: sans, fontSize: "0.85rem" }}>
           <a href="/privacy.html" style={{ color: colors.dim }}>
             Privacy
           </a>

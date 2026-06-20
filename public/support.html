@@ -24,7 +24,7 @@
       --surface:  #FFFFFF;
       --ink:      #1A1208;
       --ink-2:    #5C4A32;
-      --accent:   #C4622D;
+      --accent:   #A8501C;
       --accent-2: #E8A87C;
       --border:   rgba(196,98,45,0.15);
       --sh-sm:    0 2px 12px rgba(26,18,8,0.06);
@@ -230,7 +230,7 @@
   <div class="container">
     <p class="section-label">Quick start</p>
     <h2>Up and running in minutes.</h2>
-    <p class="lede">Three steps from App Store to your first logged habit.</p>
+    <p class="lede">Three steps to your first logged habit.</p>
     <div class="qs-grid">
 
       <article class="qs-card">
@@ -241,8 +241,8 @@
             <rect x="9" y="24" width="16" height="2" rx="1" fill="var(--accent)"/>
           </svg>
         </div>
-        <h3>Download ONIS</h3>
-        <p>Search "ONIS" on the App Store and install it on your iPhone. It's free with no subscription required.</p>
+        <h3>Get ONIS</h3>
+        <p>ONIS is coming soon to the App Store. When it launches, you'll install it on your iPhone — a one-time $4.99 purchase, with no subscription.</p>
       </article>
 
       <article class="qs-card">
@@ -290,12 +290,12 @@
         <p class="faq-group-title">Getting started</p>
         <div class="faq-items">
           <details>
-            <summary>Is ONIS free?</summary>
-            <p>Yes. ONIS is completely free to download and use. There is no subscription, no premium tier, and no paywalled features. Download it, use it, and that's all.</p>
+            <summary>How much does ONIS cost?</summary>
+            <p>ONIS will be a one-time $4.99 purchase — you pay once and own it, with no subscription and no recurring fees. ONIS is coming soon to the App Store.</p>
           </details>
           <details>
             <summary>Do I need an account to use ONIS?</summary>
-            <p>No account required. ONIS works out of the box. Your habits are stored on your device and optionally synced via your existing iCloud account — no sign-up, no email, no password.</p>
+            <p>No account required. ONIS works out of the box. Your habits are stored on your device — no cloud and no account, so no sign-up, no email, no password. Your iPhone and Apple Watch sync directly with each other.</p>
           </details>
           <details>
             <summary>What watchOS and iOS version do I need?</summary>
@@ -345,15 +345,15 @@
       </div>
 
       <div class="faq-group">
-        <p class="faq-group-title">HealthKit &amp; privacy</p>
+        <p class="faq-group-title">Privacy</p>
         <div class="faq-items">
           <details>
             <summary>Where is my habit data stored?</summary>
-            <p>Your data is stored on your iPhone and Apple Watch. If iCloud Drive is enabled for ONIS, it syncs through <strong>Apple CloudKit</strong> — this means your data lives in your iCloud account (tied to your Apple ID), not on our servers. ONIS Labs cannot access, read, or export your CloudKit data. See our <a href="privacy.html">Privacy Policy</a> for full details.</p>
+            <p>Your data is stored on your iPhone and Apple Watch. ONIS does not use iCloud, CloudKit, or any server — your iPhone and Apple Watch sync directly with each other (device-to-device), so nothing lives on our servers. ONIS Labs cannot access, read, or export your data. See our <a href="privacy.html">Privacy Policy</a> for full details.</p>
           </details>
           <details>
             <summary>How do I delete all my data?</summary>
-            <p>To delete all local habit data: ONIS → Settings → <code>Reset All Data</code> → Confirm. To also delete iCloud sync data: iPhone Settings → [Your Name] → iCloud → Manage Account Storage → ONIS → Delete Data. To remove everything completely, perform both steps and then delete the app. See <a href="privacy.html">Privacy Policy Section 8</a> for step-by-step instructions.</p>
+            <p>To delete all habit data: ONIS → Settings → <code>Reset All Data</code> → Confirm. To remove everything completely, also delete the app from your iPhone and Apple Watch. See <a href="privacy.html">Privacy Policy Section 8</a> for step-by-step instructions.</p>
           </details>
         </div>
       </div>
@@ -367,7 +367,7 @@
           </details>
           <details>
             <summary>My Watch and iPhone data look out of sync — how do I fix it?</summary>
-            <p>Open ONIS on iPhone to trigger an automatic sync. If data still looks different: (1) Make sure both devices are on the same Wi-Fi network and Bluetooth is on. (2) Open the Watch app on iPhone → tap ONIS → toggle the app off, wait 5 seconds, toggle back on. (3) If the issue persists after a few minutes, force-close ONIS on both devices and reopen. iCloud sync may take up to a few minutes to propagate changes.</p>
+            <p>Open ONIS on iPhone to trigger an automatic sync. If data still looks different: (1) Make sure both devices are on the same Wi-Fi network and Bluetooth is on. (2) Open the Watch app on iPhone → tap ONIS → toggle the app off, wait 5 seconds, toggle back on. (3) If the issue persists after a few minutes, force-close ONIS on both devices and reopen. Syncing between your iPhone and Apple Watch may take a few moments to complete.</p>
           </details>
         </div>
       </div>
@@ -409,14 +409,14 @@
       </article>
 
       <article class="trouble-card">
-        <div class="trouble-icon">☁️</div>
-        <h3>Data missing after reinstall</h3>
+        <div class="trouble-icon">📱</div>
+        <h3>Data after deleting or reinstalling</h3>
         <ol class="trouble-steps">
-          <li data-n="1">Ensure iCloud Drive is enabled: iPhone Settings → [Your Name] → iCloud → toggle on ONIS (if present).</li>
-          <li data-n="2">Open ONIS after reinstalling and wait up to 2 minutes for iCloud data to download.</li>
-          <li data-n="3">If data doesn't appear, go to iPhone Settings → [Your Name] → iCloud → Manage Account Storage — check that ONIS data is still listed there.</li>
-          <li data-n="4">Close and reopen ONIS to trigger a fresh iCloud pull.</li>
-          <li data-n="5">If data is still missing, email us at <a href="mailto:support@onis.club" style="color:var(--accent);">support@onis.club</a> — include your iOS version and device model.</li>
+          <li data-n="1">ONIS stores everything on your device. Deleting the app removes its data — there is no cloud copy to restore from.</li>
+          <li data-n="2">If you restored your iPhone from an Apple backup (iCloud Backup or a computer backup), your ONIS data is included in that backup and returns with it.</li>
+          <li data-n="3">If you set up your iPhone as new, earlier ONIS data will not carry over.</li>
+          <li data-n="4">To keep your data, make sure you have a current device backup before deleting the app.</li>
+          <li data-n="5">Questions? Email us at <a href="mailto:support@onis.club" style="color:var(--accent);">support@onis.club</a> — include your iOS version and device model.</li>
         </ol>
       </article>
 

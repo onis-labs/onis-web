@@ -31,7 +31,7 @@ export default function PrivacySection() {
     >
       <div style={{ maxWidth: 760, margin: "0 auto" }}>
         <Reveal>
-          <p style={{ ...labelStyle, color: colors.dim }}>Privacy</p>
+          <p style={{ ...labelStyle, color: colors.dimOnDark}}>Privacy</p>
         </Reveal>
 
         <Reveal delay={0.1}>
@@ -142,7 +142,7 @@ export default function PrivacySection() {
             }}
           >
             <div>
-              <p style={{ ...labelStyle, color: colors.dim, marginBottom: 12 }}>
+              <p style={{ ...labelStyle, color: colors.dimOnDark, marginBottom: 12 }}>
                 What we store
               </p>
               <p
@@ -156,7 +156,7 @@ export default function PrivacySection() {
               </p>
             </div>
             <div>
-              <p style={{ ...labelStyle, color: colors.dim, marginBottom: 12 }}>
+              <p style={{ ...labelStyle, color: colors.dimOnDark, marginBottom: 12 }}>
                 What we send
               </p>
               <p

@@ -48,7 +48,7 @@ export default function Hero() {
           fontSize: "0.7rem",
           letterSpacing: "0.24em",
           textTransform: "uppercase",
-          color: colors.accent,
+          color: colors.accentHover,
           fontWeight: 500,
           marginBottom: 26,
         }}

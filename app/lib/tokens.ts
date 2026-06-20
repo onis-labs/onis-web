@@ -6,7 +6,8 @@ export const colors = {
   cardCream: "#FAF7F0", // section alt background
   ink: "#1A1A17", // primary text
   body: "#4A463E", // body text
-  dim: "#8A8579", // dim text — never lighter than this on cream
+  dim: "#6E6A60", // secondary text on cream/cardCream — darkened to meet WCAG AA (was #8A8579 ≈ 3.2:1)
+  dimOnDark: "#8A8579", // secondary text on the dark ink section — AA on ink (the old dim, kept for dark surfaces)
   accent: "#B85A3F", // terracotta
   accentHover: "#A04E36",
   borderSubtle: "rgba(184,90,63,0.18)",
