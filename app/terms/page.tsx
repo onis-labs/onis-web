@@ -9,9 +9,8 @@ export const metadata: Metadata = {
   description: "Terms of Use for the ONIS habit tracker by ONIS Labs.",
 };
 
-// Facts below come from the product brief, not the iOS source (unavailable
-// to verify against here). Anything naming a specific in-app control is
-// flagged for a final Release-build check before launch. Prices are never
+// Copy verified 2026-07-15 against the iOS source
+// (FreeTier/SubscriptionManager/PrivacyView/ONIS.storekit). Prices are never
 // hardcoded — Apple shows the price at the time of purchase.
 const linkStyle: CSSProperties = {
   color: colors.accent,
@@ -38,9 +37,8 @@ export default function TermsPage() {
 
       <H2>Free Functionality</H2>
       <P>
-        ONIS is free to download and use for its core tracking
-        functionality. Additional functionality is available through ONIS
-        Premium, described below.
+        ONIS is free to use for its core tracking functionality. Additional
+        functionality is available through ONIS Premium, described below.
       </P>
 
       <H2>ONIS Premium</H2>
@@ -72,10 +70,10 @@ export default function TermsPage() {
         handled by Apple through your Apple ID, not by ONIS Labs directly. A
         subscription automatically renews unless auto-renew is turned off at
         least 24 hours before the end of the current period. You can manage
-        or cancel a subscription in your Apple ID account settings, and
-        restore a previous purchase using Restore Purchases in the app.
+        or cancel a subscription using Manage Subscription in the app, or
+        directly in your Apple ID account settings, and restore a previous
+        purchase using Restore Purchases in the app.
       </P>
-      {/* VERIFY against Release build before launch */}
 
       <H2>No ONIS Account</H2>
       <P>

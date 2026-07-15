@@ -31,7 +31,9 @@ const contentSecurityPolicy = [
   "media-src 'self'",
   "connect-src 'self'",
   "manifest-src 'self'",
-  "upgrade-insecure-requests",
+  // 'upgrade-insecure-requests' is intentionally omitted while the policy is
+  // Report-Only: browsers ignore it there and log a console warning. Re-add it
+  // when this flips to an enforcing Content-Security-Policy.
 ].join("; ");
 
 const nextConfig: NextConfig = {

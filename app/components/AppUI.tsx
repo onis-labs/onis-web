@@ -16,7 +16,7 @@ const APP = {
   screenBg: "#EFEFF1",
   card: "#FFFFFF",
   ink: "#1B1B1F",
-  sub: "#6B6B72",
+  sub: "#57575E",
   keepUnder: "#4B62D0", // indigo
   keepUnderPressed: "#3C4EA6", // derived: pressed/darker state for the +1 button
   water: "#2FA98C", // teal
@@ -383,7 +383,7 @@ function MainTrackerCard({ mainCount, plusPressed }: { mainCount: number; plusPr
           <span style={{ fontSize: "4.6cqw", fontWeight: 700, color: APP.ink }}>Nicotine pouches</span>
           <Dot color={APP.green} size="1.6cqw" />
         </div>
-        <p style={{ margin: "1cqw 0 0", fontSize: "3.4cqw", fontWeight: 600, color: "rgba(75,98,208,0.75)" }}>{mainCount}/3 pouches</p>
+        <p style={{ margin: "1cqw 0 0", fontSize: "3.4cqw", fontWeight: 600, color: "#3D50B5" }}>{mainCount}/3 pouches</p>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: "2cqw" }}>
         <StreakPill count={2} />

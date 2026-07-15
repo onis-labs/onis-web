@@ -10,9 +10,8 @@ export const metadata: Metadata = {
     "How ONIS handles your data: local-first, no ONIS account, no analytics on your habit history.",
 };
 
-// Facts below come from the product brief, not the iOS source (unavailable
-// to verify against here). Anything naming a specific in-app control is
-// flagged for a final Release-build check before launch.
+// Copy verified 2026-07-15 against the iOS source
+// (FreeTier/SubscriptionManager/PrivacyView/ONIS.storekit).
 const linkStyle: CSSProperties = {
   color: colors.accent,
   textDecoration: "underline",
@@ -82,7 +81,6 @@ export default function PrivacyPage() {
       <P>
         ONIS gives you direct control over your data from within the app:
       </P>
-      {/* VERIFY against Release build before launch */}
       <UL>
         <LI>
           <strong>Export My Data</strong> — creates a copy of your ONIS data
@@ -107,7 +105,6 @@ export default function PrivacyPage() {
         Subscription or Restore Purchases — both are handled by Apple
         through your Apple ID.
       </P>
-      {/* VERIFY against Release build before launch */}
       <P>
         For step-by-step help with these controls, visit{" "}
         <a href="/support" style={linkStyle}>
