@@ -1,27 +1,33 @@
+import SiteHeader from "./components/SiteHeader";
 import ScrollHero from "./components/ScrollHero";
-import WhatItIs from "./components/WhatItIs";
-import WhoItsFor from "./components/WhoItsFor";
-import HowItWorks from "./components/HowItWorks";
+import TrustStrip from "./components/TrustStrip";
+import OneTapStory from "./components/OneTapStory";
+import BuildReduceTrack from "./components/BuildReduceTrack";
 import MathSection from "./components/MathSection";
-import BiggerPicture from "./components/BiggerPicture";
-import DifferenceSection from "./components/DifferenceSection";
-import FeaturesSection from "./components/FeaturesSection";
+import ProductStory from "./components/ProductStory";
+import WatchWidgets from "./components/WatchWidgets";
 import PrivacySection from "./components/PrivacySection";
-import ClosingCTA from "./components/ClosingCTA";
+import Pricing from "./components/Pricing";
+import Faq from "./components/Faq";
+import SiteFooter from "./components/SiteFooter";
 
 export default function Home() {
   return (
-    <main style={{ background: "#F4F0E6" }}>
-      <ScrollHero />
-      <WhatItIs />
-      <WhoItsFor />
-      <HowItWorks />
-      <MathSection />
-      <BiggerPicture />
-      <DifferenceSection />
-      <FeaturesSection />
-      <PrivacySection />
-      <ClosingCTA />
-    </main>
+    <>
+      <SiteHeader />
+      <main id="main-content">
+        <ScrollHero />
+        <TrustStrip />
+        <OneTapStory />
+        <BuildReduceTrack />
+        <MathSection />
+        <ProductStory />
+        <WatchWidgets />
+        <PrivacySection />
+        <Pricing />
+        <Faq />
+      </main>
+      <SiteFooter />
+    </>
   );
 }
