@@ -98,8 +98,9 @@ export const faqs: Faq[] = [
   },
   {
     q: "How do I delete my data?",
-    // ⚠️ Control names below are from the product brief — verify against the
-    // shipped Release build before launch.
+    // Control names verified 2026-07-15 against iOS PrivacyView.swift (exact
+    // SwiftUI string literals: "Export My Data", "Clear Log History",
+    // "Start Over", "Delete All ONIS Data").
     a: "In the app you can Export My Data, Clear Log History, Start Over, or Delete All ONIS Data. Deleting also removes ONIS data from the paired Apple Watch. Purchases remain managed by Apple.",
   },
 ];

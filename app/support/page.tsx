@@ -10,9 +10,8 @@ export const metadata: Metadata = {
     "Get help with ONIS: setup, Premium, Apple Watch, widgets, privacy, and data controls.",
 };
 
-// Facts below come from the product brief, not the iOS source (unavailable
-// to verify against here). Anything naming a specific in-app control, tab,
-// or step is flagged for a final Release-build check before launch.
+// Copy verified 2026-07-15 against the iOS source
+// (FreeTier/SubscriptionManager/PrivacyView/ONIS.storekit).
 const linkStyle: CSSProperties = {
   color: colors.accent,
   textDecoration: "underline",
@@ -36,38 +35,35 @@ export default function SupportPage() {
           forced goal.
         </LI>
       </UL>
-      {/* VERIFY against Release build before launch */}
       <P>
         When you first open ONIS, you&apos;ll have a main tracker plus a set
         of starter trackers already set up, so there&apos;s something to log
         right away.
       </P>
-      {/* VERIFY against Release build before launch */}
       <P>
         The app is organized into four tabs — Today, Trends, Coach, and You.
       </P>
-      {/* VERIFY against Release build before launch */}
 
       <H2>Free vs Premium</H2>
       <P>
-        ONIS is free to download, with core tracking included at no cost.
-        ONIS Premium unlocks additional functionality and is available as:
+        ONIS is free to use, with core tracking included at no cost. ONIS
+        Premium unlocks Trends, Coach, the full tracker template library,
+        and unlimited trackers, and is available as:
       </P>
       <UL>
         <LI>
-          <strong>Premium — Weekly</strong> — an auto-renewable
-          subscription, billed weekly.
+          <strong>Weekly</strong> — an auto-renewable subscription, billed
+          weekly.
         </LI>
         <LI>
-          <strong>Premium — Yearly</strong> — an auto-renewable
-          subscription, billed yearly.
+          <strong>Yearly</strong> — an auto-renewable subscription, billed
+          yearly.
         </LI>
         <LI>
           <strong>Lifetime</strong> — a one-time purchase, with no recurring
           billing.
         </LI>
       </UL>
-      {/* VERIFY against Release build before launch */}
       <P>
         An introductory trial is available to eligible customers on Weekly
         and Yearly. Lifetime is a one-time purchase with no trial. Apple
@@ -81,7 +77,6 @@ export default function SupportPage() {
         <strong>Continue with Free</strong> at any time to keep using ONIS
         without Premium.
       </P>
-      {/* VERIFY against Release build before launch */}
 
       <H2>Apple Watch</H2>
       <UL>
@@ -96,7 +91,6 @@ export default function SupportPage() {
           counts match on both.
         </LI>
       </UL>
-      {/* VERIFY against Release build before launch */}
 
       <H2>Widgets &amp; Complications</H2>
       <P>
@@ -104,21 +98,18 @@ export default function SupportPage() {
         complication to your watch face, to see and log your trackers at a
         glance.
       </P>
-      {/* VERIFY against Release build before launch */}
 
       <H2>Daily &amp; Weekly Goals</H2>
       <P>
         Set a daily or weekly goal for a tracker, and ONIS shows your
         progress toward it.
       </P>
-      {/* VERIFY against Release build before launch */}
 
       <H2>Timers</H2>
       <P>
         Some trackers support timers, including background timers that keep
         running if you leave the app.
       </P>
-      {/* VERIFY against Release build before launch */}
 
       <H2>Data &amp; Privacy Controls</H2>
       <P>ONIS gives you direct control over your data from within the app:</P>
@@ -140,7 +131,6 @@ export default function SupportPage() {
           paired Apple Watch.
         </LI>
       </UL>
-      {/* VERIFY against Release build before launch */}
       <P>
         See our <a href="/privacy" style={linkStyle}>Privacy Policy</a> for
         more on how your data is handled, and our{" "}
@@ -152,10 +142,9 @@ export default function SupportPage() {
 
       <H2>Requirements</H2>
       <P>
-        ONIS requires {requirements.ios}. The Apple Watch app requires{" "}
-        {requirements.watchos}.
+        ONIS requires {requirements.ios}. The Apple Watch app is optional
+        and requires {requirements.watchos}.
       </P>
-      {/* VERIFY against Release build before launch */}
 
       <H2>Contact</H2>
       <P>

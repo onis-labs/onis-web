@@ -1,13 +1,14 @@
 // ── Pricing source of truth ───────────────────────────────────────────────
-// The website mirrors the app's launch offers. Actual localized prices and
-// introductory-offer eligibility are confirmed by Apple at purchase — never
-// promise a trial to everyone.
-//
-// ⚠️ The Free vs Premium split (`featureMatrix`) is PROPOSED. It follows the
-// site's own narrative ("upgrade when Trends, Coach, and more become valuable")
-// but must be confirmed against the app's entitlement code (FreeTier /
-// SubscriptionManager) before launch. It is intentionally centralized here so
-// that confirmation is a one-file change.
+// Verified 2026-07-15 against the iOS source (READ-ONLY):
+//   • Prices/trials: ONIS.storekit — yearly com.onis.app.premium.yearly $14.99
+//     (7-day trial), weekly com.onis.app.premium.weekly $2.99 (3-day trial),
+//     lifetime com.onis.app.lifetime $24.99 (no trial).
+//   • Free/Premium gating: FreeTier.swift (maxActiveTrackers = 7, customSlots = 1)
+//     and MainTabView.swift (Trends + Coach are fully Premium-gated).
+// The $19.99 "lifetime.launch" exit-only fallback is intentionally NOT listed —
+// it only appears in-app after a paywall is dismissed, and must not be marketed.
+// Actual localized prices and trial eligibility are confirmed by Apple at
+// purchase — never promise a trial to everyone.
 
 export type PlanId = "free" | "weekly" | "yearly" | "lifetime";
 
@@ -29,8 +30,8 @@ export const plans: Plan[] = [
     name: "Free",
     price: "$0",
     cadence: "forever",
-    blurb: "Core tracking, no account.",
-    note: "Start here. Upgrade only if it earns it.",
+    blurb: "Up to 7 trackers on iPhone & Apple Watch. No account.",
+    note: "Everything you need to start. Upgrade only if it earns it.",
     cta: "Start free",
   },
   {
@@ -38,8 +39,8 @@ export const plans: Plan[] = [
     name: "Premium — Yearly",
     price: "$14.99",
     cadence: "per year",
-    blurb: "Full Trends, Coach, and unlimited trackers.",
-    note: "Introductory trial available to eligible customers.",
+    blurb: "Trends, Coach, and unlimited trackers.",
+    note: "7-day free trial for eligible customers.",
     badge: "Best value",
     cta: "Get Premium",
     highlight: true,
@@ -50,7 +51,7 @@ export const plans: Plan[] = [
     price: "$2.99",
     cadence: "per week",
     blurb: "The same Premium, week to week.",
-    note: "Introductory trial available to eligible customers.",
+    note: "3-day free trial for eligible customers.",
     cta: "Get Premium",
   },
   {
@@ -68,7 +69,10 @@ export const plans: Plan[] = [
 export const priceDisclaimer =
   "Prices and offer eligibility are confirmed by Apple at purchase.";
 
-// Free vs Premium — PROPOSED matrix (confirm gating before launch).
+// Free vs Premium — verified against FreeTier.swift + MainTabView.swift.
+// Free is a genuinely capable tier: all logging surfaces, timers, full history,
+// export, and up to 7 trackers (1 custom). Premium adds Trends, Coach, the full
+// template library, and unlimited trackers.
 export interface MatrixRow {
   feature: string;
   free: boolean | string;
@@ -76,11 +80,13 @@ export interface MatrixRow {
 }
 
 export const featureMatrix: MatrixRow[] = [
-  { feature: "One-tap logging — iPhone & Apple Watch", free: true, premium: true },
-  { feature: "Main tracker + starter trackers", free: true, premium: true },
-  { feature: "Today view & daily goals", free: true, premium: true },
-  { feature: "Widgets & complications", free: true, premium: true },
-  { feature: "Trends", free: "Basic", premium: "Full history & timing" },
+  { feature: "One-tap logging — iPhone, Watch, widgets", free: true, premium: true },
+  { feature: "Today, timers, and full history", free: true, premium: true },
+  { feature: "Widgets & Watch complications", free: true, premium: true },
+  { feature: "Export & data controls", free: true, premium: true },
+  { feature: "Active trackers", free: "Up to 7", premium: "Unlimited" },
+  { feature: "Custom trackers", free: "1", premium: "Unlimited" },
+  { feature: "Full template library", free: false, premium: true },
+  { feature: "Trends", free: false, premium: true },
   { feature: "Coach", free: false, premium: true },
-  { feature: "Unlimited trackers", free: false, premium: true },
 ];
