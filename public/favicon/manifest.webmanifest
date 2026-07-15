@@ -1,7 +1,7 @@
 {
   "name": "ONIS",
   "short_name": "ONIS",
-  "description": "An honest tracker for the habits you don't talk about.",
+  "description": "Build, reduce, or simply track a habit with one-tap logging on iPhone and Apple Watch. No account required.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#F4F0E6",

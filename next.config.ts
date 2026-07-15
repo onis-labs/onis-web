@@ -38,11 +38,15 @@ const nextConfig: NextConfig = {
   // Don't advertise the framework/version in the X-Powered-By header.
   poweredByHeader: false,
 
-  // The homepage is now served at "/" by the Next app. Old links/bookmarks to
-  // the former static "/index.html" should land on the homepage, not a 404.
+  // The homepage is served at "/" by the Next app, and the legal/support pages
+  // have moved from static "*.html" files into the App Router. Old links and
+  // bookmarks should 301 to the clean paths, not 404.
   async redirects() {
     return [
       { source: "/index.html", destination: "/", permanent: true },
+      { source: "/privacy.html", destination: "/privacy", permanent: true },
+      { source: "/terms.html", destination: "/terms", permanent: true },
+      { source: "/support.html", destination: "/support", permanent: true },
     ];
   },
 

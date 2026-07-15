@@ -2,14 +2,21 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
-import { colors, serif, sans } from "../lib/tokens";
+import { colors, sans, display, type, weight } from "../lib/tokens";
 import AccentPeriod from "./AccentPeriod";
-import HeroComposite from "./HeroVisual";
+import OfficialAppStoreBadge from "./OfficialAppStoreBadge";
+import HeroVisual from "./HeroVisual";
 
-/* Hero: massive headline beside a real hand holding the ONIS app. A ~200vh
-   sticky scrub drives the composite — at ~40% the +1 logs, at ~75% it
-   crossfades to Coach; it reverses on scroll-up. Copy text is unchanged.
-   prefers-reduced-motion: static, no scrub. */
+/* Hero: the copy sits beside the real ONIS app, choreographed by scroll. A
+   ~200vh sticky scrub drives HeroVisual's `p` (0→1): the Main "+1" presses,
+   the count rolls 0 → 1, then the screen settles into Coach's next step —
+   the one-tap → pattern loop, once per scroll pass. It reverses on scroll-up.
+   No scroll library: a passive scroll+resize listener computes progress
+   inside requestAnimationFrame. framer-motion is used ONLY for
+   useReducedMotion(). Reduced motion: a static hero — phone shows a
+   representative logged state, no scrub, no entrance (copy + phone are both
+   present in the very first render either way, so there is no empty flash
+   before JS runs). */
 export default function Hero() {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
@@ -48,59 +55,74 @@ export default function Hero() {
           fontSize: "0.7rem",
           letterSpacing: "0.24em",
           textTransform: "uppercase",
-          color: colors.accentHover,
-          fontWeight: 500,
-          marginBottom: 26,
+          color: colors.dim,
+          fontWeight: weight.label,
+          marginBottom: 24,
         }}
       >
-        On your phone only · No cloud · No account
+        An Honest Tracker
       </p>
 
       <h1
         className="hero-reveal d2"
         style={{
-          fontFamily: serif,
-          fontWeight: 400,
+          fontFamily: display,
+          fontWeight: weight.hero,
+          fontSize: type.hero,
+          letterSpacing: "-0.03em",
+          lineHeight: 1.0,
           color: colors.ink,
-          fontSize: "clamp(2.7rem, 6.4vw, 5.6rem)",
-          lineHeight: 1.02,
-          letterSpacing: "-0.02em",
           margin: 0,
         }}
       >
-        make it count
-        <AccentPeriod />
+        <span style={{ display: "block" }}>Track honestly.</span>
+        <span style={{ display: "block", color: colors.accent }}>See the pattern.</span>
+        <span style={{ display: "block" }}>
+          Change one thing
+          <AccentPeriod />
+        </span>
       </h1>
 
       <p
         className="hero-reveal d3"
         style={{
           fontFamily: sans,
-          fontWeight: 300,
+          fontWeight: weight.body,
           color: colors.body,
-          fontSize: "clamp(1.05rem, 1.8vw, 1.25rem)",
+          fontSize: type.body,
           lineHeight: 1.6,
-          maxWidth: 440,
-          margin: "26px auto 0",
+          maxWidth: 460,
+          margin: "24px auto 0",
         }}
       >
-        Count the habit you keep meaning to cut down. One honest tap, from your wrist.
+        One tap from iPhone, Apple Watch, or widget. ONIS turns your real logs into a plan you control.
       </p>
 
-      <a href="#the-math" className="btn-primary hero-reveal d4" style={{ marginTop: 38 }}>
-        See how it counts
-      </a>
+      <div
+        className="hero-reveal d4"
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: 24,
+          marginTop: 32,
+        }}
+      >
+        <OfficialAppStoreBadge />
+        <a href="#how-it-works" className="btn-secondary">
+          See how it works
+        </a>
+      </div>
     </div>
   );
 
   if (reduce) {
     return (
       <section className="hero">
-        <div className="hero-glow" aria-hidden />
         <div className="hero-grid">
           {copy}
           <div className="hero-phone-col">
-            <HeroComposite progress={0} reduce />
+            <HeroVisual p={0} reduce />
           </div>
         </div>
       </section>
@@ -110,11 +132,10 @@ export default function Hero() {
   return (
     <section className="hero-scroll" ref={ref}>
       <div className="hero-sticky">
-        <div className="hero-glow" aria-hidden />
         <div className="hero-grid">
           {copy}
           <div className="hero-phone-col">
-            <HeroComposite progress={p} reduce={false} />
+            <HeroVisual p={p} reduce={false} />
           </div>
         </div>
       </div>

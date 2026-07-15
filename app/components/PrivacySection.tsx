@@ -1,192 +1,150 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
+import type { CSSProperties } from "react";
 import Reveal from "./Reveal";
-import AccentPeriod from "./AccentPeriod";
-import { colors, labelStyle, serif, sans, ease, layout } from "../lib/tokens";
+import { colors, sans, display, type, weight, layout, labelStyle } from "../lib/tokens";
+import { site } from "../lib/config";
 
-const creamDim = "rgba(244,240,230,0.72)";
-
-// The full, unambiguous privacy guarantees — written for a person and for App
-// Review. Every line maps to Apple's "Data Not Collected" label.
-const guarantees = [
-  "No account required",
-  "No email collected",
-  "No analytics",
-  "No third-party tracking",
-  "No data sold or shared",
-  "All data stored locally on your device",
+// Four concrete, verifiable facts — each one maps to something a person can
+// check inside the app. No vague absolutes, no "we collect nothing" claims.
+const points: { title: string; body: string }[] = [
+  {
+    title: "Stored on your device",
+    body: "Your logs live in the app, not on our servers.",
+  },
+  {
+    title: `No ${site.name} account`,
+    body: "No sign-up, no email, no profile.",
+  },
+  {
+    title: "Direct iPhone–Apple Watch sync",
+    body: "Your devices talk to each other, not to us.",
+  },
+  {
+    title: "Export or delete anytime",
+    body: "You control your data from inside the app.",
+  },
 ];
 
-export default function PrivacySection() {
-  const reduce = useReducedMotion();
+const cardStyle: CSSProperties = {
+  background: "rgba(255,255,255,0.04)",
+  border: "1px solid rgba(255,255,255,0.08)",
+  borderRadius: 14,
+  padding: 20,
+};
 
+// Shared style for the two fine-print notes at the bottom of the section.
+const fineTextStyle: CSSProperties = {
+  fontFamily: sans,
+  fontWeight: 400,
+  fontSize: "0.85rem",
+  color: colors.dimOnDark,
+  lineHeight: 1.6,
+  maxWidth: 620,
+};
+
+export default function PrivacySection() {
   return (
     <section
+      id="privacy"
       style={{
         background: colors.ink,
-        color: colors.canvas,
+        color: "#fff",
         padding: `${layout.padYInk} ${layout.padX}`,
       }}
     >
-      <div style={{ maxWidth: 760, margin: "0 auto" }}>
+      <div style={{ maxWidth: layout.wideMax, margin: "0 auto" }}>
         <Reveal>
-          <p style={{ ...labelStyle, color: colors.dimOnDark}}>Privacy</p>
+          <p style={{ ...labelStyle, color: colors.dimOnDark }}>Private By Design</p>
         </Reveal>
 
         <Reveal delay={0.1}>
           <h2
             style={{
-              fontFamily: serif,
-              fontWeight: 400,
-              color: colors.canvas,
-              fontSize: "clamp(2.2rem, 5.5vw, 4rem)",
+              fontFamily: display,
+              fontSize: type.section,
+              fontWeight: weight.section,
+              letterSpacing: "-0.02em",
+              color: "#fff",
               lineHeight: 1.1,
               margin: "16px 0 0",
             }}
           >
-            <span style={{ position: "relative", display: "inline-block" }}>
-              Nothing
-              <motion.span
-                aria-hidden
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  right: 0,
-                  bottom: "0.04em",
-                  height: 3,
-                  background: colors.accent,
-                  transformOrigin: "left center",
-                  display: "block",
-                }}
-                initial={{ scaleX: reduce ? 1 : 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.7, delay: 0.4, ease }}
-              />
-            </span>{" "}
-            leaves your phone
-            <AccentPeriod />
+            Your habits stay yours.
           </h2>
         </Reveal>
 
-        <Reveal delay={0.2}>
+        <Reveal delay={0.15}>
           <p
             style={{
               fontFamily: sans,
-              fontWeight: 300,
-              color: creamDim,
-              fontSize: "clamp(1rem, 2vw, 1.2rem)",
+              fontWeight: 400,
+              fontSize: type.body,
+              color: colors.dimOnDark,
               lineHeight: 1.6,
-              maxWidth: 520,
-              marginTop: 28,
+              maxWidth: 620,
+              marginTop: 20,
             }}
           >
-            No account. No email. No analytics. No tracking of you tracking
-            yourself.
+            {`No ${site.name} account. No ads. No analytics on your habit history.`}
           </p>
         </Reveal>
 
-        <Reveal delay={0.25}>
-          <ul
-            style={{
-              listStyle: "none",
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-              gap: "14px 32px",
-              margin: "40px 0 0",
-              padding: 0,
-            }}
-          >
-            {guarantees.map((g) => (
-              <li key={g} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke={colors.accent}
-                  strokeWidth={2.2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden
-                  style={{ flexShrink: 0 }}
-                >
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
-                <span
-                  style={{
-                    fontFamily: sans,
-                    fontWeight: 300,
-                    color: colors.canvas,
-                    fontSize: "0.98rem",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {g}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-
-        <Reveal delay={0.3}>
+        <Reveal delay={0.2}>
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-              gap: 32,
-              marginTop: 56,
-              borderTop: "1px solid rgba(244,240,230,0.14)",
-              paddingTop: 40,
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(400px, 100%), 1fr))",
+              gap: 16,
+              marginTop: 48,
             }}
           >
-            <div>
-              <p style={{ ...labelStyle, color: colors.dimOnDark, marginBottom: 12 }}>
-                What we store
-              </p>
-              <p
-                style={{
-                  fontFamily: serif,
-                  fontSize: "1.15rem",
-                  color: colors.canvas,
-                }}
-              >
-                Your counts, on your device.
-              </p>
-            </div>
-            <div>
-              <p style={{ ...labelStyle, color: colors.dimOnDark, marginBottom: 12 }}>
-                What we send
-              </p>
-              <p
-                style={{
-                  fontFamily: serif,
-                  fontSize: "1.15rem",
-                  color: colors.accent,
-                }}
-              >
-                Nothing.
-              </p>
-            </div>
+            {points.map((p) => (
+              <div key={p.title} style={cardStyle}>
+                <p
+                  style={{
+                    fontFamily: sans,
+                    fontWeight: 700,
+                    fontSize: "1rem",
+                    color: "#fff",
+                    margin: 0,
+                  }}
+                >
+                  {p.title}
+                </p>
+                <p
+                  style={{
+                    fontFamily: sans,
+                    fontWeight: 400,
+                    fontSize: "0.9rem",
+                    color: colors.dimOnDark,
+                    lineHeight: 1.5,
+                    margin: "8px 0 0",
+                  }}
+                >
+                  {p.body}
+                </p>
+              </div>
+            ))}
           </div>
         </Reveal>
 
-        <Reveal delay={0.4}>
+        <Reveal delay={0.3}>
+          <p style={{ ...fineTextStyle, marginTop: 40 }}>
+            {`Device backups may include ${site.name} data when Apple backup is enabled.`}
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.35}>
           <p
             style={{
-              fontFamily: sans,
-              fontWeight: 300,
-              color: creamDim,
-              fontSize: "0.95rem",
-              lineHeight: 1.6,
-              marginTop: 48,
-              maxWidth: 560,
+              ...fineTextStyle,
+              marginTop: 16,
+              paddingTop: 16,
+              borderTop: "1px solid rgba(255,255,255,0.08)",
             }}
           >
-            {
-              'Apple’s privacy label reads “Data Not Collected” — because nothing is.'
-            }
+            <strong style={{ color: "#fff", fontWeight: 600 }}>About this website:</strong>{" "}
+            it sets no cookies and runs no analytics or ad scripts. Our hosting provider may
+            keep ordinary server request logs.
           </p>
         </Reveal>
       </div>
