@@ -98,7 +98,7 @@ export default function SiteFooter() {
           <span>© 2026 ONIS Labs.</span>
           <span>Apple, Apple Watch, and iPhone are trademarks of Apple Inc.</span>
           <span>Not affiliated with or endorsed by Apple Inc.</span>
-          <span>App screens shown are interactive re-creations of the ONIS interface.</span>
+          <span>App screens shown are real ONIS screens.</span>
         </div>
       </div>
     </footer>

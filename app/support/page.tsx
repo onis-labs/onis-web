@@ -3,15 +3,17 @@ import type { Metadata } from "next";
 import LegalLayout, { H2, P, UL, LI } from "../components/LegalLayout";
 import { colors } from "../lib/tokens";
 import { site, requirements, legalUpdated } from "../lib/config";
+import { lifetimePrice } from "../lib/pricing";
 
 export const metadata: Metadata = {
   title: "Support — ONIS",
   description:
-    "Get help with ONIS: setup, Premium, Apple Watch, widgets, privacy, and data controls.",
+    "Get help with ONIS: setup, Apple Watch, widgets, reminders, the 7-day trial, Lifetime, and data controls.",
 };
 
-// Copy verified 2026-07-15 against the iOS source
-// (FreeTier/SubscriptionManager/PrivacyView/ONIS.storekit).
+// Copy verified 2026-07-22 against the shipping iOS source
+// (FreeTier.swift, PremiumPreview.swift, WatchSync.swift, ONISWidget.swift,
+// NotificationScheduler.swift, PrivacyView.swift).
 const linkStyle: CSSProperties = {
   color: colors.accent,
   textDecoration: "underline",
@@ -21,105 +23,112 @@ export default function SupportPage() {
   return (
     <LegalLayout title="Support" updated={legalUpdated}>
       <H2>Getting Started</H2>
-      <P>ONIS is built around three simple intentions:</P>
+      <P>ONIS is built around three directions:</P>
       <UL>
         <LI>
           <strong>Build</strong> — for a habit you want to do more of.
         </LI>
         <LI>
           <strong>Reduce</strong> — for a habit you want to keep under a
-          target.
+          limit.
         </LI>
         <LI>
-          <strong>Track</strong> — to simply notice a pattern, with no
-          forced goal.
+          <strong>Understand</strong> — to simply notice a pattern, with no
+          forced goal. (In the app this direction is labeled{" "}
+          <strong>Track</strong>.)
         </LI>
       </UL>
       <P>
-        When you first open ONIS, you&apos;ll have a main tracker plus a set
-        of starter trackers already set up, so there&apos;s something to log
-        right away.
-      </P>
-      <P>
-        The app is organized into four tabs — Today, Trends, Coach, and You.
+        When you first open ONIS, starter trackers are already set up so
+        there&apos;s something to log right away. Free includes 6 starter
+        trackers plus 1 custom tracker — up to 7 active. The app is
+        organized into four tabs — Today, Trends, Coach, and You.
       </P>
 
-      <H2>Free vs Premium</H2>
-      <P>
-        ONIS is free to use, with core tracking included at no cost. ONIS
-        Premium unlocks Trends, Coach, the full tracker template library,
-        and unlimited trackers, and is available as:
-      </P>
+      <H2>Apple Watch Setup</H2>
       <UL>
         <LI>
-          <strong>Weekly</strong> — an auto-renewable subscription, billed
-          weekly.
+          Install the ONIS Watch app from the Watch app on your iPhone (My
+          Watch → Available Apps), then open it on your wrist.
+        </LI>
+        <LI>Log a count with one tap (+1), or mark a tracker done.</LI>
+        <LI>
+          Start, pause, resume, and stop timers — the minutes are logged for
+          you.
         </LI>
         <LI>
-          <strong>Yearly</strong> — an auto-renewable subscription, billed
-          yearly.
+          Turn the Digital Crown or swipe to move between trackers.
         </LI>
-        <LI>
-          <strong>Lifetime</strong> — a one-time purchase, with no recurring
-          billing.
-        </LI>
-      </UL>
-      <P>
-        An introductory trial is available to eligible customers on Weekly
-        and Yearly. Lifetime is a one-time purchase with no trial. Apple
-        determines eligibility and confirms it at purchase.
-      </P>
-      <P>
-        Already purchased Premium on another device? Use{" "}
-        <strong>Restore Purchases</strong>. To manage or cancel a
-        subscription, use <strong>Manage Subscription</strong>, which opens
-        your Apple ID subscription settings. You can also choose{" "}
-        <strong>Continue with Free</strong> at any time to keep using ONIS
-        without Premium.
-      </P>
-
-      <H2>Apple Watch</H2>
-      <UL>
-        <LI>Log with one tap directly from your wrist.</LI>
-        <LI>
-          Turn the <strong>Digital Crown</strong> to switch between trackers
-          on your watch.
-        </LI>
-        <LI>Start a timer on your watch and it stays in sync with iPhone.</LI>
         <LI>
           Your iPhone and Apple Watch sync directly with each other, so your
           counts match on both.
         </LI>
       </UL>
 
-      <H2>Widgets &amp; Complications</H2>
+      <H2>Widget Setup</H2>
+      <UL>
+        <LI>
+          Touch and hold your Home Screen, tap the + (or Edit) button, and
+          search for ONIS to add a widget; Lock Screen widgets and Watch
+          complications are added the same way from iOS and watchOS.
+        </LI>
+        <LI>
+          Touch and hold the widget, then choose <strong>Edit Widget</strong>{" "}
+          to pick which tracker it shows.
+        </LI>
+        <LI>
+          Supported widgets include +1 and Done buttons, and arrows to
+          switch trackers without opening the app. Timer actions open ONIS.
+        </LI>
+      </UL>
+
+      <H2>Reminders</H2>
       <P>
-        Add ONIS widgets to your Home Screen or Lock Screen, or a
-        complication to your watch face, to see and log your trackers at a
-        glance.
+        ONIS can send tracker reminders (daily or on chosen weekdays), timer
+        completion alerts, a note when you reach a limit you set, and an
+        optional Sunday weekly review. All reminders are optional, off by
+        default, and managed in the app&apos;s notification settings.
       </P>
 
-      <H2>Daily &amp; Weekly Goals</H2>
+      <H2>The 7-Day Trial</H2>
       <P>
-        Set a daily or weekly goal for a tracker, and ONIS shows your
-        progress toward it.
+        The 7-day Premium trial costs $0. It is not a subscription, nothing
+        renews, and there is no automatic charge — there is nothing to
+        cancel. Start it from Trends or Coach. A day before it ends, ONIS
+        lets you know; when it ends, the app returns to Free on its own.
       </P>
 
-      <H2>Timers</H2>
+      <H2>Lifetime Purchase</H2>
       <P>
-        Some trackers support timers, including background timers that keep
-        running if you leave the app.
+        <strong>ONIS Lifetime — {lifetimePrice} once</strong> unlocks
+        Premium permanently: one payment, no renewal. The purchase is
+        processed by Apple, which confirms the localized price at purchase.
       </P>
 
-      <H2>Data &amp; Privacy Controls</H2>
+      <H2>Restore Purchases</H2>
+      <P>
+        Bought Lifetime on another device, or reinstalled ONIS? Use{" "}
+        <strong>Restore Purchases</strong> in the app — purchases stay with
+        your Apple&nbsp;ID.
+      </P>
+
+      <H2>Free After the Trial</H2>
+      <P>
+        When the trial ends, ONIS returns to the Free experience
+        automatically. Your trackers and history stay, and you can keep
+        using ONIS free for as long as you like.
+      </P>
+
+      <H2>Export &amp; Data Controls</H2>
       <P>ONIS gives you direct control over your data from within the app:</P>
       <UL>
         <LI>
           <strong>Export My Data</strong> — creates a copy of your ONIS data
-          that you can save.
+          (JSON and CSV) that you can save.
         </LI>
         <LI>
-          <strong>Clear Log History</strong> — clears your logged history.
+          <strong>Clear Log History</strong> — clears your logged history
+          while keeping your trackers.
         </LI>
         <LI>
           <strong>Start Over</strong> — resets your ONIS data so you can
@@ -131,19 +140,49 @@ export default function SupportPage() {
           paired Apple Watch.
         </LI>
       </UL>
-      <P>
-        See our <a href="/privacy" style={linkStyle}>Privacy Policy</a> for
-        more on how your data is handled, and our{" "}
-        <a href="/terms" style={linkStyle}>
-          Terms of Use
-        </a>{" "}
-        for details on Premium billing.
-      </P>
+
+      <H2>Troubleshooting: Watch Sync</H2>
+      <UL>
+        <LI>Open ONIS on both iPhone and Apple Watch to nudge a sync.</LI>
+        <LI>
+          Check that Bluetooth is on and the Watch is paired and nearby.
+        </LI>
+        <LI>
+          Log once from the Watch — pending entries transfer as soon as the
+          devices reconnect; nothing is lost while offline.
+        </LI>
+        <LI>If it still lags, restart both devices.</LI>
+      </UL>
+
+      <H2>Troubleshooting: Widgets</H2>
+      <UL>
+        <LI>
+          If a widget looks out of date, open ONIS once — widgets refresh
+          from the app&apos;s shared data.
+        </LI>
+        <LI>
+          If a widget shows the wrong tracker, touch and hold it, choose{" "}
+          <strong>Edit Widget</strong>, and pick the tracker again.
+        </LI>
+        <LI>
+          After an iOS update or reinstall, remove and re-add the widget if
+          it doesn&apos;t appear in the gallery.
+        </LI>
+      </UL>
 
       <H2>Requirements</H2>
       <P>
         ONIS requires {requirements.ios}. The Apple Watch app is optional
         and requires {requirements.watchos}.
+      </P>
+
+      <H2>Privacy &amp; Terms</H2>
+      <P>
+        See our <a href="/privacy" style={linkStyle}>Privacy Policy</a> and{" "}
+        <a href="/terms" style={linkStyle}>
+          Terms of Use
+        </a>
+        .
       </P>
 
       <H2>Contact</H2>

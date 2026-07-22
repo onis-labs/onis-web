@@ -1,92 +1,63 @@
 // ── Pricing source of truth ───────────────────────────────────────────────
-// Verified 2026-07-15 against the iOS source (READ-ONLY):
-//   • Prices/trials: ONIS.storekit — yearly com.onis.app.premium.yearly $14.99
-//     (7-day trial), weekly com.onis.app.premium.weekly $2.99 (3-day trial),
-//     lifetime com.onis.app.lifetime $24.99 (no trial).
-//   • Free/Premium gating: FreeTier.swift (maxActiveTrackers = 7, customSlots = 1)
-//     and MainTabView.swift (Trends + Coach are fully Premium-gated).
-// The $19.99 "lifetime.launch" exit-only fallback is intentionally NOT listed —
-// it only appears in-app after a paywall is dismissed, and must not be marketed.
-// Actual localized prices and trial eligibility are confirmed by Apple at
-// purchase — never promise a trial to everyone.
+// Verified 2026-07-22 against the shipping iOS source (READ-ONLY):
+//   • ONIS.storekit — exactly one product on sale: com.onis.app.lifetime,
+//     a $9.99 one-time NonConsumable ("ONIS Lifetime"). No renewing
+//     subscriptions of any kind, no weekly/yearly products, no groups.
+//   • PremiumPreview.swift / SubscriptionManager.swift — the 7-day Premium
+//     access is a $0 local grant (Keychain): no StoreKit request, no payment
+//     sheet, no subscription, no renewal, no automatic charge. One per device.
+//     At expiry ONIS returns to Free unless Lifetime was purchased.
+//   • FreeTier.swift — free tier: up to 7 active trackers (6 free starter
+//     templates + 1 custom slot). Logging is never gated: Today, timers,
+//     Apple Watch, widgets, export, and reminders are all free.
+//   • MainTabView.swift / TemplateLibraryView.swift — Premium gates: Trends,
+//     Coach, the full template library, and unlimited trackers.
+// The dollar string "$9.99" must appear ONLY in this file; every page and
+// FAQ answer interpolates from here (enforced by scripts/verify-content.mjs).
 
-export type PlanId = "free" | "weekly" | "yearly" | "lifetime";
+export const lifetimePrice = "$9.99";
 
-export interface Plan {
-  id: PlanId;
-  name: string;
-  price: string; // display price
-  cadence: string; // "forever" | "per week" | "per year" | "one time"
-  blurb: string;
-  note?: string; // trial / renewal note
-  badge?: string; // e.g. "Best value"
-  cta: string;
-  highlight?: boolean; // visually recommended
-}
-
-export const plans: Plan[] = [
-  {
-    id: "free",
+export const pricing = {
+  headline: "Premium without another subscription.",
+  free: {
     name: "Free",
     price: "$0",
-    cadence: "forever",
-    blurb: "Up to 7 trackers on iPhone & Apple Watch. No account.",
-    note: "Everything you need to start. Upgrade only if it earns it.",
-    cta: "Start free",
+    blurb: "Start tracking for free.",
+    // Verified against FreeTier.swift — free is genuinely capable.
+    features: [
+      "One-tap logging on iPhone, Apple Watch, and widgets",
+      "6 starter trackers plus 1 custom — up to 7 active",
+      "Timers, reminders, and full history",
+      "Export and data controls",
+      "No ONIS account",
+    ],
   },
-  {
-    id: "yearly",
-    name: "Premium — Yearly",
-    price: "$14.99",
-    cadence: "per year",
-    blurb: "Trends, Coach, and unlimited trackers.",
-    note: "7-day free trial for eligible customers.",
-    badge: "Best value",
-    cta: "Get Premium",
-    highlight: true,
+  trial: {
+    name: "7-Day Premium Access",
+    offer: "Try Premium free for 7 days.",
+    disclosure: "$0 today · No subscription · No automatic charge",
+    detail:
+      "After seven days, ONIS returns to Free unless you choose Lifetime.",
   },
-  {
-    id: "weekly",
-    name: "Premium — Weekly",
-    price: "$2.99",
-    cadence: "per week",
-    blurb: "The same Premium, week to week.",
-    note: "3-day free trial for eligible customers.",
-    cta: "Get Premium",
+  lifetime: {
+    name: "ONIS Lifetime",
+    price: lifetimePrice,
+    offer: `ONIS Lifetime — ${lifetimePrice} once`,
+    supporting: "One payment · Permanent Premium access · No renewal",
   },
-  {
-    id: "lifetime",
-    name: "Lifetime",
-    price: "$24.99",
-    cadence: "one time",
-    blurb: "Prefer one payment? Pay once, keep it.",
-    note: "No renewal. No trial.",
-    cta: "Buy once",
-  },
-];
+  // Verified Premium gates (MainTabView.swift, TemplateLibraryView.swift).
+  premiumIncludes: [
+    "Trends — patterns from what you actually logged",
+    "Coach — one calm next step, every day",
+    "Full template library",
+    "Unlimited trackers",
+  ],
+  postTrial: "After seven days, continue with Free or choose Lifetime.",
+  postTrialLong: `After seven days, continue with Free or unlock Lifetime for ${lifetimePrice}.`,
+  cta: "Get ONIS",
+} as const;
 
-// Shown near the pricing table and in the FAQ.
+// Shown near the pricing area and in the FAQ. StoreKit wording — Apple
+// confirms the localized price at purchase.
 export const priceDisclaimer =
-  "Prices and offer eligibility are confirmed by Apple at purchase.";
-
-// Free vs Premium — verified against FreeTier.swift + MainTabView.swift.
-// Free is a genuinely capable tier: all logging surfaces, timers, full history,
-// export, and up to 7 trackers (1 custom). Premium adds Trends, Coach, the full
-// template library, and unlimited trackers.
-export interface MatrixRow {
-  feature: string;
-  free: boolean | string;
-  premium: boolean | string;
-}
-
-export const featureMatrix: MatrixRow[] = [
-  { feature: "One-tap logging — iPhone, Watch, widgets", free: true, premium: true },
-  { feature: "Today, timers, and full history", free: true, premium: true },
-  { feature: "Widgets & Watch complications", free: true, premium: true },
-  { feature: "Export & data controls", free: true, premium: true },
-  { feature: "Active trackers", free: "Up to 7", premium: "Unlimited" },
-  { feature: "Custom trackers", free: "1", premium: "Unlimited" },
-  { feature: "Full template library", free: false, premium: true },
-  { feature: "Trends", free: false, premium: true },
-  { feature: "Coach", free: false, premium: true },
-];
+  "Apple confirms the localized price at purchase.";

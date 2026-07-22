@@ -3,15 +3,18 @@ import type { Metadata } from "next";
 import LegalLayout, { H2, P, UL, LI } from "../components/LegalLayout";
 import { colors } from "../lib/tokens";
 import { site, legalUpdated } from "../lib/config";
+import { lifetimePrice } from "../lib/pricing";
 
 export const metadata: Metadata = {
   title: "Terms of Use — ONIS",
   description: "Terms of Use for the ONIS habit tracker by ONIS Labs.",
 };
 
-// Copy verified 2026-07-15 against the iOS source
-// (FreeTier/SubscriptionManager/PrivacyView/ONIS.storekit). Prices are never
-// hardcoded — Apple shows the price at the time of purchase.
+// Copy verified 2026-07-22 against the shipping iOS source:
+// ONIS.storekit sells exactly one product — the one-time ONIS Lifetime
+// non-consumable. The 7-day Premium access is a $0 local grant
+// (PremiumPreview.swift): no StoreKit request, no subscription, no renewal,
+// no automatic charge. The lifetime price string comes from lib/pricing.
 const linkStyle: CSSProperties = {
   color: colors.accent,
   textDecoration: "underline",
@@ -37,42 +40,46 @@ export default function TermsPage() {
 
       <H2>Free Functionality</H2>
       <P>
-        ONIS is free to use for its core tracking functionality. Additional
-        functionality is available through ONIS Premium, described below.
+        ONIS is free to use for its core tracking functionality — logging
+        from iPhone, Apple Watch, and widgets, timers, reminders, history,
+        and export. Additional functionality is available through ONIS
+        Premium, described below.
       </P>
 
-      <H2>ONIS Premium</H2>
+      <H2>7-Day Premium Access</H2>
       <UL>
         <LI>
-          ONIS Premium is offered as auto-renewable subscriptions —{" "}
-          <strong>Weekly</strong> and <strong>Yearly</strong>.
+          ONIS offers a one-time, seven-day Premium access period. It costs{" "}
+          <strong>$0</strong>.
         </LI>
         <LI>
-          ONIS Premium is also available as a <strong>Lifetime</strong>{" "}
-          purchase — a one-time, non-consumable purchase with no recurring
-          billing.
+          It is <strong>not a subscription</strong>. It does not renew,
+          nothing is billed, and there is <strong>no automatic charge</strong>{" "}
+          at any point. There is nothing to cancel.
+        </LI>
+        <LI>
+          The seven-day period is recorded on your device only. When it
+          expires, ONIS returns to the Free experience unless you choose the
+          Lifetime purchase.
         </LI>
       </UL>
+
+      <H2>ONIS Lifetime</H2>
       <P>
-        Introductory offers, such as a free trial, may be available to
-        eligible customers on auto-renewable plans. Apple determines
-        eligibility for introductory offers and confirms it at the time of
-        purchase.
-      </P>
-      <P>
-        All prices are the price shown by Apple at the time of purchase, in
-        your local currency, and may change over time or vary by region.
+        ONIS Premium is unlocked permanently with{" "}
+        <strong>ONIS Lifetime — {lifetimePrice} once</strong>, a one-time,
+        non-consumable purchase with no recurring billing and no renewal.
+        The exact price is shown by Apple through StoreKit at the time of
+        purchase, in your local currency, and may vary by region.
       </P>
 
-      <H2>Billing, Cancellation, and Restoration</H2>
+      <H2>Billing and Restoration</H2>
       <P>
-        All purchases, billing, subscription renewals, and cancellations are
-        handled by Apple through your Apple ID, not by ONIS Labs directly. A
-        subscription automatically renews unless auto-renew is turned off at
-        least 24 hours before the end of the current period. You can manage
-        or cancel a subscription using Manage Subscription in the app, or
-        directly in your Apple ID account settings, and restore a previous
-        purchase using Restore Purchases in the app.
+        The Lifetime purchase is processed by Apple through your
+        Apple&nbsp;ID, not by ONIS Labs directly. ONIS has no subscriptions,
+        so there is nothing to cancel and no renewal to manage. You can
+        bring a previous purchase to a new device with{" "}
+        <strong>Restore Purchases</strong> in the app.
       </P>
 
       <H2>No ONIS Account</H2>
@@ -94,11 +101,11 @@ export default function TermsPage() {
         be treated as medical advice.
       </P>
       <P>
-        Any tracking of tobacco, alcohol, nicotine, or caffeine use within
-        ONIS is provided for personal awareness only. ONIS does not
-        guarantee any particular outcome, and results will vary from person
-        to person. If you have concerns about a habit or substance use,
-        consult a qualified professional.
+        Any tracking of substances or health-related habits within ONIS is
+        provided for personal awareness only. ONIS does not guarantee any
+        particular outcome, and results will vary from person to person. If
+        you have concerns about a habit or substance use, consult a
+        qualified professional.
       </P>
 
       <H2>Apple</H2>

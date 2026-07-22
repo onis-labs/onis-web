@@ -5,7 +5,7 @@ import type { CSSProperties } from "react";
 // These exports reference those vars so inline styles and CSS never drift.
 export const colors = {
   canvas: "var(--canvas)", // warm cream — page background
-  cardCream: "var(--card-cream)", // elevated section background
+  cardCream: "var(--card-cream)", // elevated light surface (FAQ, pricing panel)
   ink: "var(--ink)", // primary text / dark surface
   body: "var(--body)", // body text
   dim: "var(--dim)", // secondary text on cream (WCAG AA)
@@ -15,6 +15,7 @@ export const colors = {
   accentSoft: "var(--accent-soft)",
   borderSubtle: "var(--border-subtle)",
   success: "var(--success)", // positive completion
+  premium: "var(--premium)", // muted lavender-purple — Premium labels only
   // Tracker colors — sampled from the shipped app screens, used purposefully.
   trackWater: "var(--track-water)", // teal — Build (water)
   trackReading: "var(--track-reading)", // amber — Build (make your bed / reading)

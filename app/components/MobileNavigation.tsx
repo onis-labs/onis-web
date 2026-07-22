@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, type CSSProperties } from "react";
 import AccentPeriod from "./AccentPeriod";
-import OfficialAppStoreBadge from "./OfficialAppStoreBadge";
+import NavCta from "./NavCta";
 import { colors, display, ease, sans, type, weight } from "../lib/tokens";
 import { site } from "../lib/config";
 import { nav } from "../lib/content";
@@ -166,7 +166,10 @@ export default function MobileNavigation({ open, onClose }: MobileNavigationProp
               paddingBottom: 40,
             }}
           >
-            <OfficialAppStoreBadge height={40} showCaption />
+            {/* Bubbled click from the CTA link closes the sheet. */}
+            <div onClick={onClose} style={{ display: "inline-flex" }}>
+              <NavCta badgeHeight={40} />
+            </div>
           </div>
         </motion.div>
       )}

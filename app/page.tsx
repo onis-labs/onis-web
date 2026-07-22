@@ -1,30 +1,34 @@
 import SiteHeader from "./components/SiteHeader";
-import ScrollHero from "./components/ScrollHero";
-import TrustStrip from "./components/TrustStrip";
-import OneTapStory from "./components/OneTapStory";
-import BuildReduceTrack from "./components/BuildReduceTrack";
-import MathSection from "./components/MathSection";
-import ProductStory from "./components/ProductStory";
-import WatchWidgets from "./components/WatchWidgets";
-import PrivacySection from "./components/PrivacySection";
+import HeroSection from "./components/HeroSection";
+import ProblemSection from "./components/ProblemSection";
+import WatchSection from "./components/WatchSection";
+import WidgetsSection from "./components/WidgetsSection";
+import ModesSection from "./components/ModesSection";
+import { TrendsSection, CoachSection } from "./components/InsightSections";
+import RemindersSection from "./components/RemindersSection";
 import Pricing from "./components/Pricing";
+import PrivacySection from "./components/PrivacySection";
 import Faq from "./components/Faq";
 import SiteFooter from "./components/SiteFooter";
 
+// Homepage — the final launch structure, in the approved order:
+// hero → problem → Apple Watch → widgets → Build/Reduce/Understand →
+// Trends → Coach → reminders → pricing → privacy → FAQ.
 export default function Home() {
   return (
     <>
       <SiteHeader />
       <main id="main-content">
-        <ScrollHero />
-        <TrustStrip />
-        <OneTapStory />
-        <BuildReduceTrack />
-        <MathSection />
-        <ProductStory />
-        <WatchWidgets />
-        <PrivacySection />
+        <HeroSection />
+        <ProblemSection />
+        <WatchSection />
+        <WidgetsSection />
+        <ModesSection />
+        <TrendsSection />
+        <CoachSection />
+        <RemindersSection />
         <Pricing />
+        <PrivacySection />
         <Faq />
       </main>
       <SiteFooter />

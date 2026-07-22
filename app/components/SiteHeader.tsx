@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import AccentPeriod from "./AccentPeriod";
 import MobileNavigation from "./MobileNavigation";
-import OfficialAppStoreBadge from "./OfficialAppStoreBadge";
+import NavCta from "./NavCta";
 import { colors, display, sans, type, weight } from "../lib/tokens";
 import { site } from "../lib/config";
 import { nav } from "../lib/content";
@@ -152,11 +152,11 @@ export default function SiteHeader() {
             {nav.map((item) => (
               <NavLink key={item.href} href={item.href} label={item.label} />
             ))}
-            <OfficialAppStoreBadge height={34} />
+            <NavCta badgeHeight={34} />
           </nav>
         ) : (
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <OfficialAppStoreBadge height={30} />
+            <NavCta badgeHeight={30} />
             <button
               type="button"
               ref={triggerRef}

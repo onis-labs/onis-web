@@ -3,9 +3,9 @@ import { site } from "./lib/config";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "ONIS — Private Habit Tracker for iPhone and Apple Watch";
+export const alt = "ONIS — Habit Tracker for iPhone, Apple Watch & Widgets";
 
-const CREAM = "#F4F0E6";
+const CREAM = "#F8EFE2";
 const INK = "#1A1A17";
 const TERRACOTTA = "#B85A3F";
 
@@ -33,7 +33,7 @@ export default async function Image() {
         >
           <span
             style={{
-              fontSize: 168,
+              fontSize: 150,
               fontWeight: 700,
               color: INK,
               letterSpacing: "-4px",
@@ -43,7 +43,7 @@ export default async function Image() {
           </span>
           <span
             style={{
-              fontSize: 168,
+              fontSize: 150,
               fontWeight: 700,
               color: TERRACOTTA,
             }}
@@ -54,31 +54,38 @@ export default async function Image() {
         <div
           style={{
             display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: 36,
+            marginTop: 32,
             paddingLeft: 96,
             paddingRight: 96,
-            fontSize: 36,
+            fontSize: 44,
+            fontWeight: 600,
+            color: INK,
             textAlign: "center",
           }}
         >
-          <span style={{ color: INK }}>{"Track honestly. "}</span>
-          <span style={{ color: TERRACOTTA }}>{"See the pattern. "}</span>
-          <span style={{ color: INK }}>{"Change one thing."}</span>
+          Track it before you forget it.
         </div>
         <div
           style={{
             display: "flex",
-            marginTop: 56,
+            marginTop: 24,
+            fontSize: 26,
+            color: TERRACOTTA,
+            fontWeight: 600,
+          }}
+        >
+          One tap keeps the real count.
+        </div>
+        <div
+          style={{
+            display: "flex",
+            marginTop: 48,
             fontSize: 24,
             color: INK,
             opacity: 0.55,
           }}
         >
-          {"iPhone · Apple Watch · No account"}
+          {"iPhone · Apple Watch · Widgets · No subscription"}
         </div>
       </div>
     ),
