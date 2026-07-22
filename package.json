@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/verify-content.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.18.0",
