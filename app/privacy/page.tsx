@@ -10,8 +10,9 @@ export const metadata: Metadata = {
     "How ONIS handles your data: local-first, no ONIS account, no analytics on your habit history.",
 };
 
-// Copy verified 2026-07-15 against the iOS source
-// (FreeTier/SubscriptionManager/PrivacyView/ONIS.storekit).
+// Copy verified 2026-07-22 against the shipping iOS source
+// (PrivacyView.swift, SharedModelContainer.swift, WatchSync.swift,
+// NotificationScheduler.swift, ONIS.storekit — no subscriptions exist).
 const linkStyle: CSSProperties = {
   color: colors.accent,
   textDecoration: "underline",
@@ -34,10 +35,9 @@ export default function PrivacyPage() {
           app, on your device.
         </LI>
         <LI>
-          If you use widgets or the Apple Watch app, ONIS keeps a local copy
-          of the data they need in a shared App Group container on your
-          device, so widgets and the Watch app can stay in sync with your
-          iPhone.
+          If you use widgets (WidgetKit) or the Apple Watch app, ONIS keeps
+          the data they need in a shared App Group container on your device,
+          so widgets and the Watch app stay in sync with your iPhone.
         </LI>
         <LI>
           Your iPhone and Apple Watch sync directly with each other using
@@ -56,14 +56,16 @@ export default function PrivacyPage() {
 
       <H2>Purchases</H2>
       <P>
-        ONIS Premium purchases are handled entirely by Apple through
-        StoreKit, Apple&apos;s in-app purchase system. ONIS never sees or
-        stores your payment details. Subscriptions are billed and managed by
-        Apple through your Apple ID. See{" "}
+        Purchases are handled entirely by Apple through StoreKit,
+        Apple&apos;s in-app purchase system. ONIS never sees or stores your
+        payment details. ONIS has no subscriptions — the only purchase is
+        the one-time ONIS Lifetime unlock, processed by Apple through your
+        Apple&nbsp;ID. The 7-day Premium access is free and recorded only on
+        your device; it involves no payment information at all. See{" "}
         <a href="/terms" style={linkStyle}>
           Terms of Use
         </a>{" "}
-        for details on ONIS Premium.
+        for details.
       </P>
 
       <H2>Backups</H2>
@@ -84,10 +86,11 @@ export default function PrivacyPage() {
       <UL>
         <LI>
           <strong>Export My Data</strong> — creates a copy of your ONIS data
-          that you can save.
+          (JSON and CSV) that you can save.
         </LI>
         <LI>
-          <strong>Clear Log History</strong> — clears your logged history.
+          <strong>Clear Log History</strong> — clears your logged history
+          while keeping your trackers.
         </LI>
         <LI>
           <strong>Start Over</strong> — resets your ONIS data so you can
@@ -100,10 +103,9 @@ export default function PrivacyPage() {
         </LI>
       </UL>
       <P>
-        Deleting your data does not cancel a subscription. To manage or
-        cancel a subscription, or to restore a previous purchase, use Manage
-        Subscription or Restore Purchases — both are handled by Apple
-        through your Apple ID.
+        Deleting your data does not affect App Store purchases — they stay
+        with your Apple&nbsp;ID and can be brought back with Restore
+        Purchases in the app.
       </P>
       <P>
         For step-by-step help with these controls, visit{" "}

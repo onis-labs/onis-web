@@ -71,10 +71,10 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
             id={answerId}
             role="region"
             aria-labelledby={questionId}
-            initial={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+            initial={reduce ? false : { height: 0, opacity: 0 }}
             animate={reduce ? { opacity: 1 } : { height: "auto", opacity: 1 }}
             exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
-            transition={{ duration: reduce ? 0.15 : 0.35, ease }}
+            transition={{ duration: reduce ? 0 : 0.35, ease }}
             style={{ overflow: "hidden" }}
           >
             <p

@@ -18,12 +18,22 @@ export default function Reveal({
   style?: CSSProperties;
 }) {
   const reduce = useReducedMotion();
+
+  // Reduced motion: no reveal at all — final state, immediately.
+  if (reduce) {
+    return (
+      <div className={className} style={style}>
+        {children}
+      </div>
+    );
+  }
+
   return (
     <motion.div
       className={className}
       style={style}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24 }}
-      whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, delay, ease }}
     >

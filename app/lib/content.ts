@@ -1,6 +1,9 @@
 // ── Editorial content ─────────────────────────────────────────────────────
-// Navigation, the Build/Reduce/Track model, and FAQ. Copy lives here so the
-// voice stays consistent and there is a single place to keep it truthful.
+// Navigation, the Build/Reduce/Understand directions, and FAQ. Copy lives
+// here so the voice stays consistent and there is one place to keep it
+// truthful. Prices are always interpolated from lib/pricing — never typed.
+
+import { lifetimePrice, priceDisclaimer } from "./pricing";
 
 export interface NavItem {
   label: string;
@@ -9,98 +12,114 @@ export interface NavItem {
 
 // In-page anchors + the Support route. Section ids must match the components.
 export const nav: NavItem[] = [
-  { label: "How it works", href: "#how-it-works" },
-  { label: "Features", href: "#features" },
-  { label: "Watch & widgets", href: "#watch-widgets" },
-  { label: "Privacy", href: "#privacy" },
+  { label: "Product", href: "#product" },
+  { label: "Apple Watch", href: "#apple-watch" },
+  { label: "Widgets", href: "#widgets" },
+  { label: "Trends", href: "#trends" },
   { label: "Pricing", href: "#pricing" },
+  { label: "FAQ", href: "#faq" },
   { label: "Support", href: "/support" },
 ];
 
-// The three intentions ONIS supports. Each has its own tracker color + action
-// verb so the site never treats them as identical.
-export interface Intention {
-  id: "build" | "reduce" | "track";
+// The three tracking directions. The approved marketing uses
+// Build / Reduce / Understand; the in-app control for the third direction is
+// labeled "Track" — the footnote keeps that honest.
+export interface Mode {
+  id: "build" | "reduce" | "understand";
   label: string;
   promise: string;
-  action: string; // the tracker's primary verb
-  example: { name: string; unit: string; state: string };
   examples: string[];
-  colorVar: string; // CSS var from the token palette
+  colorVar: string; // CSS var from the token palette, matches the frame pills
 }
 
-export const intentions: Intention[] = [
+export const modes: Mode[] = [
   {
     id: "build",
     label: "Build",
-    promise: "Do more of what matters.",
-    action: "Start",
-    example: { name: "Read a book", unit: "12 of 20 minutes", state: "in progress" },
-    examples: ["Drink water", "Read", "Meditate", "Study", "Plan tomorrow", "Wake up on time"],
+    promise: "Grow what matters.",
+    examples: ["Drink water", "Read", "Study", "Plan tomorrow"],
     colorVar: "var(--track-water)",
   },
   {
     id: "reduce",
     label: "Reduce",
-    promise: "Set a limit without shame.",
-    action: "+1",
-    example: { name: "Coffee", unit: "2 of 3 cups", state: "under target" },
-    examples: ["Nicotine pouches", "Cigarettes", "Vape", "Alcohol", "Coffee", "Energy drinks", "Takeout"],
-    colorVar: "var(--track-keepunder)",
+    promise: "Set a limit and keep an honest count.",
+    examples: ["Coffee", "Fast food", "Scrolling"],
+    colorVar: "var(--track-reading)",
   },
   {
-    id: "track",
-    label: "Track",
-    promise: "Notice what happens without forcing a goal.",
-    action: "Log",
-    example: { name: "Plan tomorrow", unit: "Not logged", state: "neutral" },
-    examples: ["Mood", "Symptoms", "Body measurements", "Health checkups", "Personal events", "Custom trackers"],
-    colorVar: "var(--track-mind)",
+    id: "understand",
+    label: "Understand",
+    promise: "Track something without forcing a goal.",
+    examples: ["Mood", "Symptoms", "Personal events", "Custom trackers"],
+    colorVar: "var(--success)",
   },
 ];
+
+// Shown as a small footnote under the modes — keeps marketing and the real
+// in-app control honest with each other.
+export const modesFootnote =
+  'In the app, the Understand direction is labeled "Track."';
 
 export interface Faq {
   q: string;
   a: string;
 }
 
-// Kept truthful and aligned with the shipped feature set. Items that name a
-// specific in-app control are marked in the source comment for final Release
-// verification.
+// All answers verified 2026-07-22 against the shipping iOS source
+// (FreeTier.swift, PremiumPreview.swift, ONIS.storekit, PrivacyView.swift,
+// WatchSync.swift, ONISWidget.swift). Prices interpolate from lib/pricing.
 export const faqs: Faq[] = [
   {
-    q: "Do I need an account?",
-    a: "No. There is no ONIS account, no sign-in, and no email required. Your habit history stays on your device.",
+    q: "What is ONIS?",
+    a: "ONIS is a habit tracker for iPhone, Apple Watch, and widgets. You log small moments with one tap — build a habit, reduce one, or simply understand it — and ONIS turns those taps into patterns you can act on.",
   },
   {
-    q: "Does it work on Apple Watch?",
-    a: "Yes. Log with one tap from your wrist, and your iPhone and widgets stay in sync. There are also Home Screen and Lock Screen widgets and Watch complications.",
+    q: "Do I need an account?",
+    a: "No. There is no ONIS account, no sign-in, and no email. Your habit history stays on your device.",
+  },
+  {
+    q: "Does ONIS work on Apple Watch?",
+    a: "Yes. The Watch app lists your trackers, logs counts with one tap, runs timers with pause and resume, and marks things done. It syncs directly with your iPhone — no cloud in between.",
+  },
+  {
+    q: "How do widgets work?",
+    a: "Add an ONIS widget from the iOS widget gallery and choose which tracker it shows. Widgets show today's progress and support one-tap actions like +1 and Done, plus arrows to switch trackers. Timer actions open the app.",
   },
   {
     q: "What can I track?",
-    a: "Three intentions: Build something you want to do more, Reduce something you want to keep under a limit, or simply Track something to notice the pattern — no forced goal.",
+    a: 'Three directions: Build something you want to grow, Reduce something you want to keep under an honest limit, or track something — like mood or symptoms — without any goal. In the app, that third direction is labeled "Track."',
   },
   {
-    q: "How much does ONIS cost?",
-    a: "Core tracking is free. ONIS Premium unlocks full Trends, Coach, and unlimited trackers — Weekly $2.99, Yearly $14.99, or a one-time Lifetime $24.99. Prices and offer eligibility are confirmed by Apple at purchase.",
+    q: "What is Free?",
+    a: "Free includes one-tap logging on iPhone, Apple Watch, and widgets, 6 starter trackers plus 1 custom tracker (up to 7 active), timers, reminders, full history, and export. No account required.",
   },
   {
-    q: "Is there a free trial?",
-    a: "An introductory trial is available to eligible customers on the Weekly and Yearly plans. Lifetime is a one-time purchase with no trial. Apple confirms eligibility at purchase.",
+    q: "What does Premium include?",
+    a: "Premium unlocks Trends, Coach, the full template library, and unlimited trackers.",
   },
   {
-    q: "Is my data private?",
-    a: "Yes. No ONIS account, no ads, and no analytics on your habit history. Data is stored locally and syncs directly between your iPhone and Apple Watch.",
+    q: "How does the 7-day trial work?",
+    a: `The 7-day Premium trial costs $0. It is not a subscription and does not renew. After seven days, ONIS returns to Free unless you choose Lifetime for ${lifetimePrice}.`,
   },
   {
-    q: "Can ONIS help me quit something?",
-    a: "ONIS is an honest awareness tracker, not medical advice. You set your own targets and decide what a good next step is — ONIS just makes the pattern visible.",
+    q: "Will I be charged automatically?",
+    a: "No. The trial is $0, there is no automatic charge, and there is nothing to cancel. ONIS has no subscriptions — the only purchase is the one-time ONIS Lifetime, and Apple processes it only when you choose it.",
   },
   {
-    q: "How do I delete my data?",
-    // Control names verified 2026-07-15 against iOS PrivacyView.swift (exact
-    // SwiftUI string literals: "Export My Data", "Clear Log History",
-    // "Start Over", "Delete All ONIS Data").
-    a: "In the app you can Export My Data, Clear Log History, Start Over, or Delete All ONIS Data. Deleting also removes ONIS data from the paired Apple Watch. Purchases remain managed by Apple.",
+    q: "How much is Lifetime?",
+    a: `ONIS Lifetime is ${lifetimePrice}, once. One payment, permanent Premium access, no renewal. ${priceDisclaimer}`,
+  },
+  {
+    q: "Can I continue with Free?",
+    a: "Yes. After the trial, ONIS returns to Free on its own, and your trackers and history stay. Free remains fully usable.",
+  },
+  {
+    q: "Is ONIS medical advice?",
+    a: "No. ONIS is for personal awareness only. It does not diagnose, treat, or replace professional care.",
+  },
+  {
+    q: "How do I export or delete my data?",
+    a: "In the app, use Export My Data (JSON and CSV), Clear Log History, Start Over, or Delete All ONIS Data. Deleting also removes ONIS data from the paired Apple Watch. App Store purchases stay with Apple and can be restored.",
   },
 ];
