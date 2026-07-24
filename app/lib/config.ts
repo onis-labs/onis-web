@@ -40,4 +40,4 @@ export const requirements = {
 } as const;
 
 // Legal effective / last-updated date (ISO). Update on any material change.
-export const legalUpdated = "2026-07-22";
+export const legalUpdated = "2026-07-24";

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { site } from "./lib/config";
 
 // Fixed date (not Date.now()) so the sitemap output is stable across builds.
-const lastModified = "2026-07-22";
+const lastModified = "2026-07-24";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

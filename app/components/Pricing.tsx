@@ -1,26 +1,69 @@
+"use client";
+
+import { useCallback, useState, type CSSProperties, type ReactNode } from "react";
 import Reveal from "./Reveal";
 import SectionIntro from "./SectionIntro";
 import OfficialAppStoreBadge from "./OfficialAppStoreBadge";
+import PurchaseCta, { PurchaseCtaSecondary } from "./PurchaseCta";
+import FoundingOfferDialog, {
+  markFoundingDismissed,
+  wasFoundingDismissed,
+} from "./FoundingOfferDialog";
 import { colors, sans, display, weight, layout } from "../lib/tokens";
-import { pricing, priceDisclaimer } from "../lib/pricing";
+import {
+  isFoundingOfferActive,
+  priceDisclaimer,
+  pricing,
+} from "../lib/pricing";
 
 // ── Section 9 — Fair pricing ─────────────────────────────────────────────
-// One clean offer area — not subscription cards. Free, the $0 seven-day
-// Premium access, and the one-time Lifetime purchase, all from lib/pricing
-// (the only file allowed to contain the Lifetime price). No badges, no
-// fake savings, no urgency — verified against the shipping StoreKit config.
+// Three public cards: Free, Premium Yearly, ONIS Lifetime. All copy and
+// prices come from lib/pricing. The founding fallback is never advertised
+// here — it appears only as a one-time dismiss fallback when StoreKit-gated
+// eligibility is truly on.
 
-function ColumnTitle({ children }: { children: React.ReactNode }) {
+const cardShell: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  background: colors.canvas,
+  border: `1px solid ${colors.borderSubtle}`,
+  borderRadius: 20,
+  padding: "28px 24px",
+  minHeight: "100%",
+};
+
+function PlanBadge({ children }: { children: ReactNode }) {
+  return (
+    <span
+      style={{
+        alignSelf: "flex-start",
+        fontFamily: sans,
+        fontWeight: weight.heading,
+        fontSize: "0.68rem",
+        letterSpacing: "0.12em",
+        textTransform: "uppercase",
+        color: colors.accent,
+        background: colors.accentSoft,
+        borderRadius: 8,
+        padding: "4px 10px",
+        marginBottom: 12,
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+function PlanTitle({ children }: { children: ReactNode }) {
   return (
     <h3
       style={{
-        fontFamily: sans,
-        fontWeight: weight.heading,
-        fontSize: "0.78rem",
-        letterSpacing: "0.14em",
-        textTransform: "uppercase",
-        color: colors.dim,
+        fontFamily: display,
+        fontWeight: weight.section,
+        fontSize: "1.35rem",
+        color: colors.ink,
         margin: 0,
+        letterSpacing: "-0.02em",
       }}
     >
       {children}
@@ -30,7 +73,7 @@ function ColumnTitle({ children }: { children: React.ReactNode }) {
 
 function FeatureList({ items }: { items: readonly string[] }) {
   return (
-    <ul style={{ listStyle: "none", margin: "16px 0 0", padding: 0 }}>
+    <ul style={{ listStyle: "none", margin: "16px 0 0", padding: 0, flex: 1 }}>
       {items.map((item) => (
         <li
           key={item}
@@ -40,15 +83,19 @@ function FeatureList({ items }: { items: readonly string[] }) {
             gap: 10,
             fontFamily: sans,
             fontWeight: weight.body,
-            fontSize: "0.92rem",
+            fontSize: "0.9rem",
             color: colors.body,
             lineHeight: 1.5,
-            padding: "5px 0",
+            padding: "4px 0",
           }}
         >
           <span
             aria-hidden="true"
-            style={{ color: colors.success, fontWeight: weight.heading, flexShrink: 0 }}
+            style={{
+              color: colors.success,
+              fontWeight: weight.heading,
+              flexShrink: 0,
+            }}
           >
             ✓
           </span>
@@ -60,6 +107,21 @@ function FeatureList({ items }: { items: readonly string[] }) {
 }
 
 export default function Pricing() {
+  const [foundingOpen, setFoundingOpen] = useState(false);
+
+  const dismissFounding = useCallback(() => {
+    markFoundingDismissed();
+    setFoundingOpen(false);
+  }, []);
+
+  const onContinueWithFree = useCallback(() => {
+    if (isFoundingOfferActive() && !wasFoundingDismissed()) {
+      setFoundingOpen(true);
+      return;
+    }
+    // No gated offer — stay on the free path without pressure.
+  }, []);
+
   return (
     <section
       id="pricing"
@@ -67,167 +129,289 @@ export default function Pricing() {
     >
       <div style={{ maxWidth: layout.wideMax, margin: "0 auto" }}>
         <div style={{ maxWidth: layout.contentMax, margin: "0 auto" }}>
-          <SectionIntro kicker="Fair pricing" title="Premium without another subscription" center />
+          <SectionIntro
+            kicker={pricing.kicker}
+            title={pricing.headline}
+            center
+          />
         </div>
+
+        {pricing.premiumPreview.enabled && (
+          <p
+            style={{
+              fontFamily: sans,
+              fontWeight: weight.body,
+              fontSize: "1rem",
+              color: colors.body,
+              textAlign: "center",
+              margin: "20px auto 0",
+              maxWidth: 520,
+              lineHeight: 1.55,
+            }}
+          >
+            {pricing.premiumPreview.line}
+          </p>
+        )}
 
         <Reveal delay={0.1}>
           <div
             style={{
-              marginTop: 52,
-              background: colors.cardCream,
-              border: `1px solid ${colors.borderSubtle}`,
-              borderRadius: 26,
-              padding: "clamp(28px, 4vw, 48px)",
+              marginTop: 48,
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+              gap: 20,
+              alignItems: "stretch",
             }}
           >
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-                gap: "clamp(28px, 4vw, 48px)",
-              }}
-            >
-              {/* Free */}
-              <div>
-                <ColumnTitle>{pricing.free.name}</ColumnTitle>
-                <p
+            {/* FREE */}
+            <article style={cardShell}>
+              <PlanTitle>{pricing.free.name}</PlanTitle>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "baseline",
+                  gap: 8,
+                  marginTop: 16,
+                }}
+              >
+                <span
                   style={{
                     fontFamily: display,
-                    fontWeight: weight.section,
-                    fontSize: "1.5rem",
+                    fontWeight: weight.hero,
+                    fontSize: "2.4rem",
+                    letterSpacing: "-0.02em",
                     color: colors.ink,
-                    margin: "14px 0 0",
                   }}
                 >
-                  {pricing.free.blurb}
-                </p>
-                <FeatureList items={pricing.free.features} />
+                  {pricing.free.price}
+                </span>
               </div>
-
-              {/* 7-day Premium access */}
-              <div>
-                <ColumnTitle>{pricing.trial.name}</ColumnTitle>
-                <p
+              <p
+                style={{
+                  fontFamily: sans,
+                  fontWeight: weight.body,
+                  fontSize: "0.95rem",
+                  color: colors.body,
+                  lineHeight: 1.55,
+                  margin: "12px 0 0",
+                }}
+              >
+                {pricing.free.blurb}
+              </p>
+              <FeatureList items={pricing.free.features} />
+              <div style={{ marginTop: 24 }}>
+                <PurchaseCta
+                  ariaLabel={pricing.free.cta}
                   style={{
-                    fontFamily: display,
-                    fontWeight: weight.section,
-                    fontSize: "1.5rem",
-                    color: colors.ink,
-                    margin: "14px 0 0",
+                    display: "inline-flex",
+                    justifyContent: "center",
+                    width: "100%",
+                    textAlign: "center",
                   }}
                 >
-                  {pricing.trial.offer}
-                </p>
-                <p
+                  {pricing.free.cta}
+                </PurchaseCta>
+              </div>
+            </article>
+
+            {/* YEARLY */}
+            <article style={cardShell}>
+              <PlanBadge>{pricing.yearly.badge}</PlanBadge>
+              <PlanTitle>{pricing.yearly.name}</PlanTitle>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "baseline",
+                  gap: 8,
+                  marginTop: 16,
+                  flexWrap: "wrap",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: display,
+                    fontWeight: weight.hero,
+                    fontSize: "2.4rem",
+                    letterSpacing: "-0.02em",
+                    color: colors.ink,
+                  }}
+                >
+                  {pricing.yearly.price}
+                </span>
+                <span
                   style={{
                     fontFamily: sans,
                     fontWeight: weight.heading,
-                    fontSize: "0.88rem",
-                    color: colors.accent,
-                    margin: "10px 0 0",
+                    fontSize: "1rem",
+                    color: colors.dim,
                   }}
                 >
-                  {pricing.trial.disclosure}
-                </p>
-                <FeatureList items={pricing.premiumIncludes} />
+                  {pricing.yearly.priceSuffix}
+                </span>
               </div>
+              <p
+                style={{
+                  fontFamily: sans,
+                  fontWeight: weight.heading,
+                  fontSize: "0.88rem",
+                  color: colors.accent,
+                  margin: "12px 0 0",
+                }}
+              >
+                {pricing.yearly.trial}
+              </p>
+              <p
+                style={{
+                  fontFamily: sans,
+                  fontWeight: weight.body,
+                  fontSize: "0.85rem",
+                  color: colors.dim,
+                  lineHeight: 1.5,
+                  margin: "8px 0 0",
+                }}
+              >
+                {pricing.yearly.renewalDisclosure}
+              </p>
+              <FeatureList items={pricing.premiumIncludes} />
+              <div style={{ marginTop: 24 }}>
+                <PurchaseCta
+                  ariaLabel={pricing.yearly.cta}
+                  style={{
+                    display: "inline-flex",
+                    justifyContent: "center",
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  {pricing.yearly.cta}
+                </PurchaseCta>
+              </div>
+            </article>
 
-              {/* Lifetime */}
-              <div>
-                <ColumnTitle>{pricing.lifetime.name}</ColumnTitle>
-                <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginTop: 14 }}>
-                  <span
-                    style={{
-                      fontFamily: display,
-                      fontWeight: weight.hero,
-                      fontSize: "2.4rem",
-                      letterSpacing: "-0.02em",
-                      color: colors.ink,
-                    }}
-                  >
-                    {pricing.lifetime.price}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: sans,
-                      fontWeight: weight.heading,
-                      fontSize: "1rem",
-                      color: colors.dim,
-                    }}
-                  >
-                    once
-                  </span>
-                </div>
-                <p
+            {/* LIFETIME */}
+            <article
+              style={{
+                ...cardShell,
+                borderColor: colors.accent,
+                boxShadow: `0 0 0 1px ${colors.accent}`,
+              }}
+            >
+              <PlanBadge>{pricing.lifetime.badge}</PlanBadge>
+              <PlanTitle>{pricing.lifetime.name}</PlanTitle>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "baseline",
+                  gap: 8,
+                  marginTop: 16,
+                  flexWrap: "wrap",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: display,
+                    fontWeight: weight.hero,
+                    fontSize: "2.4rem",
+                    letterSpacing: "-0.02em",
+                    color: colors.ink,
+                  }}
+                >
+                  {pricing.lifetime.price}
+                </span>
+                <span
                   style={{
                     fontFamily: sans,
-                    fontWeight: weight.body,
-                    fontSize: "0.95rem",
-                    color: colors.body,
-                    lineHeight: 1.6,
-                    margin: "10px 0 0",
+                    fontWeight: weight.heading,
+                    fontSize: "1rem",
+                    color: colors.dim,
                   }}
                 >
-                  {pricing.lifetime.supporting}
-                </p>
-                <p
-                  style={{
-                    fontFamily: sans,
-                    fontWeight: weight.body,
-                    fontSize: "0.92rem",
-                    color: colors.body,
-                    lineHeight: 1.6,
-                    margin: "12px 0 0",
-                  }}
-                >
-                  {pricing.trial.detail}
-                </p>
+                  {pricing.lifetime.priceSuffix}
+                </span>
               </div>
-            </div>
-
-            {/* One honest CTA area — the badge owns the launch state. */}
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 20,
-                marginTop: 40,
-                paddingTop: 32,
-                borderTop: `1px solid ${colors.borderSubtle}`,
-              }}
-            >
-              <OfficialAppStoreBadge height={44} showCaption />
-            </div>
-
-            <p
-              style={{
-                fontFamily: sans,
-                fontWeight: weight.body,
-                fontSize: "0.9rem",
-                color: colors.body,
-                textAlign: "center",
-                margin: "24px 0 0",
-              }}
-            >
-              {pricing.postTrial}
-            </p>
-            <p
-              style={{
-                fontFamily: sans,
-                fontWeight: weight.body,
-                fontSize: "0.8rem",
-                color: colors.dim,
-                textAlign: "center",
-                margin: "8px 0 0",
-              }}
-            >
-              {priceDisclaimer}
-            </p>
+              <p
+                style={{
+                  fontFamily: sans,
+                  fontWeight: weight.body,
+                  fontSize: "0.85rem",
+                  color: colors.dim,
+                  lineHeight: 1.5,
+                  margin: "12px 0 0",
+                }}
+              >
+                {pricing.lifetime.disclosure}
+              </p>
+              <p
+                style={{
+                  fontFamily: sans,
+                  fontWeight: weight.body,
+                  fontSize: "0.9rem",
+                  color: colors.body,
+                  lineHeight: 1.5,
+                  margin: "12px 0 0",
+                }}
+              >
+                {pricing.lifetime.comparison}
+              </p>
+              <FeatureList items={pricing.premiumIncludes} />
+              <div style={{ marginTop: 24 }}>
+                <PurchaseCta
+                  ariaLabel={pricing.lifetime.cta}
+                  style={{
+                    display: "inline-flex",
+                    justifyContent: "center",
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  {pricing.lifetime.cta}
+                </PurchaseCta>
+              </div>
+            </article>
           </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 16,
+              marginTop: 40,
+            }}
+          >
+            <OfficialAppStoreBadge height={44} showCaption />
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: 20,
+            }}
+          >
+            <PurchaseCtaSecondary onClick={onContinueWithFree}>
+              Continue with Free
+            </PurchaseCtaSecondary>
+          </div>
+
+          <p
+            style={{
+              fontFamily: sans,
+              fontWeight: weight.body,
+              fontSize: "0.8rem",
+              color: colors.dim,
+              textAlign: "center",
+              margin: "20px 0 0",
+              lineHeight: 1.5,
+            }}
+          >
+            {priceDisclaimer} {pricing.storefrontQualification}
+          </p>
         </Reveal>
       </div>
+
+      <FoundingOfferDialog open={foundingOpen} onDismiss={dismissFounding} />
     </section>
   );
 }

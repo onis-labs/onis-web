@@ -3,7 +3,12 @@
 // here so the voice stays consistent and there is one place to keep it
 // truthful. Prices are always interpolated from lib/pricing — never typed.
 
-import { lifetimePrice, priceDisclaimer } from "./pricing";
+import {
+  foundingLifetimePrice,
+  lifetimePrice,
+  priceDisclaimer,
+  yearlyPrice,
+} from "./pricing";
 
 export interface NavItem {
   label: string;
@@ -92,27 +97,47 @@ export const faqs: Faq[] = [
   },
   {
     q: "What is Free?",
-    a: "Free includes one-tap logging on iPhone, Apple Watch, and widgets, 6 starter trackers plus 1 custom tracker (up to 7 active), timers, reminders, full history, and export. No account required.",
+    a: "Free includes core Today logging, a limited tracker allowance, timers, reminders, full history, and export. No account required. Continue with Free anytime.",
   },
   {
     q: "What does Premium include?",
-    a: "Premium unlocks Trends, Coach, the full template library, and unlimited trackers.",
+    a: "Premium unlocks Trends, Coach, the full template library, and unlimited trackers — whether you choose Yearly or Lifetime.",
   },
   {
-    q: "How does the 7-day trial work?",
-    a: `The 7-day Premium trial costs $0. It is not a subscription and does not renew. After seven days, ONIS returns to Free unless you choose Lifetime for ${lifetimePrice}.`,
+    q: "How much does ONIS cost?",
+    a: `ONIS includes a Free experience. Premium Yearly is ${yearlyPrice} per year and may include a seven-day introductory trial for eligible customers. ONIS Lifetime is ${lifetimePrice} once with no renewal. ${priceDisclaimer}`,
   },
   {
-    q: "Will I be charged automatically?",
-    a: "No. The trial is $0, there is no automatic charge, and there is nothing to cancel. ONIS has no subscriptions — the only purchase is the one-time ONIS Lifetime, and Apple processes it only when you choose it.",
+    q: "Does Lifetime include a free trial?",
+    a: "Lifetime is a one-time purchase and does not renew. Eligible users may first experience the separate seven-day Premium preview before deciding whether to choose Yearly, Lifetime, or continue with Free.",
   },
   {
-    q: "How much is Lifetime?",
-    a: `ONIS Lifetime is ${lifetimePrice}, once. One payment, permanent Premium access, no renewal. ${priceDisclaimer}`,
+    q: "What happens after the Yearly trial?",
+    a: "The Yearly subscription renews at the displayed annual price unless it is cancelled through Apple before the trial ends.",
+  },
+  {
+    q: "Does Lifetime renew?",
+    a: "No. ONIS Lifetime is one payment for permanent Premium access.",
+  },
+  {
+    q: `Why do I see a ${foundingLifetimePrice} offer?`,
+    a: "Some eligible users may receive a limited founding offer for Lifetime. Availability and final pricing are confirmed by Apple.",
+  },
+  {
+    q: "Will Lifetime automatically charge after the Premium preview?",
+    a: "No. The seven-day Premium preview does not automatically charge Lifetime. Yearly only renews if you start an eligible Yearly subscription and do not cancel before renewal. Lifetime charges only when you choose the one-time purchase.",
   },
   {
     q: "Can I continue with Free?",
-    a: "Yes. After the trial, ONIS returns to Free on its own, and your trackers and history stay. Free remains fully usable.",
+    a: "Yes. Free remains fully usable. After a Premium preview ends, ONIS returns to Free unless you choose Yearly or Lifetime.",
+  },
+  {
+    q: "How do I manage or cancel Yearly?",
+    a: "Manage or cancel the Premium Yearly subscription in your Apple ID subscription settings. ONIS does not process subscription billing on this website.",
+  },
+  {
+    q: "How do I restore a purchase?",
+    a: "Use Restore Purchases in the app. App Store purchases stay with your Apple ID and can be restored on devices signed into that account.",
   },
   {
     q: "Is ONIS medical advice?",

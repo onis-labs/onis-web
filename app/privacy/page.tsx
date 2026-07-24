@@ -10,9 +10,7 @@ export const metadata: Metadata = {
     "How ONIS handles your data: local-first, no ONIS account, no analytics on your habit history.",
 };
 
-// Copy verified 2026-07-22 against the shipping iOS source
-// (PrivacyView.swift, SharedModelContainer.swift, WatchSync.swift,
-// NotificationScheduler.swift, ONIS.storekit — no subscriptions exist).
+// Purchases section aligned with Free / Yearly / Lifetime / Premium preview.
 const linkStyle: CSSProperties = {
   color: colors.accent,
   textDecoration: "underline",
@@ -58,10 +56,11 @@ export default function PrivacyPage() {
       <P>
         Purchases are handled entirely by Apple through StoreKit,
         Apple&apos;s in-app purchase system. ONIS never sees or stores your
-        payment details. ONIS has no subscriptions — the only purchase is
-        the one-time ONIS Lifetime unlock, processed by Apple through your
-        Apple&nbsp;ID. The 7-day Premium access is free and recorded only on
-        your device; it involves no payment information at all. See{" "}
+        payment details. This website does not process payment for Premium.
+        Premium Yearly is an auto-renewable annual subscription. ONIS
+        Lifetime is a one-time non-consumable purchase with no renewal. A
+        separate seven-day Premium preview may be available to eligible
+        users and does not automatically charge Lifetime. See{" "}
         <a href="/terms" style={linkStyle}>
           Terms of Use
         </a>{" "}

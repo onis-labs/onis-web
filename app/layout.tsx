@@ -1,13 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { site } from "./lib/config";
-import { pricing, lifetimePrice } from "./lib/pricing";
+import {
+  lifetimePrice,
+  publicOffersForSchema,
+  yearlyPrice,
+} from "./lib/pricing";
 
 const title = "ONIS — Habit Tracker for iPhone, Apple Watch & Widgets";
 const description =
   "Track it before you forget it. Log habits from iPhone, Apple Watch, or widgets. " +
-  "Build, reduce, or understand what matters. Try Premium free for 7 days or " +
-  `unlock Lifetime for ${lifetimePrice} once.`;
+  `Free to start. Premium Yearly ${yearlyPrice}/year or ONIS Lifetime ${lifetimePrice} once.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -43,8 +46,8 @@ export const viewport: Viewport = {
   themeColor: "#F8EFE2",
 };
 
-// SoftwareApplication structured data — real offers only, no ratings or
-// reviews (none exist). Prices come from the central pricing config.
+// SoftwareApplication structured data — public offers only (never the
+// founding fallback). Prices come from the central pricing config.
 const appLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -53,20 +56,7 @@ const appLd = {
   applicationCategory: "LifestyleApplication",
   url: site.url,
   description,
-  offers: [
-    {
-      "@type": "Offer",
-      name: pricing.free.name,
-      price: "0",
-      priceCurrency: "USD",
-    },
-    {
-      "@type": "Offer",
-      name: pricing.lifetime.name,
-      price: pricing.lifetime.price.replace(/[^0-9.]/g, ""),
-      priceCurrency: "USD",
-    },
-  ],
+  offers: publicOffersForSchema(),
 };
 
 export default function RootLayout({

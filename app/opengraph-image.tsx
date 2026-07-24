@@ -85,7 +85,7 @@ export default async function Image() {
             opacity: 0.55,
           }}
         >
-          {"iPhone · Apple Watch · Widgets · No subscription"}
+          {"iPhone · Apple Watch · Widgets · Free to start"}
         </div>
       </div>
     ),

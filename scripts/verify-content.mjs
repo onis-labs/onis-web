@@ -1,33 +1,43 @@
 #!/usr/bin/env node
 // ── Launch content guard ──────────────────────────────────────────────────
-// Fails when stale pricing/subscription language reappears anywhere in
-// tracked source, and when the Lifetime price escapes the central pricing
-// config. Run via `npm test`; wired to fail CI/builds loudly.
+// Fails when stale pricing language reappears anywhere in tracked source,
+// and when allowed price strings escape the central pricing config.
+// Run via `npm test`.
+//
+// Callers: package.json "test" script / CI.
+// User: "Run a final stale-copy test that fails if any old plan or price returns."
 
 import { execSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 
 const SELF = "scripts/verify-content.mjs";
 
-// Terms that must never appear in tracked source (case-insensitive).
+// Stale plans / prices / claims that must never reappear.
 const FORBIDDEN = [
   "$2.99",
   "$14.99",
-  "$19.99",
   "$24.99",
   "$4.99",
+  "Weekly Premium",
   "per week",
-  "per year",
-  "auto-renew",
   "3-day trial",
+  "three-day",
+  "three day trial",
+  "both plans include a free trial",
+  "50% off",
   "cancel anytime",
-  "best value",
   "most popular",
+  "ONIS has no subscriptions",
+  "has no subscriptions",
+  "the only purchase is the one-time",
+  "automatic Lifetime billing",
+  "Lifetime will automatically charge",
+  "Lifetime automatically charges",
 ];
 
-// The Lifetime price may appear ONLY here; everything else interpolates.
-const PRICE = "$9.99";
+// Allowed dollar strings may appear ONLY in the central pricing config.
 const PRICE_ALLOWED_IN = new Set(["app/lib/pricing.ts"]);
+const CENTRAL_PRICES = ["$9.99", "$19.99", "$12.99"];
 
 const files = execSync("git ls-files", { encoding: "utf8" })
   .split("\n")
@@ -55,11 +65,15 @@ for (const file of files) {
     }
   }
 
-  if (!PRICE_ALLOWED_IN.has(file) && text.includes(PRICE)) {
-    const line = text.slice(0, text.indexOf(PRICE)).split("\n").length;
-    failures.push(
-      `${file}:${line} — "${PRICE}" outside app/lib/pricing.ts (interpolate from the pricing config instead)`
-    );
+  if (!PRICE_ALLOWED_IN.has(file)) {
+    for (const price of CENTRAL_PRICES) {
+      if (text.includes(price)) {
+        const line = text.slice(0, text.indexOf(price)).split("\n").length;
+        failures.push(
+          `${file}:${line} — "${price}" outside app/lib/pricing.ts (interpolate from the pricing config instead)`
+        );
+      }
+    }
   }
 }
 
@@ -71,13 +85,21 @@ if (!layout.includes("ONIS — Habit Tracker for iPhone, Apple Watch & Widgets")
 if (!layout.includes("Track it before you forget it")) {
   failures.push("app/layout.tsx — meta description positioning line missing");
 }
+if (layout.includes("12.99")) {
+  failures.push("app/layout.tsx — founding fallback must not appear in public metadata");
+}
 
-// Pricing-config sanity: the model the site is allowed to market.
+// Pricing-config sanity: the public model the site is allowed to market.
 const pricingSrc = readFileSync("app/lib/pricing.ts", "utf8");
 for (const required of [
-  'lifetimePrice = "$9.99"',
-  "No subscription",
-  "No automatic charge",
+  'yearlyPrice = "$9.99"',
+  'lifetimePrice = "$19.99"',
+  'foundingLifetimePrice = "$12.99"',
+  "Renews annually unless cancelled.",
+  "One payment · Permanent access · No renewal",
+  "storeKitConfigured: false",
+  "eligible: false",
+  "campaignExpiresAt: null",
 ]) {
   if (!pricingSrc.includes(required)) {
     failures.push(`app/lib/pricing.ts — expected "${required}"`);

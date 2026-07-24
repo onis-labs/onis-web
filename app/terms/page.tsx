@@ -3,18 +3,20 @@ import type { Metadata } from "next";
 import LegalLayout, { H2, P, UL, LI } from "../components/LegalLayout";
 import { colors } from "../lib/tokens";
 import { site, legalUpdated } from "../lib/config";
-import { lifetimePrice } from "../lib/pricing";
+import {
+  foundingLifetimePrice,
+  lifetimePrice,
+  pricing,
+  yearlyPrice,
+} from "../lib/pricing";
 
 export const metadata: Metadata = {
   title: "Terms of Use — ONIS",
   description: "Terms of Use for the ONIS habit tracker by ONIS Labs.",
 };
 
-// Copy verified 2026-07-22 against the shipping iOS source:
-// ONIS.storekit sells exactly one product — the one-time ONIS Lifetime
-// non-consumable. The 7-day Premium access is a $0 local grant
-// (PremiumPreview.swift): no StoreKit request, no subscription, no renewal,
-// no automatic charge. The lifetime price string comes from lib/pricing.
+// Purchases are processed by Apple through StoreKit. This website does not
+// sell Premium access. Exact prices and eligibility are confirmed by Apple.
 const linkStyle: CSSProperties = {
   color: colors.accent,
   textDecoration: "underline",
@@ -40,46 +42,70 @@ export default function TermsPage() {
 
       <H2>Free Functionality</H2>
       <P>
-        ONIS is free to use for its core tracking functionality — logging
-        from iPhone, Apple Watch, and widgets, timers, reminders, history,
-        and export. Additional functionality is available through ONIS
-        Premium, described below.
+        ONIS includes a Free experience for core Today logging with a
+        limited tracker allowance, without an ONIS account. Additional
+        functionality is available through ONIS Premium, described below.
+        Continue with Free remains available at any time.
       </P>
 
-      <H2>7-Day Premium Access</H2>
+      <H2>Seven-Day Premium Preview</H2>
       <UL>
         <LI>
-          ONIS offers a one-time, seven-day Premium access period. It costs{" "}
-          <strong>$0</strong>.
+          Eligible users may experience a separate seven-day Premium
+          preview before choosing Yearly, Lifetime, or continuing with Free.
         </LI>
         <LI>
-          It is <strong>not a subscription</strong>. It does not renew,
-          nothing is billed, and there is <strong>no automatic charge</strong>{" "}
-          at any point. There is nothing to cancel.
+          The Premium preview is not the Lifetime product and does{" "}
+          <strong>not</strong> automatically charge Lifetime after seven
+          days.
         </LI>
         <LI>
-          The seven-day period is recorded on your device only. When it
-          expires, ONIS returns to the Free experience unless you choose the
-          Lifetime purchase.
+          When the preview ends, ONIS returns to Free unless you purchase
+          Premium Yearly or ONIS Lifetime through Apple.
         </LI>
       </UL>
 
+      <H2>Premium Yearly</H2>
+      <P>
+        <strong>Premium Yearly — {yearlyPrice} per year</strong> is an
+        auto-renewable annual subscription. Eligible customers may receive a
+        seven-day introductory trial. The subscription renews at the
+        displayed annual price unless cancelled through Apple before the
+        renewal date. It is <strong>not</strong> a one-time purchase.
+      </P>
+      <P>
+        Manage or cancel Premium Yearly in your Apple&nbsp;ID subscription
+        settings. {pricing.yearly.renewalDisclosure}
+      </P>
+
       <H2>ONIS Lifetime</H2>
       <P>
-        ONIS Premium is unlocked permanently with{" "}
-        <strong>ONIS Lifetime — {lifetimePrice} once</strong>, a one-time,
-        non-consumable purchase with no recurring billing and no renewal.
-        The exact price is shown by Apple through StoreKit at the time of
-        purchase, in your local currency, and may vary by region.
+        <strong>ONIS Lifetime — {lifetimePrice} once</strong> is a
+        non-consumable, one-time purchase for permanent Premium access. It
+        is not a subscription, does not renew, and does not automatically
+        charge after a trial or preview. The Lifetime product itself does
+        not include an introductory subscription trial —{" "}
+        {pricing.lifetime.disclosure}.
+      </P>
+
+      <H2>Founding Lifetime Offer</H2>
+      <P>
+        Some eligible users may receive a limited founding offer for
+        Lifetime (for example, {foundingLifetimePrice} once) through a
+        legitimate App Store offer code or StoreKit-supported mechanism.
+        Availability, eligibility, and final pricing are confirmed by Apple.
+        This offer is not advertised as a public plan on the marketing site
+        and is not available unless Apple can honor it.
       </P>
 
       <H2>Billing and Restoration</H2>
       <P>
-        The Lifetime purchase is processed by Apple through your
-        Apple&nbsp;ID, not by ONIS Labs directly. ONIS has no subscriptions,
-        so there is nothing to cancel and no renewal to manage. You can
-        bring a previous purchase to a new device with{" "}
-        <strong>Restore Purchases</strong> in the app.
+        All Premium purchases are processed by Apple through your
+        Apple&nbsp;ID, not by ONIS Labs directly, and not through this
+        website. You can bring a previous purchase to a new device with{" "}
+        <strong>Restore Purchases</strong> in the app. For refunds, contact
+        Apple — App Store purchases are subject to Apple&apos;s refund
+        policies.
       </P>
 
       <H2>No ONIS Account</H2>
