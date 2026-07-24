@@ -3,17 +3,21 @@ import type { Metadata } from "next";
 import LegalLayout, { H2, P, UL, LI } from "../components/LegalLayout";
 import { colors } from "../lib/tokens";
 import { site, requirements, legalUpdated } from "../lib/config";
-import { lifetimePrice } from "../lib/pricing";
+import {
+  foundingLifetimePrice,
+  lifetimePrice,
+  pricing,
+  yearlyPrice,
+} from "../lib/pricing";
 
 export const metadata: Metadata = {
   title: "Support — ONIS",
   description:
-    "Get help with ONIS: setup, Apple Watch, widgets, reminders, the 7-day trial, Lifetime, and data controls.",
+    "Get help with ONIS: setup, Apple Watch, widgets, reminders, Premium Yearly, Lifetime, Restore Purchases, and data controls.",
 };
 
-// Copy verified 2026-07-22 against the shipping iOS source
-// (FreeTier.swift, PremiumPreview.swift, WatchSync.swift, ONISWidget.swift,
-// NotificationScheduler.swift, PrivacyView.swift).
+// Callers: /support route. User: Update Support with Yearly vs Lifetime,
+// Restore Purchases, Apple subscription management, refund guidance.
 const linkStyle: CSSProperties = {
   color: colors.accent,
   textDecoration: "underline",
@@ -40,9 +44,9 @@ export default function SupportPage() {
       </UL>
       <P>
         When you first open ONIS, starter trackers are already set up so
-        there&apos;s something to log right away. Free includes 6 starter
-        trackers plus 1 custom tracker — up to 7 active. The app is
-        organized into four tabs — Today, Trends, Coach, and You.
+        there&apos;s something to log right away. Free includes core Today
+        logging with a limited tracker allowance. The app is organized into
+        four tabs — Today, Trends, Coach, and You.
       </P>
 
       <H2>Apple Watch Setup</H2>
@@ -90,33 +94,58 @@ export default function SupportPage() {
         default, and managed in the app&apos;s notification settings.
       </P>
 
-      <H2>The 7-Day Trial</H2>
+      <H2>Premium Preview</H2>
       <P>
-        The 7-day Premium trial costs $0. It is not a subscription, nothing
-        renews, and there is no automatic charge — there is nothing to
-        cancel. Start it from Trends or Coach. A day before it ends, ONIS
-        lets you know; when it ends, the app returns to Free on its own.
+        Eligible users may try Premium free for 7 days, then choose Yearly,
+        Lifetime, or continue with Free. The preview does not automatically
+        charge Lifetime. Start it from Trends or Coach when available in the
+        app.
       </P>
 
-      <H2>Lifetime Purchase</H2>
+      <H2>Premium Yearly</H2>
+      <P>
+        <strong>Premium Yearly — {yearlyPrice} per year</strong> is an
+        auto-renewable subscription. Eligible customers may receive a
+        seven-day introductory trial. {pricing.yearly.renewalDisclosure}{" "}
+        Manage or cancel in{" "}
+        <strong>Settings → Apple&nbsp;ID → Subscriptions</strong> on your
+        Apple device.
+      </P>
+
+      <H2>ONIS Lifetime</H2>
       <P>
         <strong>ONIS Lifetime — {lifetimePrice} once</strong> unlocks
-        Premium permanently: one payment, no renewal. The purchase is
-        processed by Apple, which confirms the localized price at purchase.
+        Premium permanently: one payment, no subscription, no renewal. Apple
+        confirms the localized price at purchase. Lifetime does not
+        automatically charge after the Premium preview.
+      </P>
+
+      <H2>Founding Lifetime Offer</H2>
+      <P>
+        Some eligible users may see a limited founding offer (for example,{" "}
+        {foundingLifetimePrice} once). It only appears when Apple can honor a
+        real StoreKit-backed offer. It is not a public plan on this website.
       </P>
 
       <H2>Restore Purchases</H2>
       <P>
-        Bought Lifetime on another device, or reinstalled ONIS? Use{" "}
+        Bought Premium on another device, or reinstalled ONIS? Use{" "}
         <strong>Restore Purchases</strong> in the app — purchases stay with
         your Apple&nbsp;ID.
       </P>
 
-      <H2>Free After the Trial</H2>
+      <H2>Refunds</H2>
       <P>
-        When the trial ends, ONIS returns to the Free experience
-        automatically. Your trackers and history stay, and you can keep
-        using ONIS free for as long as you like.
+        App Store purchases are handled by Apple. To request a refund, use
+        Apple&apos;s purchase history / report-a-problem flow for your
+        Apple&nbsp;ID. ONIS Labs cannot process App Store refunds on this
+        website.
+      </P>
+
+      <H2>Continue with Free</H2>
+      <P>
+        Free remains fully usable. After a Premium preview ends, ONIS
+        returns to Free unless you choose Yearly or Lifetime.
       </P>
 
       <H2>Export &amp; Data Controls</H2>

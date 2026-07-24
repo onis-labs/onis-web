@@ -171,7 +171,7 @@ export default function HeroSection() {
             }}
           >
             <span className="chip">No ONIS account</span>
-            <span className="chip">No subscription</span>
+            <span className="chip">Continue with Free</span>
             <span className="chip">iPhone, Apple Watch, and widgets</span>
           </div>
         </div>
